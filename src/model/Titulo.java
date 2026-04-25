@@ -18,13 +18,9 @@ public class Titulo {
 
     public Livro[] allExemplares(){} // Lista todos os exemplares deste do livro com este titulo
 
-    public Livro[] getExemplaresEmprestados(){}// Lista todos os exemplares deste do livro com este titulo que foram emprestados
-
-    public Livro[] getExemplaresEmprestadosAtrasados(){} // Lista todos os exemplares deste do livro com este titulo que foram emprestados e estão atrasados
+    public Livro[] getExemplaresIndisponiveis(){}// Lista todos os exemplares deste do livro com este titulo que foram emprestados
 
     public Livro[] getExemplaresDisponiveis(){}// Lista todos os exemplares deste do livro que estão disponiveis
-
-    public Livro[] getExemplaresEmprestadosRegulares(){}// // Lista todos os exemplares deste do livro com este titulo que foram emprestados e estão dentro do prazo
 
     public FilaPrioridadeReserva /// não fazer ainda !!!
 

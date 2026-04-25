@@ -1,5 +1,6 @@
 package model;
 
+import repository.EmprestimoDaoLista;
 import java.util.List;
 
 public class Usuario {
@@ -9,7 +10,7 @@ public class Usuario {
     private String senha;
     private TipoUsuario categoria;
     private int limiteLivros;
-    private List<Emprestimo> emprestimos;
+    private EmprestimoDaoLista emprestimos;
 
     public String getId() {}
     public String getNome() {}
