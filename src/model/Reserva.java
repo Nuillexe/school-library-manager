@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 public class Reserva {
     private Usuario usuario;
+    private String id;
     private Titulo titulo;
     private LocalDateTime dataReserva;
 

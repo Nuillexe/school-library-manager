@@ -22,9 +22,9 @@ public class Titulo {
 
     public Livro[] getExemplaresDisponiveis(){}// Lista todos os exemplares deste do livro que estão disponiveis
 
-    public FilaPrioridadeReserva /// não fazer ainda !!!
+    public FilaPrioridadeReserva filaDeReservas; /// não fazer ainda !!!
 
-    public Usuario[] getUsuarioNaListaDeReservas;
+    public Usuario[] getUsuarioNaListaDeReservas;///não fazer ainda!!!
 
     public String getNome() {}
     public int getQuantidadeDisponivel() {}
