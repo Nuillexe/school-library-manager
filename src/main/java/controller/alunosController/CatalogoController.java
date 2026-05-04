@@ -9,7 +9,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -22,6 +21,7 @@ public class CatalogoController implements Initializable {
 
     @FXML private ComboBox<String> comboCategorias;
     @FXML private VBox listaLivrosContainer;
+    @FXML private Label lblNomeUsuario;
 
     // Dados de exemplo (substituir por chamada ao banco/serviço)
     private final List<LivroItem> todosOsLivros = List.of(
@@ -34,7 +34,8 @@ public class CatalogoController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Popula ComboBox de categorias
+        lblNomeUsuario.setText("Ana Silva"); // substituir por sessão do usuário
+
         comboCategorias.getItems().add("Todas as categorias");
         comboCategorias.getItems().addAll("Algoritmos", "Engenharia de Software", "Design Patterns");
         comboCategorias.getSelectionModel().selectFirst();
@@ -55,13 +56,10 @@ public class CatalogoController implements Initializable {
         }
     }
 
-    /** Monta os cards de livro dinamicamente */
     private void renderizarLivros(List<LivroItem> livros) {
         listaLivrosContainer.getChildren().clear();
-
         for (LivroItem livro : livros) {
-            VBox card = criarCardLivro(livro);
-            listaLivrosContainer.getChildren().add(card);
+            listaLivrosContainer.getChildren().add(criarCardLivro(livro));
         }
     }
 
@@ -69,19 +67,15 @@ public class CatalogoController implements Initializable {
         VBox card = new VBox(6);
         card.getStyleClass().add("book-card");
 
-        // Título
         Label titulo = new Label(livro.titulo);
         titulo.getStyleClass().add("book-title");
 
-        // Autor
         Label autor = new Label(livro.autor);
         autor.getStyleClass().add("book-author");
 
-        // Ano
         Label ano = new Label(livro.ano);
         ano.getStyleClass().add("book-year");
 
-        // Linha de tags
         HBox tagRow = new HBox(8);
         tagRow.setPadding(new Insets(4, 0, 0, 0));
 
@@ -99,8 +93,6 @@ public class CatalogoController implements Initializable {
 
         tagRow.getChildren().addAll(tagCategoria, tagStatus);
         card.getChildren().addAll(titulo, autor, ano, tagRow);
-
-        // Clique abre detalhes
         card.setOnMouseClicked(e -> abrirDetalhe(livro));
 
         return card;
@@ -116,12 +108,15 @@ public class CatalogoController implements Initializable {
                                livro.categoria, livro.disponivel);
 
             Stage stage = (Stage) listaLivrosContainer.getScene().getWindow();
+            boolean maximizado = stage.isMaximized();
             stage.setScene(new Scene(root, stage.getWidth(), stage.getHeight()));
+            stage.setMaximized(maximizado);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    @FXML private void onLogout()         { navegarPara("/fxml/Login.fxml"); }
     @FXML private void onNavCatalogo()    { /* já está no catálogo */ }
     @FXML private void onNavEmprestimos() { navegarPara("/fxml/Emprestimos.fxml"); }
     @FXML private void onNavReservas()    { navegarPara("/fxml/Reservas.fxml"); }
@@ -130,13 +125,14 @@ public class CatalogoController implements Initializable {
         try {
             Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
             Stage stage = (Stage) listaLivrosContainer.getScene().getWindow();
+            boolean maximizado = stage.isMaximized();
             stage.setScene(new Scene(root, stage.getWidth(), stage.getHeight()));
+            stage.setMaximized(maximizado);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    // ──────────────── Inner record ────────────────
     public record LivroItem(
             String titulo,
             String autor,

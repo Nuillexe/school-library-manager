@@ -14,9 +14,22 @@
 
     <!-- ===== TOP BAR ===== -->
     <top>
-        <HBox styleClass="top-bar" alignment="CENTER">
-            <Label text="BiblioQueue" styleClass="top-bar-title" HBox.hgrow="ALWAYS"/>
-        </HBox>
+        <VBox>
+            <!-- Navbar preta -->
+            <HBox styleClass="top-bar" alignment="CENTER">
+                <Label text="BiblioQueue" styleClass="top-bar-title" HBox.hgrow="ALWAYS"/>
+            </HBox>
+
+            <!-- Header azul com nome do usuário -->
+            <HBox styleClass="user-header" alignment="CENTER_LEFT" spacing="12">
+                <VBox HBox.hgrow="ALWAYS">
+                    <Label text="Bem-vindo," styleClass="welcome-label"/>
+                    <Label fx:id="lblNomeUsuario" text="Ana Silva" styleClass="user-name-label"/>
+                </VBox>
+                <Button text="→" styleClass="logout-btn" onAction="#onLogout"
+                        style="-fx-font-size: 20px;"/>
+            </HBox>
+        </VBox>
     </top>
 
     <!-- ===== CENTRO: Filtro + Lista de Livros ===== -->

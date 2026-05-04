@@ -127,7 +127,9 @@ public class DetalheLivroController implements Initializable {
         try {
             Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
             Stage stage = (Stage) lblTitulo.getScene().getWindow();
+            boolean maximizado = stage.isMaximized();
             stage.setScene(new Scene(root, stage.getWidth(), stage.getHeight()));
+            stage.setMaximized(maximizado);
         } catch (IOException e) {
             e.printStackTrace();
         }

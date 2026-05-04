@@ -32,6 +32,7 @@ public class ReservasController implements Initializable {
 
     // Dados de exemplo (substituir por consulta ao banco)
     private final List<ReservaItem> reservas = new ArrayList<>(List.of(
+        // Descomente para testar com reservas ativas:
         // new ReservaItem("Código Limpo", "#COMP-002", 1, LocalDate.of(2026, 4, 20)),
         // new ReservaItem("Algoritmos: Teoria e Prática", "#COMP-005", 3, LocalDate.of(2026, 4, 22))
     ));
@@ -165,7 +166,9 @@ public class ReservasController implements Initializable {
         try {
             Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
             Stage stage = (Stage) lblNomeUsuario.getScene().getWindow();
+            boolean maximizado = stage.isMaximized();
             stage.setScene(new Scene(root, stage.getWidth(), stage.getHeight()));
+            stage.setMaximized(maximizado);
         } catch (IOException e) {
             e.printStackTrace();
         }
