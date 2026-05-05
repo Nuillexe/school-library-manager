@@ -1,5 +1,6 @@
 package com.biblioqueue.controller;
 
+import com.biblioqueue.util.Navegador;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -23,7 +24,6 @@ public class CatalogoController implements Initializable {
     @FXML private VBox listaLivrosContainer;
     @FXML private Label lblNomeUsuario;
 
-    // Dados de exemplo (substituir por chamada ao banco/serviço)
     private final List<LivroItem> todosOsLivros = List.of(
         new LivroItem("Estruturas de Dados e Algoritmos", "Thomas H. Cormen", "2009", "Algoritmos", 2),
         new LivroItem("Código Limpo",                    "Robert C. Martin",  "2008", "Engenharia de Software", 0),
@@ -34,12 +34,10 @@ public class CatalogoController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        lblNomeUsuario.setText("Ana Silva"); // substituir por sessão do usuário
-
+        lblNomeUsuario.setText("Ana Silva");
         comboCategorias.getItems().add("Todas as categorias");
         comboCategorias.getItems().addAll("Algoritmos", "Engenharia de Software", "Design Patterns");
         comboCategorias.getSelectionModel().selectFirst();
-
         renderizarLivros(todosOsLivros);
     }
 
@@ -49,18 +47,15 @@ public class CatalogoController implements Initializable {
         if (selecionada == null || selecionada.equals("Todas as categorias")) {
             renderizarLivros(todosOsLivros);
         } else {
-            List<LivroItem> filtrados = todosOsLivros.stream()
-                    .filter(l -> l.categoria.equals(selecionada))
-                    .toList();
-            renderizarLivros(filtrados);
+            renderizarLivros(todosOsLivros.stream()
+                    .filter(l -> l.categoria.equals(selecionada)).toList());
         }
     }
 
     private void renderizarLivros(List<LivroItem> livros) {
         listaLivrosContainer.getChildren().clear();
-        for (LivroItem livro : livros) {
+        for (LivroItem livro : livros)
             listaLivrosContainer.getChildren().add(criarCardLivro(livro));
-        }
     }
 
     private VBox criarCardLivro(LivroItem livro) {
@@ -94,7 +89,6 @@ public class CatalogoController implements Initializable {
         tagRow.getChildren().addAll(tagCategoria, tagStatus);
         card.getChildren().addAll(titulo, autor, ano, tagRow);
         card.setOnMouseClicked(e -> abrirDetalhe(livro));
-
         return card;
     }
 
@@ -104,40 +98,26 @@ public class CatalogoController implements Initializable {
             Parent root = loader.load();
 
             DetalheLivroController ctrl = loader.getController();
-            ctrl.carregarLivro(livro.titulo, livro.autor, livro.ano,
-                               livro.categoria, livro.disponivel);
+            ctrl.carregarLivro(livro.titulo, livro.autor, livro.ano, livro.categoria, livro.disponivel);
 
             Stage stage = (Stage) listaLivrosContainer.getScene().getWindow();
-            boolean maximizado = stage.isMaximized();
-            stage.setScene(new Scene(root, stage.getWidth(), stage.getHeight()));
-            stage.setMaximized(maximizado);
+            boolean max = stage.isMaximized();
+            stage.setMaximized(false);
+            stage.setScene(new Scene(root));
+            stage.setMaximized(max);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    @FXML private void onLogout()         { navegarPara("/fxml/Login.fxml"); }
-    @FXML private void onNavCatalogo()    { /* já está no catálogo */ }
-    @FXML private void onNavEmprestimos() { navegarPara("/fxml/Emprestimos.fxml"); }
-    @FXML private void onNavReservas()    { navegarPara("/fxml/Reservas.fxml"); }
+    @FXML private void onLogout()         { navegar("/fxml/Login.fxml"); }
+    @FXML private void onNavCatalogo()    { }
+    @FXML private void onNavEmprestimos() { navegar("/fxml/Emprestimos.fxml"); }
+    @FXML private void onNavReservas()    { navegar("/fxml/Reservas.fxml"); }
 
-    private void navegarPara(String fxmlPath) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
-            Stage stage = (Stage) listaLivrosContainer.getScene().getWindow();
-            boolean maximizado = stage.isMaximized();
-            stage.setScene(new Scene(root, stage.getWidth(), stage.getHeight()));
-            stage.setMaximized(maximizado);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void navegar(String fxml) {
+        Navegador.ir((Stage) listaLivrosContainer.getScene().getWindow(), fxml);
     }
 
-    public record LivroItem(
-            String titulo,
-            String autor,
-            String ano,
-            String categoria,
-            int disponivel
-    ) {}
+    public record LivroItem(String titulo, String autor, String ano, String categoria, int disponivel) {}
 }

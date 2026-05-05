@@ -1,17 +1,13 @@
 package com.biblioqueue.controller;
 
+import com.biblioqueue.util.Navegador;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -28,7 +24,6 @@ public class EmprestimosController implements Initializable {
 
     private static final DateTimeFormatter FMT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    // Dados de exemplo (substituir por consulta ao banco)
     private final List<EmprestimoItem> emprestimos = List.of(
         new EmprestimoItem("Estruturas de Dados e Algoritmos", "#COMP-001",
                 LocalDate.of(2026, 4, 7), LocalDate.of(2026, 4, 14)),
@@ -42,7 +37,6 @@ public class EmprestimosController implements Initializable {
 
         boolean temAtraso = emprestimos.stream()
                 .anyMatch(e -> e.dataPrevista.isBefore(LocalDate.now()));
-
         alertaBloqueado.setVisible(temAtraso);
         alertaBloqueado.setManaged(temAtraso);
 
@@ -50,29 +44,19 @@ public class EmprestimosController implements Initializable {
             emptyStateEmprestimos.setVisible(true);
             emptyStateEmprestimos.setManaged(true);
         } else {
-            // Os dois primeiros já estão fixos no FXML (exemplos).
-            // Empréstimos adicionais são gerados aqui.
-            for (int i = 2; i < emprestimos.size(); i++) {
-                listaEmprestimosContainer.getChildren()
-                        .add(criarCardEmprestimo(emprestimos.get(i)));
-            }
+            for (int i = 2; i < emprestimos.size(); i++)
+                listaEmprestimosContainer.getChildren().add(criarCardEmprestimo(emprestimos.get(i)));
         }
     }
 
-    /** Cria um card de empréstimo dinamicamente */
     private VBox criarCardEmprestimo(EmprestimoItem item) {
         boolean atrasado = item.dataPrevista.isBefore(LocalDate.now());
-        long diasAtraso  = atrasado
-                ? ChronoUnit.DAYS.between(item.dataPrevista, LocalDate.now())
-                : 0;
+        long diasAtraso  = atrasado ? ChronoUnit.DAYS.between(item.dataPrevista, LocalDate.now()) : 0;
 
         VBox card = new VBox(12);
         card.getStyleClass().add(atrasado ? "loan-card-atrasado" : "loan-card");
 
-        // Cabeçalho
         HBox header = new HBox(12);
-        header.setStyle("-fx-alignment: TOP_LEFT;");
-
         VBox iconBox = new VBox();
         iconBox.setStyle(atrasado
                 ? "-fx-background-color: #FEE2E2; -fx-background-radius: 8; -fx-padding: 10; -fx-min-width: 42px; -fx-min-height: 42px; -fx-max-width: 42px; -fx-max-height: 42px;"
@@ -83,47 +67,40 @@ public class EmprestimosController implements Initializable {
 
         VBox info = new VBox(4);
         HBox.setHgrow(info, javafx.scene.layout.Priority.ALWAYS);
-
         Label titulo = new Label(item.titulo);
         titulo.getStyleClass().add("loan-book-title");
-
         Label idExemplar = new Label(item.idExemplar);
         idExemplar.getStyleClass().add("loan-book-id");
-
         HBox badgeRow = new HBox();
         Label badge = new Label(atrasado ? "Atrasado" : "Em dia");
         badge.getStyleClass().add(atrasado ? "tag-atrasado" : "tag-disponivel");
         badgeRow.getChildren().add(badge);
-
         info.getChildren().addAll(titulo, idExemplar, badgeRow);
         header.getChildren().addAll(iconBox, info);
 
-        // Datas
         VBox datas = new VBox(8);
-
         HBox rowRetirada = new HBox();
-        Label lblRetirada = new Label("📅 Data de Retirada");
-        lblRetirada.getStyleClass().add("loan-label");
-        HBox.setHgrow(lblRetirada, javafx.scene.layout.Priority.ALWAYS);
-        Label valRetirada = new Label(item.dataRetirada.format(FMT));
-        valRetirada.getStyleClass().add("loan-value");
-        rowRetirada.getChildren().addAll(lblRetirada, valRetirada);
+        Label lblR = new Label("📅 Data de Retirada");
+        lblR.getStyleClass().add("loan-label");
+        HBox.setHgrow(lblR, javafx.scene.layout.Priority.ALWAYS);
+        Label valR = new Label(item.dataRetirada.format(FMT));
+        valR.getStyleClass().add("loan-value");
+        rowRetirada.getChildren().addAll(lblR, valR);
 
         HBox rowPrevista = new HBox();
-        Label lblPrevista = new Label("📅 Data Prevista");
-        lblPrevista.getStyleClass().add("loan-label");
-        HBox.setHgrow(lblPrevista, javafx.scene.layout.Priority.ALWAYS);
-        Label valPrevista = new Label(item.dataPrevista.format(FMT));
-        valPrevista.getStyleClass().add(atrasado ? "loan-value-atrasado" : "loan-value");
-        rowPrevista.getChildren().addAll(lblPrevista, valPrevista);
-
+        Label lblP = new Label("📅 Data Prevista");
+        lblP.getStyleClass().add("loan-label");
+        HBox.setHgrow(lblP, javafx.scene.layout.Priority.ALWAYS);
+        Label valP = new Label(item.dataPrevista.format(FMT));
+        valP.getStyleClass().add(atrasado ? "loan-value-atrasado" : "loan-value");
+        rowPrevista.getChildren().addAll(lblP, valP);
         datas.getChildren().addAll(rowRetirada, rowPrevista);
 
         if (atrasado) {
             HBox rowAtraso = new HBox();
-            Label lblAtraso = new Label("⏰ Atrasado há " + diasAtraso + " dia(s)");
-            lblAtraso.getStyleClass().add("loan-atraso-label");
-            rowAtraso.getChildren().add(lblAtraso);
+            Label lblA = new Label("⏰ Atrasado há " + diasAtraso + " dia(s)");
+            lblA.getStyleClass().add("loan-atraso-label");
+            rowAtraso.getChildren().add(lblA);
             datas.getChildren().add(rowAtraso);
         }
 
@@ -131,28 +108,14 @@ public class EmprestimosController implements Initializable {
         return card;
     }
 
-    @FXML private void onLogout()         { navegarPara("/fxml/Login.fxml"); }
-    @FXML private void onNavCatalogo()    { navegarPara("/fxml/Catalogo.fxml"); }
-    @FXML private void onNavEmprestimos() { /* já está nesta tela */ }
-    @FXML private void onNavReservas()    { navegarPara("/fxml/Reservas.fxml"); }
+    @FXML private void onLogout()         { navegar("/fxml/Login.fxml"); }
+    @FXML private void onNavCatalogo()    { navegar("/fxml/Catalogo.fxml"); }
+    @FXML private void onNavEmprestimos() { }
+    @FXML private void onNavReservas()    { navegar("/fxml/Reservas.fxml"); }
 
-    private void navegarPara(String fxmlPath) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
-            Stage stage = (Stage) lblNomeUsuario.getScene().getWindow();
-            boolean maximizado = stage.isMaximized();
-            stage.setScene(new Scene(root, stage.getWidth(), stage.getHeight()));
-            stage.setMaximized(maximizado);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void navegar(String fxml) {
+        Navegador.ir((Stage) lblNomeUsuario.getScene().getWindow(), fxml);
     }
 
-    // ──────────────── Inner record ────────────────
-    public record EmprestimoItem(
-            String titulo,
-            String idExemplar,
-            LocalDate dataRetirada,
-            LocalDate dataPrevista
-    ) {}
+    public record EmprestimoItem(String titulo, String idExemplar, LocalDate dataRetirada, LocalDate dataPrevista) {}
 }

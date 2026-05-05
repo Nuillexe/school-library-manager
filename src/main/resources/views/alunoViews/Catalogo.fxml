@@ -26,7 +26,7 @@
                     <Label text="Bem-vindo," styleClass="welcome-label"/>
                     <Label fx:id="lblNomeUsuario" text="Ana Silva" styleClass="user-name-label"/>
                 </VBox>
-                <Button text="→" styleClass="logout-btn" onAction="#onLogout"
+                <Button text="Deslogar" styleClass="logout-btn" onAction="#onLogout"
                         style="-fx-font-size: 20px;"/>
             </HBox>
         </VBox>
