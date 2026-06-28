@@ -60,6 +60,26 @@ public class Titulo {
 
     }
 
+
+    public Titulo(String isbn) {
+        this.isbn = isbn;
+
+        // Todos os campos de texto e objetos fora do parâmetro recebem null
+        this.nome = null;
+        this.autor = null;
+        this.genero = null;
+        this.descricao = null;
+        this.dataPublicacao = null;
+        this.listaDeExemplares = null;
+        this.filaDeReservas = null;
+        this.listaDeEmprestimos = null;
+
+        // Atributos primitivos numéricos assumem 0
+        this.quantidade = 0;
+        this.quantidadeDeReservas = 0;
+        this.quantidadeDisponivel = 0;
+    }
+
     // Getters e Setters de controle
 
     public String getNome() { return nome; }

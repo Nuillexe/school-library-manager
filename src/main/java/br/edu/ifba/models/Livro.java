@@ -57,8 +57,17 @@ public class Livro {
 
 
 
-    public Livro(Long id){
-        this.id=id;
+
+    public Livro(Long id) {
+        this.id = id;
+        this.disponivel = null;
+
+        this.nome = null;
+        this.autor = null;
+        this.isbn = null;
+        this.genero = null;
+        this.descricao = null;
+        this.dataPublicacao = null;
     }
     // Métodos Getters e Setters com comentários descritivos
 
