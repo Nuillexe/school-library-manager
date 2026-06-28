@@ -48,14 +48,14 @@
 48|Código Limpo|Robert C. Martin|9788576082323|Programação|Um guia prático para escrita de código.|2008-08-01|true
 49|Código Limpo|Robert C. Martin|9788576082323|Programação|Um guia prático para escrita de código.|2008-08-01|true
 50|Código Limpo|Robert C. Martin|9788576082323|Programação|Um guia prático para escrita de código.|2008-08-01|true
-51|Java: Como Programar (Semente)|Paul Deitel|9780134694726|Programação|O guia definitivo para Java.|2016-01-01|true
-52|Java: Como Programar (Semente)|Paul Deitel|9780134694726|Programação|O guia definitivo para Java.|2016-01-01|true
-53|Java: Como Programar (Semente)|Paul Deitel|9780134694726|Programação|O guia definitivo para Java.|2016-01-01|true
-54|Java: Como Programar (Semente)|Paul Deitel|9780134694726|Programação|O guia definitivo para Java.|2016-01-01|true
-55|Java: Como Programar (Semente)|Paul Deitel|9780134694726|Programação|O guia definitivo para Java.|2016-01-01|true
-56|Java: Como Programar (Semente)|Paul Deitel|9780134694726|Programação|O guia definitivo para Java.|2016-01-01|true
-57|Java: Como Programar (Semente)|Paul Deitel|9780134694726|Programação|O guia definitivo para Java.|2016-01-01|true
-58|Java: Como Programar (Semente)|Paul Deitel|9780134694726|Programação|O guia definitivo para Java.|2016-01-01|true
+51|Java: Como Programar |Paul Deitel|9780134694726|Programação|O guia definitivo para Java.|2016-01-01|true
+52|Java: Como Programar |Paul Deitel|9780134694726|Programação|O guia definitivo para Java.|2016-01-01|true
+53|Java: Como Programar |Paul Deitel|9780134694726|Programação|O guia definitivo para Java.|2016-01-01|true
+54|Java: Como Programar |Paul Deitel|9780134694726|Programação|O guia definitivo para Java.|2016-01-01|true
+55|Java: Como Programar |Paul Deitel|9780134694726|Programação|O guia definitivo para Java.|2016-01-01|true
+56|Java: Como Programar |Paul Deitel|9780134694726|Programação|O guia definitivo para Java.|2016-01-01|true
+57|Java: Como Programar |Paul Deitel|9780134694726|Programação|O guia definitivo para Java.|2016-01-01|true
+58|Java: Como Programar |Paul Deitel|9780134694726|Programação|O guia definitivo para Java.|2016-01-01|true
 59|Estruturas de Dados e Algoritmos|Thomas H. Cormen|9788575226937|Computação|Essencial para algoritmos.|2010-05-10|true
 60|Estruturas de Dados e Algoritmos|Thomas H. Cormen|9788575226937|Computação|Essencial para algoritmos.|2010-05-10|true
 61|Padrões de Projeto|Erich Gamma|9788573076103|Engenharia de Software|As soluções clássicas do GoF.|1994-10-21|true
@@ -70,11 +70,11 @@
 70|Python para Análise de Dados|Wes McKinney|9788575226476|Tecnologia|Manipulação, processamento e limpeza de dados com Pandas e NumPy|2018-02-01|true
 71|Introdução à Programação com Python|Nilo Ney Coutinho Menezes|9788575224052|Tecnologia|Guia prático de algoritmos e lógica com Python|2014-11-14|true
 72|C: Como Programar|Paul Deitel|9788543005843|Tecnologia|Guia completo de introdução à programação estruturada na linguagem C|2016-03-25|true
-73|C: Como Programar (Exemplar 2)|Paul Deitel|9788543005843|Tecnologia|Guia completo de introdução à programação estruturada na linguagem C|2016-03-25|true
+73|C: Como Programar |Paul Deitel|9788543005843|Tecnologia|Guia completo de introdução à programação estruturada na linguagem C|2016-03-25|true
 74|C++ Como Programar|Paul Deitel|9788543015385|Tecnologia|Abordagem complete sobre programação orientada a objetos com C++|2017-08-12|true
 75|A Linguagem de Programação C|Brian W. Kernighan|9788535213844|Tecnologia|O livro clássico (Bíblia do C) escrito pelos próprios criadores da linguagem|1988-04-01|true
 76|Programação: Princípios e Prática com C++|Bjarne Stroustrup|9788573079098|Tecnologia|Introdução à programação voltada para quem quer dominar C++ pelo criador da linguagem|2012-10-18|true
 77|Algoritmos: Teoria e Prática|Thomas H. Cormen|9788521608325|Tecnologia|A bíblia dos algoritmos, essencial para estruturas de dados avançadas|2012-08-16|true
 78|Introdução a Algoritmos e Programação|Anita Lopes|9788521634812|Tecnologia|Livro didático excelente para iniciantes em lógica de programação|2017-03-10|true
-79|Introdução a Algoritmos e Programação (Exemplar 2)|Anita Lopes|9788521634812|Tecnologia|Livro didático excelente para iniciantes em lógica de programação|2017-03-10|true
+79|Introdução a Algoritmos e Programação|Anita Lopes|9788521634812|Tecnologia|Livro didático excelente para iniciantes em lógica de programação|2017-03-10|true
 80|Entendendo Algoritmos|Aditya Bhargava|9788575226018|Tecnologia|Um guia ilustrado e prático para programadores e estudantes|2017-05-05|true

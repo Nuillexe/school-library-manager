@@ -2,6 +2,7 @@ package br.edu.ifba.repository;
 
 import br.edu.ifba.models.*;
 import br.edu.ifba.repository.dao.*;
+import br.edu.ifba.repository.dao.filaDeReserva.ReservaDAOFilaDePrioridade;
 
 import java.util.ArrayList;
 
@@ -22,12 +23,6 @@ public class BibliotecaRepository {
         this.listaDeReservas = PersistenceManager.carregarReservas();
         this.listaDeIds=PersistenceManager.carregarIds();
 
-        if(acervo!=null){
-            // Gera os títulos baseados no acervo populado
-            this.listaDeTitulos = updateListaDeTitulos(this.acervo);
-        }else{
-            listaDeTitulos=new TituloDAOLista();
-        }
 
         ajustarRelacionamentos();
 

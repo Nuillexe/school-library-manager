@@ -3,7 +3,7 @@ package br.edu.ifba.models;
 import java.time.LocalDate;
 import br.edu.ifba.repository.dao.EmprestimoDAOLista;
 import br.edu.ifba.repository.dao.LivroDAOLista;
-import br.edu.ifba.repository.dao.ReservaDAOFilaDePrioridade;
+import br.edu.ifba.repository.dao.filaDeReserva.ReservaDAOFilaDePrioridade;
 
 /**
  * Agrupa dados catalogados e gerencia a coleção física de exemplares, empréstimos e reservas deste título específico.
@@ -89,7 +89,7 @@ public class Titulo {
     public String getDescricao() { return descricao; }
     public LocalDate getDataPublicacao() { return dataPublicacao; }
 
-    public int getQuantidade() { return quantidade; }
+    public int getQuantidadeDeExemplares() { return quantidade; }
     public int getQuantidadeDeReservas() { return filaDeReservas.tamanho(); }
     public int getQuantidadeDisponivel() { return quantidadeDisponivel; }
 

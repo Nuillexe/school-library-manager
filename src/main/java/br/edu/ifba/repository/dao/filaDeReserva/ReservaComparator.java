@@ -1,4 +1,4 @@
-package br.edu.ifba.ed;
+package br.edu.ifba.repository.dao.filaDeReserva;
 
 import br.edu.ifba.models.Reserva;
 import br.edu.ifba.enums.TipoUsuario;

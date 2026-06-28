@@ -1,16 +1,17 @@
 package br.edu.ifba.service;
 
 import br.edu.ifba.models.*;
+import br.edu.ifba.repository.BibliotecaRepository;
 import br.edu.ifba.repository.PersistenceManager;
 import br.edu.ifba.repository.dao.EmprestimoDAOLista;
 
 public class UsuarioService {
 
-    private Biblioteca b;
+    private BibliotecaRepository b;
     private Usuario user; // Representa o usuário logado na sessão do aplicativo
 
     public UsuarioService(Usuario userLogado) {
-        this.b = Biblioteca.getInstance();
+        this.b = BibliotecaRepository.getInstance();
         this.user = userLogado;
     }
 

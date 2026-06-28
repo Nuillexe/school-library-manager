@@ -1,21 +1,20 @@
 package br.edu.ifba.service;
 
 import br.edu.ifba.models.*;
+import br.edu.ifba.repository.BibliotecaRepository;
 import br.edu.ifba.repository.PersistenceManager;
-import br.edu.ifba.repository.dao.EmprestimoDAOLista;
 import br.edu.ifba.repository.dao.LivroDAOLista;
-import br.edu.ifba.repository.dao.ReservaDAOFilaDePrioridade;
 import br.edu.ifba.repository.dao.ReservaDAOLista;
 
 public class BibliotecarioService {
 
-    private Biblioteca b;
+    private BibliotecaRepository b;
 
     public BibliotecarioService(Usuario userLogado) {
-        this.b = Biblioteca.getInstance();
+        this.b = BibliotecaRepository.getInstance();
     }
 
-    public Biblioteca getB() {
+    public BibliotecaRepository getB() {
         return b;
     }
 
