@@ -42,7 +42,7 @@ public class UsuarioService {
         }
 
         // 4. Captura a referência física do exemplar disponível
-        Livro livroFisicoEmprestado = titulo.getExemplarDisponivel();
+        Livro livroFisicoEmprestado = titulo.obterExemplarDisponivel();
         if (livroFisicoEmprestado == null) {
             System.out.println("❌ Erro interno: Divergência nos contadores do acervo.");
             return false;
@@ -52,7 +52,7 @@ public class UsuarioService {
         livroFisicoEmprestado.setDisponivel(false);
         Emprestimo emprestimo = new Emprestimo(user, livroFisicoEmprestado);
 
-        user.adicionarEmprestimo(emprestimo);         // Aloca no perfil do usuário
+        user.getListaEmprestimos().salvar(emprestimo); // Aloca no perfil do usuário
         b.getListaDeEmprestimos().salvar(emprestimo); // Grava no registro central
         titulo.registrarEmprestimo(emprestimo);       // Registra no Título
 
