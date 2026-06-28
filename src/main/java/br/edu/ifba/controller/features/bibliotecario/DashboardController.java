@@ -28,7 +28,6 @@ public class DashboardController implements Initializable {
 
     @FXML private ListView<Reserva> lvFilaReserva;
 
-    // CORREÇÃO: O tipo deve ser BorderPane para coincidir com o FXML
     @FXML private BorderPane mainContainer;
 
     private BibliotecarioService service;
@@ -47,20 +46,21 @@ public class DashboardController implements Initializable {
 
     private void carregarDadosDashboard() {
         try {
-            lblQtdAcervo.setText(String.valueOf(service.getTotalLivros()));
-            lblQtdEmprestimos.setText(String.valueOf(service.getNumeroEmprestimosAtivos()));
-            lblQtdAtrasos.setText(String.valueOf(service.getNumeroEmprestimosAtrasados()));
-            lblQtdReservas.setText(String.valueOf(service.getTotalReservas()));
-            lblQtdUsuariosAtraso.setText(String.valueOf(service.getUsuariosComAtraso()));
-            lblQtdHoje.setText(String.valueOf(service.getNumeroEmprestimosHoje()));
-            lblFilaContagem.setText("(" + service.getTotalReservas() + ")");
+            if (lblQtdAcervo != null) lblQtdAcervo.setText(String.valueOf(service.getTotalLivros()));
+            if (lblQtdEmprestimos != null) lblQtdEmprestimos.setText(String.valueOf(service.getNumeroEmprestimosAtivos()));
+            if (lblQtdAtrasos != null) lblQtdAtrasos.setText(String.valueOf(service.getNumeroEmprestimosAtrasados()));
+            if (lblQtdHoje != null) lblQtdHoje.setText(String.valueOf(service.getNumeroEmprestimosHoje()));
+            if (lblFilaContagem != null) lblFilaContagem.setText("(" + service.getTotalReservas() + ")");
+
+            // Proteções preventivas contra NullPointerException (IDs ausentes no FXML fornecido)
+            if (lblQtdReservas != null) lblQtdReservas.setText(String.valueOf(service.getTotalReservas()));
+            if (lblQtdUsuariosAtraso != null) lblQtdUsuariosAtraso.setText(String.valueOf(service.getUsuariosComAtraso()));
         } catch (Exception e) {
             System.err.println("Erro ao carregar dados do Service: " + e.getMessage());
         }
     }
 
     private void configurarListaDeReservas() {
-        // Busca as reservas reais do service
         ObservableList<Reserva> reservas = FXCollections.observableArrayList(service.listarPrimeirosDasFilaDeReservasDeCadaTitulo());
         lvFilaReserva.setItems(reservas);
 
@@ -94,7 +94,6 @@ public class DashboardController implements Initializable {
     private void navegarPara(String fxmlPath) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
-            // Pega o Stage através do mainContainer (BorderPane)
             Stage stage = (Stage) mainContainer.getScene().getWindow();
             Tools.trocarCenaPreservandoJanela(stage, root);
         } catch (IOException e) {

@@ -21,7 +21,7 @@
 # 📋 Quadro de Tarefas
 
 | ID | Tarefa | Responsável | Status |
-|----|---------|-------------|---------|
+|----|---------|-------------|-------|
 | T01 | Estruturar arquivos iniciais | Indaia | ⬜ |
 | T02 | Adicionar mais dados de teste | Indaia | ⬜ |
 | T03 | Implementar carregarLivros() | Charles | ⬜ |
@@ -42,8 +42,8 @@
 | T18 | Criar métodos de persistência na BibliotecaRepository | Emanuel | ⬜ |
 | T19 | Ajustar Services para persistência em arquivos | Charles | ⬜ |
 | T20 | Substituir EDs por Collections Framework | Ana Clara | ⬜ |
-| T21 | Ajustar menu superior do Inventário | Kaique | ⬜ |
-| T22 | Reduzir efeito de intermitência das telas | Kaique | ⬜ |
+| T21 | Ajustar menu superior do Inventário | Kaique | ✅ |
+| T22 | Reduzir efeito de intermitência das telas | Kaique | ✅ |
 
 ---
 
