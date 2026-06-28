@@ -598,107 +598,132 @@ Ao final do desenvolvimento, será realizado um Pull Request da branch `archive/
 
 
 
-Fluxo Alternativo — Fork + Pull Request
+# Fluxo Alternativo — Fork + Pull Request
 
-Caso algum integrante não possua permissão de escrita no repositório principal ou prefira trabalhar de forma isolada, pode utilizar o fluxo de Fork + Pull Request.
+Caso algum integrante não possua permissão de escrita no repositório principal ou prefira trabalhar de forma isolada, pode utilizar o fluxo de **Fork + Pull Request**.
 
-1. Criar um Fork do Repositório
+## 1. Criar um Fork do Repositório
 
 Acesse o repositório:
 
+```text
 https://github.com/Nuillexe/school-library-manager
+```
 
 Clique em:
 
+```text
 Fork
+```
 
 Isso criará uma cópia do projeto em sua conta do GitHub.
 
 Exemplo:
 
-https://github.com/anaclaramarinhoviana77-alt/school-library-manager
+```text
+https://github.com/SEU_USUARIO/school-library-manager
+```
 
 ---
 
-2. Clonar o Fork
+## 2. Clonar o Fork
 
+```bash
 git clone https://github.com/SEU_USUARIO/school-library-manager.git
 
 cd school-library-manager
+```
 
 ---
 
-3. Acessar a Branch do Projeto
+## 3. Acessar a Branch do Projeto
 
+```bash
 git checkout archive/Lp2
 
 git pull origin archive/Lp2
+```
 
 ---
 
-4. Realizar as Alterações
+## 4. Realizar as Alterações
 
 Faça normalmente as modificações relacionadas à sua tarefa.
 
 ---
 
-5. Salvar as Alterações
+## 5. Salvar as Alterações
 
+```bash
 git add .
 
 git commit -m "Descrição da alteração realizada"
+```
 
 Exemplo:
 
+```bash
 git commit -m "Implementa carregarUsuarios no PersistenceManager"
+```
 
 ---
 
-6. Enviar para o Seu Fork
+## 6. Enviar para o Seu Fork
 
+```bash
 git push origin archive/Lp2
+```
 
 Neste caso, o envio será feito para o seu próprio repositório, portanto não será necessária permissão no repositório principal.
 
 ---
 
-7. Abrir um Pull Request
+## 7. Abrir um Pull Request
 
 Acesse seu Fork no GitHub.
 
 Clique em:
 
+```text
 Compare & Pull Request
+```
 
 ou
 
+```text
 Contribute
 → Open Pull Request
+```
 
 Configure:
 
+```text
 Base Repository: Nuillexe/school-library-manager
 Base Branch: archive/Lp2
 
 Head Repository: seu-fork/school-library-manager
 Head Branch: archive/Lp2
+```
 
 ---
 
-8. Aguardar Revisão
+## 8. Aguardar Revisão
 
 O Pull Request será enviado para o repositório principal.
 
 Após a revisão, as alterações poderão ser incorporadas à branch:
 
+```text
 archive/Lp2
+```
 
 ---
 
-Vantagens
+## Vantagens
 
 - Evita conflitos diretos na branch compartilhada.
 - Permite revisão de código antes da integração.
 - Nenhum integrante precisa de permissão de escrita no repositório principal.
 - Mantém um histórico organizado das contribuições de cada membro.
+
 
