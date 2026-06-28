@@ -37,6 +37,9 @@ public class PersistenceManager {
     private static final String PASTA_DADOS_USUARIOS = "resources/data/usuarios.txt";
     private static final String PASTA_DADOS_IDS = "resources/data/ids.txt";
 
+    private static final String SEPARADOR_LEITURA = "\\|";
+    private static final String SEPARADOR_ESCRITA = "|";
+
     // =========================================================================
     // MÉTODOS DE LEITURA (CARREGAMENTO DOS ARQUIVOS TXT PARA A MEMÓRIA)
     // =========================================================================
@@ -54,7 +57,7 @@ public class PersistenceManager {
             String linha;
             while ((linha = br.readLine()) != null) {
                 if (linha.isBlank()) continue;
-                String[] dados = linha.split(";");
+                String[] dados = linha.split(SEPARADOR_LEITURA);
                 if (dados.length >= 8) {
                     // Recupera os dados guardados em formato texto (CSV separado por ';')
                     String nome = dados[1];
@@ -90,7 +93,7 @@ public class PersistenceManager {
             String linha;
             while ((linha = br.readLine()) != null) {
                 if (linha.isBlank()) continue;
-                String[] dados = linha.split(";");
+                String[] dados = linha.split(SEPARADOR_LEITURA);
                 if (dados.length >= 5) {
                     String id = dados[0];
                     String nome = dados[1];
@@ -121,7 +124,7 @@ public class PersistenceManager {
             String linha;
             while ((linha = br.readLine()) != null) {
                 if (linha.isBlank()) continue;
-                String[] dados = linha.split(";");
+                String[] dados = linha.split(SEPARADOR_LEITURA);
                 if (dados.length >= 9) {
                     String userIdentificador = dados[1];
                     String userNome = dados[2];
@@ -161,7 +164,7 @@ public class PersistenceManager {
             String linha;
             while ((linha = br.readLine()) != null) {
                 if (linha.isBlank()) continue;
-                String[] dados = linha.split(";");
+                String[] dados = linha.split(SEPARADOR_LEITURA);
                 if (dados.length >= 6) {
                     String userIdentificador = dados[1];
                     String userNome = dados[2];
@@ -225,9 +228,16 @@ public class PersistenceManager {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(arquivo, false))) {
             for (Livro l : livros.listar()) {
                 if (l == null) continue;
-                bw.write(l.getId() + ";" + l.getNome() + ";" + l.getAutor() + ";" +
-                        l.getIsbn() + ";" + l.getGenero() + ";" + l.getDescricao() + ";" +
-                        l.getDataPublicacao() + ";" + l.isDisponivel());
+                bw.write(
+                        l.getId() + SEPARADOR_ESCRITA +
+                                l.getNome() + SEPARADOR_ESCRITA +
+                                l.getAutor() + SEPARADOR_ESCRITA +
+                                l.getIsbn() + SEPARADOR_ESCRITA +
+                                l.getGenero() + SEPARADOR_ESCRITA +
+                                l.getDescricao() + SEPARADOR_ESCRITA +
+                                l.getDataPublicacao() + SEPARADOR_ESCRITA +
+                                l.isDisponivel()
+                );
                 bw.newLine(); // Pula para a próxima linha do arquivo .txt
             }
         } catch (IOException e) {
@@ -245,8 +255,13 @@ public class PersistenceManager {
 
         // 'true' ativa o modo append (grava ao final do arquivo sem apagar o que já existe)
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(arquivo, true))) {
-            bw.write(u.getId() + ";" + u.getNome() + ";" + u.getEmail() + ";" +
-                    u.getSenha() + ";" + u.getTipo());
+            bw.write(
+                    u.getId() + SEPARADOR_ESCRITA +
+                            u.getNome() + SEPARADOR_ESCRITA +
+                            u.getEmail() + SEPARADOR_ESCRITA +
+                            u.getSenha() + SEPARADOR_ESCRITA +
+                            u.getTipo()
+            );
             bw.newLine();
         } catch (IOException e) {
             System.out.println("Erro ao anexar novo usuário: " + e.getMessage());
@@ -262,9 +277,17 @@ public class PersistenceManager {
         criarPastasSeNaoExistirem(arquivo);
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(arquivo, true))) {
-            bw.write(e.getId() + ";" + e.getUsuario().getId() + ";" + e.getUsuario().getNome() + ";" +
-                    e.getLivro().getId() + ";" + e.getLivro().getNome() + ";" + e.getLivro().getIsbn() + ";" +
-                    e.getDataEmprestimo() + ";" + e.getDataDevolucao() + ";" + e.isAtrasado());
+            bw.write(
+                    e.getId() + SEPARADOR_ESCRITA +
+                            e.getUsuario().getId() + SEPARADOR_ESCRITA +
+                            e.getUsuario().getNome() + SEPARADOR_ESCRITA +
+                            e.getLivro().getId() + SEPARADOR_ESCRITA +
+                            e.getLivro().getNome() + SEPARADOR_ESCRITA +
+                            e.getLivro().getIsbn() + SEPARADOR_ESCRITA +
+                            e.getDataEmprestimo() + SEPARADOR_ESCRITA +
+                            e.getDataDevolucao() + SEPARADOR_ESCRITA +
+                            e.isAtrasado()
+            );
             bw.newLine();
         } catch (IOException ex) { // <-- Alterado aqui de 'e' para 'ex'
             System.out.println("Erro ao anexar novo empréstimo: " + ex.getMessage()); // <-- E aqui também
@@ -280,8 +303,14 @@ public class PersistenceManager {
         criarPastasSeNaoExistirem(arquivo);
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(arquivo, true))) {
-            bw.write(r.getId() + ";" + r.getUsuario().getId() + ";" + r.getUsuario().getNome() + ";" +
-                    r.getTitulo().getIsbn() + ";" + r.getTitulo().getNome() + ";" + r.getDataReserva());
+            bw.write(
+                    r.getId() + SEPARADOR_ESCRITA +
+                            r.getUsuario().getId() + SEPARADOR_ESCRITA +
+                            r.getUsuario().getNome() + SEPARADOR_ESCRITA +
+                            r.getTitulo().getIsbn() + SEPARADOR_ESCRITA +
+                            r.getTitulo().getNome() + SEPARADOR_ESCRITA +
+                            r.getDataReserva()
+            );
             bw.newLine();
         } catch (IOException e) {
             System.out.println("Erro ao anexar nova reserva: " + e.getMessage());
@@ -299,9 +328,17 @@ public class PersistenceManager {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(arquivo, false))) {
             for (Emprestimo e : listaDeEmprestimos.listar()) {
                 if (e == null) continue;
-                bw.write(e.getId() + ";" + e.getUsuario().getId() + ";" + e.getUsuario().getNome() + ";" +
-                        e.getLivro().getId() + ";" + e.getLivro().getNome() + ";" + e.getLivro().getIsbn() + ";" +
-                        e.getDataEmprestimo() + ";" + e.getDataDevolucao() + ";" + e.isAtrasado());
+                bw.write(
+                        e.getId() + SEPARADOR_ESCRITA +
+                                e.getUsuario().getId() + SEPARADOR_ESCRITA +
+                                e.getUsuario().getNome() + SEPARADOR_ESCRITA +
+                                e.getLivro().getId() + SEPARADOR_ESCRITA +
+                                e.getLivro().getNome() + SEPARADOR_ESCRITA +
+                                e.getLivro().getIsbn() + SEPARADOR_ESCRITA +
+                                e.getDataEmprestimo() + SEPARADOR_ESCRITA +
+                                e.getDataDevolucao() + SEPARADOR_ESCRITA +
+                                e.isAtrasado()
+                );
                 bw.newLine();
             }
         } catch (IOException e) {
@@ -320,8 +357,14 @@ public class PersistenceManager {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(arquivo, false))) {
             for (Reserva r : listaDeReservas.listar()) {
                 if (r == null) continue;
-                bw.write(r.getId() + ";" + r.getUsuario().getId() + ";" + r.getUsuario().getNome() + ";" +
-                        r.getTitulo().getIsbn() + ";" + r.getTitulo().getNome() + ";" + r.getDataReserva());
+                bw.write(
+                        r.getId() + SEPARADOR_ESCRITA +
+                                r.getUsuario().getId() + SEPARADOR_ESCRITA +
+                                r.getUsuario().getNome() + SEPARADOR_ESCRITA +
+                                r.getTitulo().getIsbn() + SEPARADOR_ESCRITA +
+                                r.getTitulo().getNome() + SEPARADOR_ESCRITA +
+                                r.getDataReserva()
+                );
                 bw.newLine();
             }
         } catch (IOException e) {
