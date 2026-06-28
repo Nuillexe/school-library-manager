@@ -250,7 +250,7 @@ public class BibliotecarioService {
         // Se for um ISBN inédito, cria-se uma nova estrutura de Título para gerenciar as futuras filas
         LivroDAOLista novaListaDeExemplares = new LivroDAOLista();
         novaListaDeExemplares.salvar(novoLivro);
-        b.getTitulos().salvar(new Titulo(novaListaDeExemplares, new EmprestimoDAOLista(), new ReservaDAOFilaDePrioridade()));
+        b.getTitulos().salvar(new Titulo(novaListaDeExemplares));
         System.out.println("✅ Novo título cadastrado com sucesso no acervo.");
     }
 

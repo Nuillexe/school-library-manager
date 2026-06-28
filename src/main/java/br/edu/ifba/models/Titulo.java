@@ -24,11 +24,8 @@ public class Titulo {
     private ReservaDAOFilaDePrioridade filaDeReservas; // Fila de prioridade estruturada de acordo com o Tipo do Usuário
     private EmprestimoDAOLista listaDeEmprestimos;
 
-    /**
-     * Construtor que sincroniza o título literário com seus subconjuntos e dados de persistência globais.
-     */
-    public Titulo(LivroDAOLista listaDeExemplares, EmprestimoDAOLista listaDeEmprestimos, ReservaDAOFilaDePrioridade filaDeReserva) {
 
+    public Titulo(LivroDAOLista listaDeExemplares){
         // Validação obrigatória: Não faz sentido criar um Título no catálogo sem nenhum exemplar atrelado
         if (listaDeExemplares == null || listaDeExemplares.tamanho() == 0) {
             throw new IllegalArgumentException("Lista de exemplares vazia");
@@ -38,8 +35,8 @@ public class Titulo {
         Livro modelo = listaDeExemplares.selecionar(0);
 
         this.listaDeExemplares = listaDeExemplares;
-        this.listaDeEmprestimos = (listaDeEmprestimos != null) ? listaDeEmprestimos : new EmprestimoDAOLista();
-        this.filaDeReservas = (filaDeReserva != null) ? filaDeReserva : new ReservaDAOFilaDePrioridade();
+        this.listaDeEmprestimos=new EmprestimoDAOLista();
+        this.filaDeReservas= new ReservaDAOFilaDePrioridade();
 
         this.nome = modelo.getNome();
         this.isbn = modelo.getIsbn();
@@ -60,6 +57,7 @@ public class Titulo {
             }
         }
         this.quantidadeDisponivel = contadorDisponiveis;
+
     }
 
     // Getters e Setters de controle

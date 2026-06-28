@@ -46,9 +46,89 @@ public class BibliotecaRepository {
             relacionandoEmprestimoELivro();
             relacionandoUsuariosEEmprestimos();
             relacionandoUsuariosEReservas();
+
             this.listaDeTitulos = updateListaDeTitulos(this.acervo);
+
+            relacionandoTituloEEmprestimos();
+            relacionandoTituloEReservas();
         }
     }
+
+
+    private TituloDAOLista updateListaDeTitulos(LivroDAOLista acervo) {
+        acervo.ordenar();
+        TituloDAOLista novaListaDeTitulos = new TituloDAOLista();
+
+        int i = 0;
+        while (i < acervo.quantidade()) {
+            Livro modelo = acervo.selecionar(i);
+            String isbnAtual = modelo.getIsbn();
+            LivroDAOLista colecaoExemplares = new LivroDAOLista();
+
+            while (i < acervo.quantidade() && acervo.selecionar(i).getIsbn().equals(isbnAtual)) {
+                colecaoExemplares.salvar(acervo.selecionar(i));
+                i++;
+            }
+
+
+            novaListaDeTitulos.salvar(new Titulo(colecaoExemplares));
+        }
+        return novaListaDeTitulos;
+    }
+
+    private void relacionandoUsuariosEEmprestimos(){
+        for (Usuario u: this.listaDeUsuarios.listar()){
+            for(Emprestimo e:  this.listaDeEmprestimos.listar()){
+                if(e.getUsuario().getId().equalsIgnoreCase(u.getId())){
+                    e.setUsuario(u);
+                    u.adicionarEmprestimo(e);
+                }
+            }
+        }
+    }
+
+    private void relacionandoUsuariosEReservas(){
+        for (Usuario u: this.listaDeUsuarios.listar()){
+            for(Reserva r:  this.listaDeReservas.listar()){
+                if(r.getUsuario().getId().equalsIgnoreCase(u.getId())){
+                    r.setUsuario(u);
+                }
+            }
+        }
+    }
+
+    private void relacionandoEmprestimoELivro(){
+        for(Emprestimo e: listaDeEmprestimos.listar()){
+            for(Livro l: acervo.listar()){
+                if (e.getLivro().getId()==l.getId()){
+                    e.setLivro(l);
+                }
+            }
+        }
+    }
+
+
+    private void relacionandoTituloEEmprestimos(){
+        for(Emprestimo e: listaDeEmprestimos.listar()){
+            for(Titulo t: listaDeTitulos.listar()){
+                if(e.getLivro().getIsbn().equalsIgnoreCase(t.getIsbn())){
+                    t.registrarEmprestimo(e);
+                }
+            }
+        }
+    }
+
+    private void relacionandoTituloEReservas(){
+        for(Reserva r: listaDeReservas.listar()){
+            for(Titulo t: listaDeTitulos.listar()){
+                if(r.getTitulo().getIsbn().equalsIgnoreCase(t.getIsbn())){
+                    r.setTitulo(t);
+                    t.getFilaDeReservas().salvar(r);
+                }
+            }
+        }
+    }
+
     public boolean thisIDIsValid(String id) {
         if (id == null || id.isEmpty()) return false;
 
@@ -85,71 +165,6 @@ public class BibliotecaRepository {
         return this.listaDeTitulos;
     }*/
 
-    private TituloDAOLista updateListaDeTitulos(LivroDAOLista acervo) {
-        acervo.ordenar();
-        TituloDAOLista novaListaDeTitulos = new TituloDAOLista();
-
-        int i = 0;
-        while (i < acervo.quantidade()) {
-            Livro modelo = acervo.selecionar(i);
-            String isbnAtual = modelo.getIsbn();
-            LivroDAOLista colecaoExemplares = new LivroDAOLista();
-
-            while (i < acervo.quantidade() && acervo.selecionar(i).getIsbn().equals(isbnAtual)) {
-                colecaoExemplares.salvar(acervo.selecionar(i));
-                i++;
-            }
-
-            // Filtramos as listas globais para pegar apenas o que é deste ISBN
-            EmprestimoDAOLista emprestimosFiltrados = filtrarEmprestimosPorIsbn(isbnAtual);
-
-
-            // Criamos o título com as suas respectivas listas já vindo da persistência global
-            novaListaDeTitulos.salvar(new Titulo(colecaoExemplares, emprestimosFiltrados, reservasFiltradas));
-        }
-        return novaListaDeTitulos;
-    }
-
-    private void relacionandoUsuariosEEmprestimos(){
-        for (Usuario u: this.listaDeUsuarios.listar()){
-            for(Emprestimo e:  this.listaDeEmprestimos.listar()){
-                if(e.getUsuario().getId().equalsIgnoreCase(u.getId())){
-                    e.setUsuario(u);
-                    u.adicionarEmprestimo(e);
-                }
-            }
-        }
-    }
-
-    private void relacionandoUsuariosEReservas(){
-        for (Usuario u: this.listaDeUsuarios.listar()){
-            for(Reserva r:  this.listaDeReservas.listar()){
-                if(r.getUsuario().getId().equalsIgnoreCase(u.getId())){
-                    r.setUsuario(u);
-                }
-            }
-        }
-    }
-
-    private void relacionandoEmprestimoELivro(){
-        for(Emprestimo e: listaDeEmprestimos.listar()){
-            for(Livro l: acervo.listar()){
-                if (e.getLivro().getId()==l.getId()){
-                    e.setLivro(l);
-                }
-            }
-        }
-    }
-
-    private void relacionandoEmprestimoELivro(){
-        for(Emprestimo e: listaDeEmprestimos.listar()){
-            for(Livro l: acervo.listar()){
-                if (e.getLivro().getId()==l.getId()){
-                    e.setLivro(l);
-                }
-            }
-        }
-    }
 
     // Métodos auxiliares dentro da Biblioteca para ajudar no filtro:
     private EmprestimoDAOLista filtrarEmprestimosPorIsbn(String isbn) {
