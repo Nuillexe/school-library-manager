@@ -36,6 +36,9 @@ public class Livro {
         this.disponivel = true;
     }
 
+    public Livro(Long id){
+        this.id=id;
+    }
     // Métodos Getters e Setters com comentários descritivos
 
     public Long getId() {

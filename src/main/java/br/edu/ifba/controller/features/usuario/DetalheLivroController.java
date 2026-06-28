@@ -88,7 +88,6 @@ public class DetalheLivroController implements Initializable {
     /**
      * Aplica as regras de negócio do UsuarioService para gerenciar os botões
      */
-
     private void configurarAcoes(int disponivel) {
         // 1. Coleta de dados
         boolean temAtraso = usuarioService.usuarioPossuiAtraso();
@@ -136,7 +135,6 @@ public class DetalheLivroController implements Initializable {
         node.setManaged(true);
     }
 
-
     @FXML
     private void onEmprestimo() {
         if (usuarioService.pegarEmprestimo(tituloAtual)) {
@@ -160,7 +158,10 @@ public class DetalheLivroController implements Initializable {
 
     @FXML private void onVoltar() { navegarPara("/views/usuarioViews/Catalogo.fxml"); }
 
-    @FXML private void onLogout() { navegarPara("/views/AuthViews/login.fxml"); }
+    @FXML private void onLogout() {
+        Sessao.setUsuarioLogado(null); // Acrescentado para limpar a sessão ao deslogar
+        navegarPara("/views/AuthViews/login.fxml");
+    }
 
     @FXML private void onNavCatalogo()    { navegarPara("/views/usuarioViews/Catalogo.fxml"); }
     @FXML private void onNavEmprestimos() { navegarPara("/views/usuarioViews/Emprestimos.fxml"); }

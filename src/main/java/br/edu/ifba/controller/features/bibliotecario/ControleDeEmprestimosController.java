@@ -3,6 +3,7 @@ package br.edu.ifba.controller.features.bibliotecario;
 import br.edu.ifba.models.Emprestimo;
 import br.edu.ifba.service.BibliotecarioService;
 import br.edu.ifba.util.Sessao;
+import br.edu.ifba.util.Tools;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -10,7 +11,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
@@ -134,8 +134,13 @@ public class ControleDeEmprestimosController implements Initializable {
         return linha;
     }
 
-    // --- Navegação ---
-    @FXML private void handleLogout(MouseEvent event) { Sessao.encerrarSessao(); navegarPara("/views/AuthViews/login.fxml", event); }
+    // --- Navegação Padronizada com a Classe Tools ---
+    @FXML
+    private void handleLogout(MouseEvent event) {
+        Sessao.encerrarSessao();
+        navegarPara("/views/AuthViews/login.fxml", event);
+    }
+
     @FXML private void onNavDashboard(MouseEvent event) { navegarPara("/views/bibliotecarioViews/dashboard.fxml", event); }
     @FXML private void onNavInventario(MouseEvent event) { navegarPara("/views/bibliotecarioViews/inventario.fxml", event); }
     @FXML private void onNavReservas(MouseEvent event) { navegarPara("/views/bibliotecarioViews/controleDeReservas.fxml", event); }
@@ -145,7 +150,11 @@ public class ControleDeEmprestimosController implements Initializable {
         try {
             Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-        } catch (IOException e) { e.printStackTrace(); }
+            // Alterado para usar a Tools, preservando o tamanho de 1280x720 sem quebras visuais
+            Tools.trocarCenaPreservandoJanela(stage, root);
+        } catch (IOException e) {
+            System.err.println("Erro ao navegar para " + fxmlPath + ": " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 }

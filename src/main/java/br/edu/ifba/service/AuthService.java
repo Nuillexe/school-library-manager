@@ -3,6 +3,7 @@ package br.edu.ifba.service;
 import br.edu.ifba.models.Biblioteca;
 import br.edu.ifba.models.Usuario;
 import br.edu.ifba.enums.TipoUsuario;
+import br.edu.ifba.repository.PersistenceManager;
 
 public class AuthService {
     // Instância única da biblioteca compartilhada no sistema
@@ -61,16 +62,12 @@ public class AuthService {
         // Instancia o novo usuário e o persiste na memória através do DAO
         Usuario novoUsuario = new Usuario(id, nome, email, senha, categoria);
         b.getListaDeUsuarios().salvar(novoUsuario);
-
+        PersistenceManager.salvarUsuario(novoUsuario);
         System.out.println("Cadastro realizado com sucesso! Bem-vindo(a), " + nome + ".");
         return novoUsuario;
     }
 
-    /**
-     * Infere a categoria do usuário a partir do prefixo do ID.
-     * CORREÇÃO: Alterado de 't' para 'p' para alinhar com o DataBaseSeed e com o
-     * método b.thisIDIsValid() que valida professores usando a letra 'p'.
-     */
+
     private static TipoUsuario resolverCategoria(String id) {
         if (id == null || id.isEmpty()) {
             return TipoUsuario.ALUNO;
