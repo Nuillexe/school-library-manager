@@ -1,6 +1,7 @@
 package br.edu.ifba.service;
 
 import br.edu.ifba.models.*;
+import br.edu.ifba.repository.PersistenceManager;
 import br.edu.ifba.repository.dao.EmprestimoDAOLista;
 
 public class UsuarioService {
@@ -55,6 +56,7 @@ public class UsuarioService {
         user.adicionarEmprestimo(emprestimo);         // Aloca no perfil do usuário
         b.getListaDeEmprestimos().salvar(emprestimo); // Grava no registro central
         titulo.registrarEmprestimo(emprestimo);       // Registra no Título
+        PersistenceManager.salvarEmprestimo(emprestimo);// Registra no banco de dados
 
         System.out.println("✅ Sucesso! Devolução prevista: " + emprestimo.getDataDevolucao());
         return true;
@@ -91,6 +93,7 @@ public class UsuarioService {
         // =====================================================================
         user.removerEmprestimo(emprestimo);
         b.getListaDeEmprestimos().apagarPorId(emprestimo.getId());
+        PersistenceManager.sobrescreverEmprestimos(b.getListaDeEmprestimos());
         // =====================================================================
 
         if (atrasado) {
@@ -163,6 +166,7 @@ public class UsuarioService {
         Reserva reserva = new Reserva(user, titulo);
         titulo.getFilaDeReservas().salvar(reserva);
         b.getListaDeReservas().salvar(reserva); // Sincroniza no índice global
+        PersistenceManager.salvarReserva(reserva);//salva no banco
 
         System.out.println("✅ Reserva efetuada! Você está na posição " +
                 titulo.getFilaDeReservas().posicao(reserva) + " da fila.");
@@ -176,6 +180,8 @@ public class UsuarioService {
             if (r != null && r.getUsuario().getId().equals(user.getId())) {
                 titulo.getFilaDeReservas().apagar(r.getId());
                 b.getListaDeReservas().apagar(r.getId());
+                PersistenceManager.sobrescreverReservas(b.getListaDeReservas());//atualiza no banco de dados
+
                 System.out.println("✅ Reserva cancelada com sucesso.");
                 return true;
             }

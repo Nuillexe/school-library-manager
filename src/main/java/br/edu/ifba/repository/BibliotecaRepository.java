@@ -1,9 +1,6 @@
 package br.edu.ifba.repository;
 
-import br.edu.ifba.models.Emprestimo;
-import br.edu.ifba.models.Livro;
-import br.edu.ifba.models.Reserva;
-import br.edu.ifba.models.Titulo;
+import br.edu.ifba.models.*;
 import br.edu.ifba.repository.dao.*;
 
 import java.util.ArrayList;
@@ -31,6 +28,9 @@ public class BibliotecaRepository {
         }else{
             listaDeTitulos=new TituloDAOLista();
         }
+
+        ajustarRelacionamentos();
+
     }
 
     public static BibliotecaRepository getInstance() {
@@ -40,6 +40,15 @@ public class BibliotecaRepository {
         return instance;
     }
 
+
+    public void ajustarRelacionamentos(){
+        if(acervo.quantidade()!=0){
+            relacionandoEmprestimoELivro();
+            relacionandoUsuariosEEmprestimos();
+            relacionandoUsuariosEReservas();
+            this.listaDeTitulos = updateListaDeTitulos(this.acervo);
+        }
+    }
     public boolean thisIDIsValid(String id) {
         if (id == null || id.isEmpty()) return false;
 
@@ -91,15 +100,55 @@ public class BibliotecaRepository {
                 i++;
             }
 
-
             // Filtramos as listas globais para pegar apenas o que é deste ISBN
             EmprestimoDAOLista emprestimosFiltrados = filtrarEmprestimosPorIsbn(isbnAtual);
-            ReservaDAOFilaDePrioridade reservasFiltradas = filtrarReservasPorIsbn(isbnAtual);
+
 
             // Criamos o título com as suas respectivas listas já vindo da persistência global
             novaListaDeTitulos.salvar(new Titulo(colecaoExemplares, emprestimosFiltrados, reservasFiltradas));
         }
         return novaListaDeTitulos;
+    }
+
+    private void relacionandoUsuariosEEmprestimos(){
+        for (Usuario u: this.listaDeUsuarios.listar()){
+            for(Emprestimo e:  this.listaDeEmprestimos.listar()){
+                if(e.getUsuario().getId().equalsIgnoreCase(u.getId())){
+                    e.setUsuario(u);
+                    u.adicionarEmprestimo(e);
+                }
+            }
+        }
+    }
+
+    private void relacionandoUsuariosEReservas(){
+        for (Usuario u: this.listaDeUsuarios.listar()){
+            for(Reserva r:  this.listaDeReservas.listar()){
+                if(r.getUsuario().getId().equalsIgnoreCase(u.getId())){
+                    r.setUsuario(u);
+                }
+            }
+        }
+    }
+
+    private void relacionandoEmprestimoELivro(){
+        for(Emprestimo e: listaDeEmprestimos.listar()){
+            for(Livro l: acervo.listar()){
+                if (e.getLivro().getId()==l.getId()){
+                    e.setLivro(l);
+                }
+            }
+        }
+    }
+
+    private void relacionandoEmprestimoELivro(){
+        for(Emprestimo e: listaDeEmprestimos.listar()){
+            for(Livro l: acervo.listar()){
+                if (e.getLivro().getId()==l.getId()){
+                    e.setLivro(l);
+                }
+            }
+        }
     }
 
     // Métodos auxiliares dentro da Biblioteca para ajudar no filtro:
@@ -129,19 +178,6 @@ public class BibliotecaRepository {
     public int contarTotalReservas() {
         return listaDeReservas.tamanho();
     }
-
-    public  Livro removerLivro(long idDoLivro){
-        Livro l=this.acervo.apagar(idDoLivro);
-        if(l==null){
-            return null;
-        }else{
-            listaDeTitulos.buscarPorNome(l.getNome()).getListaDeExemplares().apagar(idDoLivro);
-            PersistenceManager.sobrescreverLivros(this.acervo);
-
-        }
-        return l;
-    }
-
 
 
 }

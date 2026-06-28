@@ -83,7 +83,7 @@ public class Titulo {
      * Varre a lista de exemplares para localizar e retornar o primeiro objeto físico livre para empréstimo.
      * @return O objeto Livro disponível, ou null se todos estiverem ocupados.
      */
-    public Livro obterExemplarDisponivel() {
+    public Livro getExemplarDisponivel() {
         Livro[] lista = listaDeExemplares.listar();
         for (int i = 0; i < lista.length; i++) {
             if (lista[i] != null && lista[i].isDisponivel()) {
