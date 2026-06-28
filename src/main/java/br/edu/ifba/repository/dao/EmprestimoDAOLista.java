@@ -2,39 +2,39 @@ package br.edu.ifba.repository.dao;
 
 import br.edu.ifba.models.Emprestimo;
 import br.edu.ifba.models.Usuario;
-import br.edu.ifba.ed.ListaDinamica;
-import br.edu.ifba.ed.Listavel;
+import java.util.ArrayList;
+import java.util.List;
 
 public class EmprestimoDAOLista {
-    private Listavel<Emprestimo> listaEmprestimos;
+    private List<Emprestimo> listaEmprestimos;
 
     public EmprestimoDAOLista(int numeroMaximoDeEmprestimos){
-        listaEmprestimos=new ListaDinamica<Emprestimo>(numeroMaximoDeEmprestimos);
+        listaEmprestimos=new ArrayList<>();
     }
 
     public EmprestimoDAOLista(){
-        listaEmprestimos=new ListaDinamica<Emprestimo>();
+        listaEmprestimos=new ArrayList<>();
     }
 
     public void salvar(Emprestimo e) {
         if (e == null) {
             throw new IllegalArgumentException("Empréstimo não pode ser nulo.");
         }
-        listaEmprestimos.anexar(e);
+        listaEmprestimos.add(e);
     }
 
     public Emprestimo[] listar() {
-        Emprestimo[] arrayRetorno = new Emprestimo[listaEmprestimos.tamanho()];
-        for (int i =0; i<listaEmprestimos.tamanho(); i++) {
-            arrayRetorno[i] = (Emprestimo) listaEmprestimos.selecionar(i);
+        Emprestimo[] arrayRetorno = new Emprestimo[listaEmprestimos.size()];
+        for (int i =0; i<listaEmprestimos.size(); i++) {
+            arrayRetorno[i] = (Emprestimo) listaEmprestimos.get(i);
         }
         return arrayRetorno;
     }
 
     public Emprestimo[] buscarPorUsuario(Usuario u) {
         int contador = 0;
-        for (int i = 0; i < listaEmprestimos.tamanho(); i++) {
-            Emprestimo e = (Emprestimo) listaEmprestimos.selecionar(i);
+        for (int i = 0; i < listaEmprestimos.size(); i++) {
+            Emprestimo e = (Emprestimo) listaEmprestimos.get(i);
             if (e.getUsuario().equals(u)) {
                 contador++;
             }
@@ -43,8 +43,8 @@ public class EmprestimoDAOLista {
         Emprestimo[] arrayRetorno = new Emprestimo[contador];
         int indice = 0;
 
-        for (int i = 0; i < listaEmprestimos.tamanho(); i++) {
-            Emprestimo e = (Emprestimo) listaEmprestimos.selecionar(i);
+        for (int i = 0; i < listaEmprestimos.size(); i++) {
+            Emprestimo e = (Emprestimo) listaEmprestimos.get(i);
             if (e.getUsuario().equals(u)) {
                 arrayRetorno[indice++] = e;
             }
@@ -53,8 +53,8 @@ public class EmprestimoDAOLista {
     }
 
     public boolean usuarioTemAtraso(Usuario u) {
-        for (int  i = 0; i<listaEmprestimos.tamanho(); i++) {
-            Emprestimo e = (Emprestimo) listaEmprestimos.selecionar(i);
+        for (int  i = 0; i<listaEmprestimos.size(); i++) {
+            Emprestimo e = (Emprestimo) listaEmprestimos.get(i);
             if (e.getUsuario().equals(u) && e.isAtrasado()) {
                 return true;
             }
@@ -64,8 +64,8 @@ public class EmprestimoDAOLista {
 
     public int contarEmprestimosAtivos(Usuario u) {
         int contador = 0;
-        for (int i=0; i<listaEmprestimos.tamanho(); i++) {
-            Emprestimo e = (Emprestimo) listaEmprestimos.selecionar(i);
+        for (int i=0; i<listaEmprestimos.size(); i++) {
+            Emprestimo e = (Emprestimo) listaEmprestimos.get(i);
             if (e.getUsuario().equals(u) && !e.getLivro().isDisponivel()) {
                 contador++;
             }
@@ -74,22 +74,22 @@ public class EmprestimoDAOLista {
     }
 
     public int tamanho(){
-        return listaEmprestimos.tamanho();
+        return listaEmprestimos.size();
     }
 
     public Emprestimo selecionar(int i){
-        return listaEmprestimos.selecionar(i);
+        return listaEmprestimos.get(i);
     }
 
     public Emprestimo remover(int i){
-        return listaEmprestimos.apagar(i);
+        return listaEmprestimos.remove(i);
     }
 
     public Emprestimo apagarPorId(long id) {
-        for (int i = 0; i < listaEmprestimos.tamanho(); i++) {
-            Emprestimo e = listaEmprestimos.selecionar(i);
+        for (int i = 0; i < listaEmprestimos.size(); i++) {
+            Emprestimo e = listaEmprestimos.get(i);
             if (e.getId()==id) {
-                return listaEmprestimos.apagar(i);
+                return listaEmprestimos.remove(i);
             }
         }
         return null;

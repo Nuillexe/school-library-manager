@@ -3,28 +3,28 @@ package br.edu.ifba.repository.dao;
 import br.edu.ifba.models.Reserva;
 import br.edu.ifba.models.Titulo;
 import br.edu.ifba.models.Usuario;
-import br.edu.ifba.ed.ListaDinamica;
-import br.edu.ifba.ed.Listavel;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ReservaDAOLista {
 
-    private Listavel<Reserva> listaReservas = new ListaDinamica<>();
+    private List<Reserva> listaReservas = new ArrayList<>();
 
     // Salvar reserva
     public void salvar(Reserva r) {
         if (r == null) {
             throw new IllegalArgumentException("Reserva não pode ser nula.");
         }
-        listaReservas.anexar(r);
+        listaReservas.add(r);
     }
 
     // Listar todas reservas
     public Reserva[] listar() {
 
-        Reserva[] array = new Reserva[listaReservas.tamanho()];
+        Reserva[] array = new Reserva[listaReservas.size()];
 
-        for (int i = 0; i < listaReservas.tamanho(); i++) {
-            array[i] = listaReservas.selecionar(i);
+        for (int i = 0; i < listaReservas.size(); i++) {
+            array[i] = listaReservas.get(i);
         }
 
         return array;
@@ -35,8 +35,8 @@ public class ReservaDAOLista {
 
         int contador = 0;
 
-        for (int i = 0; i < listaReservas.tamanho(); i++) {
-            Reserva r = listaReservas.selecionar(i);
+        for (int i = 0; i < listaReservas.size(); i++) {
+            Reserva r = listaReservas.get(i);
 
             if (r != null && r.getTitulo() != null && r.getTitulo().equals(t)) {
                 contador++;
@@ -46,8 +46,8 @@ public class ReservaDAOLista {
         Reserva[] resultado = new Reserva[contador];
         int j = 0;
 
-        for (int i = 0; i < listaReservas.tamanho(); i++) {
-            Reserva r = listaReservas.selecionar(i);
+        for (int i = 0; i < listaReservas.size(); i++) {
+            Reserva r = listaReservas.get(i);
 
             if (r != null && r.getTitulo() != null && r.getTitulo().equals(t)) {
                 resultado[j++] = r;
@@ -62,8 +62,8 @@ public class ReservaDAOLista {
 
         int contador = 0;
 
-        for (int i = 0; i < listaReservas.tamanho(); i++) {
-            Reserva r = listaReservas.selecionar(i);
+        for (int i = 0; i < listaReservas.size(); i++) {
+            Reserva r = listaReservas.get(i);
 
             if (r != null && r.getUsuario() != null && r.getUsuario().equals(u)) {
                 contador++;
@@ -73,8 +73,8 @@ public class ReservaDAOLista {
         Reserva[] resultado = new Reserva[contador];
         int j = 0;
 
-        for (int i = 0; i < listaReservas.tamanho(); i++) {
-            Reserva r = listaReservas.selecionar(i);
+        for (int i = 0; i < listaReservas.size(); i++) {
+            Reserva r = listaReservas.get(i);
 
             if (r != null && r.getUsuario() != null && r.getUsuario().equals(u)) {
                 resultado[j++] = r;
@@ -87,12 +87,12 @@ public class ReservaDAOLista {
     // Atualizar reserva
     public void atualizar(long id, Reserva nova) {
 
-        for (int i = 0; i < listaReservas.tamanho(); i++) {
+        for (int i = 0; i < listaReservas.size(); i++) {
 
-            Reserva r = listaReservas.selecionar(i);
+            Reserva r = listaReservas.get(i);
 
             if (r != null && r.getId() == id) {
-                listaReservas.atualizar(nova, i);
+                listaReservas.set(i, nova);
                 return;
             }
         }
@@ -103,18 +103,18 @@ public class ReservaDAOLista {
     // Apagar reserva
     public Reserva apagar(long id) {
 
-        for (int i = 0; i < listaReservas.tamanho(); i++) {
+        for (int i = 0; i < listaReservas.size(); i++) {
 
-            Reserva r = listaReservas.selecionar(i);
+            Reserva r = listaReservas.get(i);
 
             if (r != null && r.getId() == id) {
-                return listaReservas.apagar(i);
+                return listaReservas.remove(i);
             }
         }
 
         return null;
     }
     public int tamanho() {
-        return listaReservas.tamanho();
+        return listaReservas.size();
     }
 }
