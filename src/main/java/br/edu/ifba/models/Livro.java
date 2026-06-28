@@ -36,6 +36,27 @@ public class Livro {
         this.disponivel = true;
     }
 
+    public Livro(long id, String nome, String autor, String isbn,
+                 String genero, String descricao,
+                 LocalDate dataPublicacao, boolean disponivel) {
+
+        this.id = id;
+
+        if (id > idCount) {
+            idCount = id;
+        }
+
+        this.nome = nome;
+        this.autor = autor;
+        this.isbn = isbn;
+        this.genero = genero;
+        this.descricao = descricao;
+        this.dataPublicacao = dataPublicacao;
+        this.disponivel = disponivel;
+    }
+
+
+
     public Livro(Long id){
         this.id=id;
     }

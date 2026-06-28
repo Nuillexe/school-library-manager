@@ -1,0 +1,80 @@
+1|Java: Como Programar|Paul Deitel; Harvey Deitel|9788543004792|Tecnologia|Livro base para aprendizado de POO em Java - 10.ed. São Paulo: Pearson Education|2017-01-01|true
+2|Java: Como Programar|Paul Deitel; Harvey Deitel|9788543004792|Tecnologia|Livro base para aprendizado de POO em Java - 10.ed. São Paulo: Pearson Education|2017-01-01|true
+3|Java: Como Programar|Paul Deitel; Harvey Deitel|9788543004792|Tecnologia|Livro base para aprendizado de POO em Java - 10.ed. São Paulo: Pearson Education|2017-01-01|true
+4|Java: Como Programar|Paul Deitel; Harvey Deitel|9788543004792|Tecnologia|Livro base para aprendizado de POO em Java - 10.ed. São Paulo: Pearson Education|2017-01-01|true
+5|Java: Como Programar|Paul Deitel; Harvey Deitel|9788543004792|Tecnologia|Livro base para aprendizado de POO em Java - 10.ed. São Paulo: Pearson Education|2017-01-01|true
+6|Java: Como Programar|Paul Deitel; Harvey Deitel|9788543004792|Tecnologia|Livro base para aprendizado de POO em Java - 10.ed. São Paulo: Pearson Education|2017-01-01|true
+7|Java: Como Programar|Paul Deitel; Harvey Deitel|9788543004792|Tecnologia|Livro base para aprendizado de POO em Java - 10.ed. São Paulo: Pearson Education|2017-01-01|true
+8|Java: Como Programar|Paul Deitel; Harvey Deitel|9788543004792|Tecnologia|Livro base para aprendizado de POO em Java - 10.ed. São Paulo: Pearson Education|2017-01-01|true
+9|Java: Como Programar|Paul Deitel; Harvey Deitel|9788543004792|Tecnologia|Livro base para aprendizado de POO em Java - 10.ed. São Paulo: Pearson Education|2017-01-01|true
+10|Java: Como Programar|Paul Deitel; Harvey Deitel|9788543004792|Tecnologia|Livro base para aprendizado de POO em Java - 10.ed. São Paulo: Pearson Education|2017-01-01|true
+11|Core Java: Volume II - Advanced Features|Cay S. Horstmann|9780134177298|Tecnologia|Guia profundo sobre os recursos avançados do Java - 10.ed. Upper Saddle River: Prentice Hall|2017-05-10|true
+12|Core Java: Volume II - Advanced Features|Cay S. Horstmann|9780134177298|Tecnologia|Guia profundo sobre os recursos avançados do Java - 10.ed. Upper Saddle River: Prentice Hall|2017-05-10|true
+13|Core Java: Volume II - Advanced Features|Cay S. Horstmann|9780134177298|Tecnologia|Guia profundo sobre os recursos avançados do Java - 10.ed. Upper Saddle River: Prentice Hall|2017-05-10|true
+14|Core Java: Volume II - Advanced Features|Cay S. Horstmann|9780134177298|Tecnologia|Guia profundo sobre os recursos avançados do Java - 10.ed. Upper Saddle River: Prentice Hall|2017-05-10|true
+15|Core Java: Volume II - Advanced Features|Cay S. Horstmann|9780134177298|Tecnologia|Guia profundo sobre os recursos avançados do Java - 10.ed. Upper Saddle River: Prentice Hall|2017-05-10|true
+16|Core Java: Volume II - Advanced Features|Cay S. Horstmann|9780134177298|Tecnologia|Guia profundo sobre os recursos avançados do Java - 10.ed. Upper Saddle River: Prentice Hall|2017-05-10|true
+17|Core Java: Volume II - Advanced Features|Cay S. Horstmann|9780134177298|Tecnologia|Guia profundo sobre os recursos avançados do Java - 10.ed. Upper Saddle River: Prentice Hall|2017-05-10|true
+18|Core Java: Volume II - Advanced Features|Cay S. Horstmann|9780134177298|Tecnologia|Guia profundo sobre os recursos avançados do Java - 10.ed. Upper Saddle River: Prentice Hall|2017-05-10|true
+19|Core Java: Volume II - Advanced Features|Cay S. Horstmann|9780134177298|Tecnologia|Guia profundo sobre os recursos avançados do Java - 10.ed. Upper Saddle River: Prentice Hall|2017-05-10|true
+20|Core Java: Volume II - Advanced Features|Cay S. Horstmann|9780134177298|Tecnologia|Guia profundo sobre os recursos avançados do Java - 10.ed. Upper Saddle River: Prentice Hall|2017-05-10|true
+21|Programação com Java: Uma Introdução Abrangente|Herbert Schildt|9788582600429|Tecnologia|Uma introdução abrangente à programação Java. Porto Alegre: AMGH|2013-08-20|true
+22|Programação com Java: Uma Introdução Abrangente|Herbert Schildt|9788582600429|Tecnologia|Uma introdução abrangente à programação Java. Porto Alegre: AMGH|2013-08-20|true
+23|Programação com Java: Uma Introdução Abrangente|Herbert Schildt|9788582600429|Tecnologia|Uma introdução abrangente à programação Java. Porto Alegre: AMGH|2013-08-20|true
+24|Programação com Java: Uma Introdução Abrangente|Herbert Schildt|9788582600429|Tecnologia|Uma introdução abrangente à programação Java. Porto Alegre: AMGH|2013-08-20|true
+25|Programação com Java: Uma Introdução Abrangente|Herbert Schildt|9788582600429|Tecnologia|Uma introdução abrangente à programação Java. Porto Alegre: AMGH|2013-08-20|true
+26|Programação com Java: Uma Introdução Abrangente|Herbert Schildt|9788582600429|Tecnologia|Uma introdução abrangente à programação Java. Porto Alegre: AMGH|2013-08-20|true
+27|Programação com Java: Uma Introdução Abrangente|Herbert Schildt|9788582600429|Tecnologia|Uma introdução abrangente à programação Java. Porto Alegre: AMGH|2013-08-20|true
+28|Programação com Java: Uma Introdução Abrangente|Herbert Schildt|9788582600429|Tecnologia|Uma introdução abrangente à programação Java. Porto Alegre: AMGH|2013-08-20|true
+29|Programação com Java: Uma Introdução Abrangente|Herbert Schildt|9788582600429|Tecnologia|Uma introdução abrangente à programação Java. Porto Alegre: AMGH|2013-08-20|true
+30|Programação com Java: Uma Introdução Abrangente|Herbert Schildt|9788582600429|Tecnologia|Uma introdução abrangente à programação Java. Porto Alegre: AMGH|2013-08-20|true
+31|Sistemas Operacionais Modernos|Andrew S. Tanenbaum|9788543005676|Tecnologia|Abordagem moderna sobre a estrutura de sistemas operacionais - 4.ed. São Paulo: Pearson|2016-03-25|true
+32|Sistemas Operacionais Modernos|Andrew S. Tanenbaum|9788543005676|Tecnologia|Abordagem moderna sobre a estrutura de sistemas operacionais - 4.ed. São Paulo: Pearson|2016-03-25|true
+33|Sistemas Operacionais Modernos|Andrew S. Tanenbaum|9788543005676|Tecnologia|Abordagem moderna sobre a estrutura de sistemas operacionais - 4.ed. São Paulo: Pearson|2016-03-25|true
+34|Sistemas Operacionais Modernos|Andrew S. Tanenbaum|9788543005676|Tecnologia|Abordagem moderna sobre a estrutura de sistemas operacionais - 4.ed. São Paulo: Pearson|2016-03-25|true
+35|Sistemas Operacionais Modernos|Andrew S. Tanenbaum|9788543005676|Tecnologia|Abordagem moderna sobre a estrutura de sistemas operacionais - 4.ed. São Paulo: Pearson|2016-03-25|true
+36|Sistemas Operacionais Modernos|Andrew S. Tanenbaum|9788543005676|Tecnologia|Abordagem moderna sobre a estrutura de sistemas operacionais - 4.ed. São Paulo: Pearson|2016-03-25|true
+37|Sistemas Operacionais Modernos|Andrew S. Tanenbaum|9788543005676|Tecnologia|Abordagem moderna sobre a estrutura de sistemas operacionais - 4.ed. São Paulo: Pearson|2016-03-25|true
+38|Sistemas Operacionais Modernos|Andrew S. Tanenbaum|9788543005676|Tecnologia|Abordagem moderna sobre a estrutura de sistemas operacionais - 4.ed. São Paulo: Pearson|2016-03-25|true
+39|Sistemas Operacionais Modernos|Andrew S. Tanenbaum|9788543005676|Tecnologia|Abordagem moderna sobre a estrutura de sistemas operacionais - 4.ed. São Paulo: Pearson|2016-03-25|true
+40|Sistemas Operacionais Modernos|Andrew S. Tanenbaum|9788543005676|Tecnologia|Abordagem moderna sobre a estrutura de sistemas operacionais - 4.ed. São Paulo: Pearson|2016-03-25|true
+41|Código Limpo|Robert C. Martin|9788576082323|Programação|Um guia prático para escrita de código.|2008-08-01|true
+42|Código Limpo|Robert C. Martin|9788576082323|Programação|Um guia prático para escrita de código.|2008-08-01|true
+43|Código Limpo|Robert C. Martin|9788576082323|Programação|Um guia prático para escrita de código.|2008-08-01|true
+44|Código Limpo|Robert C. Martin|9788576082323|Programação|Um guia prático para escrita de código.|2008-08-01|true
+45|Código Limpo|Robert C. Martin|9788576082323|Programação|Um guia prático para escrita de código.|2008-08-01|true
+46|Código Limpo|Robert C. Martin|9788576082323|Programação|Um guia prático para escrita de código.|2008-08-01|true
+47|Código Limpo|Robert C. Martin|9788576082323|Programação|Um guia prático para escrita de código.|2008-08-01|true
+48|Código Limpo|Robert C. Martin|9788576082323|Programação|Um guia prático para escrita de código.|2008-08-01|true
+49|Código Limpo|Robert C. Martin|9788576082323|Programação|Um guia prático para escrita de código.|2008-08-01|true
+50|Código Limpo|Robert C. Martin|9788576082323|Programação|Um guia prático para escrita de código.|2008-08-01|true
+51|Java: Como Programar (Semente)|Paul Deitel|9780134694726|Programação|O guia definitivo para Java.|2016-01-01|true
+52|Java: Como Programar (Semente)|Paul Deitel|9780134694726|Programação|O guia definitivo para Java.|2016-01-01|true
+53|Java: Como Programar (Semente)|Paul Deitel|9780134694726|Programação|O guia definitivo para Java.|2016-01-01|true
+54|Java: Como Programar (Semente)|Paul Deitel|9780134694726|Programação|O guia definitivo para Java.|2016-01-01|true
+55|Java: Como Programar (Semente)|Paul Deitel|9780134694726|Programação|O guia definitivo para Java.|2016-01-01|true
+56|Java: Como Programar (Semente)|Paul Deitel|9780134694726|Programação|O guia definitivo para Java.|2016-01-01|true
+57|Java: Como Programar (Semente)|Paul Deitel|9780134694726|Programação|O guia definitivo para Java.|2016-01-01|true
+58|Java: Como Programar (Semente)|Paul Deitel|9780134694726|Programação|O guia definitivo para Java.|2016-01-01|true
+59|Estruturas de Dados e Algoritmos|Thomas H. Cormen|9788575226937|Computação|Essencial para algoritmos.|2010-05-10|true
+60|Estruturas de Dados e Algoritmos|Thomas H. Cormen|9788575226937|Computação|Essencial para algoritmos.|2010-05-10|true
+61|Padrões de Projeto|Erich Gamma|9788573076103|Engenharia de Software|As soluções clássicas do GoF.|1994-10-21|true
+62|Core Java: Volume I - Fundamentos|Cay S. Horstmann|9788521637110|Tecnologia|Guia profundo sobre os recursos essenciais do Java|2020-05-10|true
+63|Java Efetivo|Joshua Bloch|9788576082675|Tecnologia|Melhores práticas de programação do próprio criador de APIs do Java|2019-02-15|true
+64|Java Efetivo (Exemplar 2)|Joshua Bloch|9788576082675|Tecnologia|Melhores práticas de programação do próprio criador de APIs do Java|2019-02-15|true
+65|Use a Cabeça! Java|Kathy Sierra|9788576081739|Tecnologia|Aprendizado lúdico e visual da linguagem Java|2010-08-20|true
+66|Spring Boot da Mente à Nuvem|Alexandre Aquiles|9788555192807|Tecnologia|Desenvolvimento de aplicações web modernas com ecossistema Spring|2021-11-03|true
+67|Pense em Python|Allen B. Downey|9788575225080|Tecnologia|Introdução linear e prática à programação com Python|2016-06-10|true
+68|Pense em Python (Exemplar 2)|Allen B. Downey|9788575225080|Tecnologia|Introdução linear e prática à programação com Python|2016-06-10|true
+69|Python Fluente|Luciano Ramalho|9788575224625|Tecnologia|Programação advanced e conceitos profundos da linguagem|2015-10-25|true
+70|Python para Análise de Dados|Wes McKinney|9788575226476|Tecnologia|Manipulação, processamento e limpeza de dados com Pandas e NumPy|2018-02-01|true
+71|Introdução à Programação com Python|Nilo Ney Coutinho Menezes|9788575224052|Tecnologia|Guia prático de algoritmos e lógica com Python|2014-11-14|true
+72|C: Como Programar|Paul Deitel|9788543005843|Tecnologia|Guia completo de introdução à programação estruturada na linguagem C|2016-03-25|true
+73|C: Como Programar (Exemplar 2)|Paul Deitel|9788543005843|Tecnologia|Guia completo de introdução à programação estruturada na linguagem C|2016-03-25|true
+74|C++ Como Programar|Paul Deitel|9788543015385|Tecnologia|Abordagem complete sobre programação orientada a objetos com C++|2017-08-12|true
+75|A Linguagem de Programação C|Brian W. Kernighan|9788535213844|Tecnologia|O livro clássico (Bíblia do C) escrito pelos próprios criadores da linguagem|1988-04-01|true
+76|Programação: Princípios e Prática com C++|Bjarne Stroustrup|9788573079098|Tecnologia|Introdução à programação voltada para quem quer dominar C++ pelo criador da linguagem|2012-10-18|true
+77|Algoritmos: Teoria e Prática|Thomas H. Cormen|9788521608325|Tecnologia|A bíblia dos algoritmos, essencial para estruturas de dados avançadas|2012-08-16|true
+78|Introdução a Algoritmos e Programação|Anita Lopes|9788521634812|Tecnologia|Livro didático excelente para iniciantes em lógica de programação|2017-03-10|true
+79|Introdução a Algoritmos e Programação (Exemplar 2)|Anita Lopes|9788521634812|Tecnologia|Livro didático excelente para iniciantes em lógica de programação|2017-03-10|true
+80|Entendendo Algoritmos|Aditya Bhargava|9788575226018|Tecnologia|Um guia ilustrado e prático para programadores e estudantes|2017-05-05|true
