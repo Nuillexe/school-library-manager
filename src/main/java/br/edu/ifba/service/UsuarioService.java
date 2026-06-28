@@ -43,7 +43,7 @@ public class UsuarioService {
         }
 
         // 4. Captura a referência física do exemplar disponível
-        Livro livroFisicoEmprestado = titulo.obterExemplarDisponivel();
+        Livro livroFisicoEmprestado = titulo.getExemplarDisponivel();
         if (livroFisicoEmprestado == null) {
             System.out.println("❌ Erro interno: Divergência nos contadores do acervo.");
             return false;

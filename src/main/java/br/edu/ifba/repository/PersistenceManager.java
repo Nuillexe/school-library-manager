@@ -177,7 +177,7 @@ public class PersistenceManager {
                     Livro livroModelo = new Livro(tituloNome, "", tituloIsbn, "", "", LocalDate.now());
                     LivroDAOLista exLista = new LivroDAOLista();
                     exLista.salvar(livroModelo);
-                    Titulo tituloStub = new Titulo(exLista, new EmprestimoDAOLista(), new ReservaDAOFilaDePrioridade());
+                    Titulo tituloStub = new Titulo(exLista);
 
                     Reserva res = new Reserva(userStub, tituloStub);
                     res.setDataReserva(dataRes);
@@ -219,174 +219,47 @@ public class PersistenceManager {
     /**
      * Salva ou atualiza a listagem completa de exemplares físicos do acervo.
      */
-    public static void salvarLivros(LivroDAOLista livros) {
-        if (livros == null) return;
-        File arquivo = new File(PASTA_DADOS_LIVROS);
-        criarPastasSeNaoExistirem(arquivo);
+    public static void salvarLivro(Livro l) {
 
-        // 'false' indica que o arquivo será totalmente reescrito com o acervo atualizado
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(arquivo, false))) {
-            for (Livro l : livros.listar()) {
-                if (l == null) continue;
-                bw.write(
-                        l.getId() + SEPARADOR_ESCRITA +
-                                l.getNome() + SEPARADOR_ESCRITA +
-                                l.getAutor() + SEPARADOR_ESCRITA +
-                                l.getIsbn() + SEPARADOR_ESCRITA +
-                                l.getGenero() + SEPARADOR_ESCRITA +
-                                l.getDescricao() + SEPARADOR_ESCRITA +
-                                l.getDataPublicacao() + SEPARADOR_ESCRITA +
-                                l.isDisponivel()
-                );
-                bw.newLine(); // Pula para a próxima linha do arquivo .txt
-            }
-        } catch (IOException e) {
-            System.out.println("Erro ao salvar catálogo de livros: " + e.getMessage());
-        }
     }
 
     /**
      * Anexa (Append) um novo usuário cadastrado diretamente ao fim do arquivo de texto.
      */
     public static void salvarUsuario(Usuario u) {
-        if (u == null) return;
-        File arquivo = new File(PASTA_DADOS_USUARIOS);
-        criarPastasSeNaoExistirem(arquivo);
-
-        // 'true' ativa o modo append (grava ao final do arquivo sem apagar o que já existe)
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(arquivo, true))) {
-            bw.write(
-                    u.getId() + SEPARADOR_ESCRITA +
-                            u.getNome() + SEPARADOR_ESCRITA +
-                            u.getEmail() + SEPARADOR_ESCRITA +
-                            u.getSenha() + SEPARADOR_ESCRITA +
-                            u.getTipo()
-            );
-            bw.newLine();
-        } catch (IOException e) {
-            System.out.println("Erro ao anexar novo usuário: " + e.getMessage());
-        }
     }
 
     /**
      * Anexa (Append) um novo registro de empréstimo feito ao fim do arquivo txt.
      */
     public static void salvarEmprestimo(Emprestimo e) {
-        if (e == null) return;
-        File arquivo = new File(PASTA_DADOS_EMPRESTIMOS);
-        criarPastasSeNaoExistirem(arquivo);
 
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(arquivo, true))) {
-            bw.write(
-                    e.getId() + SEPARADOR_ESCRITA +
-                            e.getUsuario().getId() + SEPARADOR_ESCRITA +
-                            e.getUsuario().getNome() + SEPARADOR_ESCRITA +
-                            e.getLivro().getId() + SEPARADOR_ESCRITA +
-                            e.getLivro().getNome() + SEPARADOR_ESCRITA +
-                            e.getLivro().getIsbn() + SEPARADOR_ESCRITA +
-                            e.getDataEmprestimo() + SEPARADOR_ESCRITA +
-                            e.getDataDevolucao() + SEPARADOR_ESCRITA +
-                            e.isAtrasado()
-            );
-            bw.newLine();
-        } catch (IOException ex) { // <-- Alterado aqui de 'e' para 'ex'
-            System.out.println("Erro ao anexar novo empréstimo: " + ex.getMessage()); // <-- E aqui também
-        }
     }
 
     /**
      * Anexa (Append) uma nova reserva gerada ao fim do arquivo txt.
      */
     public static void salvarReserva(Reserva r) {
-        if (r == null) return;
-        File arquivo = new File(PASTA_DADOS_RESERVAS);
-        criarPastasSeNaoExistirem(arquivo);
 
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(arquivo, true))) {
-            bw.write(
-                    r.getId() + SEPARADOR_ESCRITA +
-                            r.getUsuario().getId() + SEPARADOR_ESCRITA +
-                            r.getUsuario().getNome() + SEPARADOR_ESCRITA +
-                            r.getTitulo().getIsbn() + SEPARADOR_ESCRITA +
-                            r.getTitulo().getNome() + SEPARADOR_ESCRITA +
-                            r.getDataReserva()
-            );
-            bw.newLine();
-        } catch (IOException e) {
-            System.out.println("Erro ao anexar nova reserva: " + e.getMessage());
-        }
     }
 
     /**
      * Sobrescreve a lista completa de empréstimos (usado ao devolver livros ou recalcular atrasos).
      */
     public static void sobrescreverEmprestimos(EmprestimoDAOLista listaDeEmprestimos) {
-        if (listaDeEmprestimos == null) return;
-        File arquivo = new File(PASTA_DADOS_EMPRESTIMOS);
-        criarPastasSeNaoExistirem(arquivo);
 
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(arquivo, false))) {
-            for (Emprestimo e : listaDeEmprestimos.listar()) {
-                if (e == null) continue;
-                bw.write(
-                        e.getId() + SEPARADOR_ESCRITA +
-                                e.getUsuario().getId() + SEPARADOR_ESCRITA +
-                                e.getUsuario().getNome() + SEPARADOR_ESCRITA +
-                                e.getLivro().getId() + SEPARADOR_ESCRITA +
-                                e.getLivro().getNome() + SEPARADOR_ESCRITA +
-                                e.getLivro().getIsbn() + SEPARADOR_ESCRITA +
-                                e.getDataEmprestimo() + SEPARADOR_ESCRITA +
-                                e.getDataDevolucao() + SEPARADOR_ESCRITA +
-                                e.isAtrasado()
-                );
-                bw.newLine();
-            }
-        } catch (IOException e) {
-            System.out.println("Erro ao sincronizar histórico de empréstimos: " + e.getMessage());
-        }
     }
 
     /**
      * Sobrescreve a lista de reservas (usado quando um usuário desiste ou assume uma reserva).
      */
     public static void sobrescreverReservas(ReservaDAOLista listaDeReservas) {
-        if (listaDeReservas == null) return;
-        File arquivo = new File(PASTA_DADOS_RESERVAS);
-        criarPastasSeNaoExistirem(arquivo);
 
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(arquivo, false))) {
-            for (Reserva r : listaDeReservas.listar()) {
-                if (r == null) continue;
-                bw.write(
-                        r.getId() + SEPARADOR_ESCRITA +
-                                r.getUsuario().getId() + SEPARADOR_ESCRITA +
-                                r.getUsuario().getNome() + SEPARADOR_ESCRITA +
-                                r.getTitulo().getIsbn() + SEPARADOR_ESCRITA +
-                                r.getTitulo().getNome() + SEPARADOR_ESCRITA +
-                                r.getDataReserva()
-                );
-                bw.newLine();
-            }
-        } catch (IOException e) {
-            System.out.println("Erro ao sincronizar fila de reservas: " + e.getMessage());
-        }
     }
 
     public static void sobrescreverLivros(LivroDAOLista listaDeLivros) {
 
     }
 
-    // =========================================================================
-    // UTILITÁRIO INTERNO (EVITA REPETIÇÃO DE CÓDIGO)
-    // =========================================================================
 
-    /**
-     * Garante de forma nativa e segura que as pastas (resources/data/) existam no computador.
-     */
-    private static void criarPastasSeNaoExistirem(File arquivo) {
-        File pastaPai = arquivo.getParentFile();
-        if (pastaPai != null && !pastaPai.exists()) {
-            pastaPai.mkdirs();
-        }
-    }
 }
