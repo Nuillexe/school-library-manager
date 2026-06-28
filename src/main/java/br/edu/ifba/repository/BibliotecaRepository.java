@@ -129,4 +129,19 @@ public class BibliotecaRepository {
     public int contarTotalReservas() {
         return listaDeReservas.tamanho();
     }
+
+    public  Livro removerLivro(long idDoLivro){
+        Livro l=this.acervo.apagar(idDoLivro);
+        if(l==null){
+            return null;
+        }else{
+            listaDeTitulos.buscarPorNome(l.getNome()).getListaDeExemplares().apagar(idDoLivro);
+            PersistenceManager.sobrescreverLivros(this.acervo);
+
+        }
+        return l;
+    }
+
+
+
 }

@@ -3,9 +3,6 @@ package br.edu.ifba.models;
 import br.edu.ifba.enums.TipoUsuario;
 import br.edu.ifba.repository.dao.EmprestimoDAOLista;
 
-/**
- * Classe que representa um usuário do sistema (Aluno, Professor ou Bibliotecário).
- */
 public class Usuario {
     private String id;
     private String nome;
@@ -13,11 +10,8 @@ public class Usuario {
     private String senha;
     public TipoUsuario tipo;
     private int limiteLivros;
-    private EmprestimoDAOLista listaEmprestimos; // Lista encadeada/dinâmica contendo os empréstimos ativos do usuário
+    private EmprestimoDAOLista listaEmprestimos;
 
-    /**
-     * Construtor parametrizado para registrar um novo usuário com cálculo automático do limite de livros.
-     */
     public Usuario(String id, String nome, String email, String senha, TipoUsuario tipo) {
         this.id = id;
         this.nome = nome;
@@ -25,91 +19,106 @@ public class Usuario {
         this.tipo = tipo;
         this.senha = senha;
 
-        // Define a quantidade máxima de livros permitidos simultaneamente baseada na categoria
-        if (tipo == TipoUsuario.ALUNO) {
-            this.limiteLivros = 3;
-        } else if (tipo == TipoUsuario.PROFESSOR) {
-            this.limiteLivros = 4;
+        if(tipo == TipoUsuario.ALUNO){
+            limiteLivros = 3;
+        } else if(tipo == TipoUsuario.PROFESSOR){
+            limiteLivros = 4;
         } else {
-            this.limiteLivros = 5; // Evita o valor padrão zero para bibliotecários ou administradores
+            limiteLivros = 5; // evita valor 0 para bibliotecário
         }
 
         this.listaEmprestimos = new EmprestimoDAOLista();
     }
 
-    // Getters e Setters comentados
 
+    // Getters
     public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
-
     public String getNome() { return nome; }
-    public void setNome(String nome) { this.nome = nome; }
-
     public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
-
     public String getSenha() { return senha; }
-    public void setSenha(String senha) { this.senha = senha; }
-
     public TipoUsuario getTipo() { return tipo; }
-    public void setTipo(TipoUsuario tipo) { this.tipo = tipo; }
-
     public int getLimiteLivros() { return limiteLivros; }
-    public void setLimiteLivros(int limiteLivros) { this.limiteLivros = limiteLivros; }
-
     public EmprestimoDAOLista getListaEmprestimos() { return listaEmprestimos; }
 
-    /**
-     * Remove um empréstimo específico da lista de pendências do usuário (usado no processo de devolução).
-     */
-    public Emprestimo removerEmprestimo(Emprestimo e) {
-        if (e == null) {
+
+    // Setters
+    public void setId(String id) { this.id = id; }
+    public void setNome(String nome) { this.nome = nome; }
+    public void setEmail(String email) { this.email = email; }
+    public void setSenha(String senha) { this.senha = senha; }
+    public void setCategoria(TipoUsuario categoria) { this.tipo = categoria; }
+    public void setLimiteLivros(int limiteLivros) { this.limiteLivros = limiteLivros; }
+
+    public void mostrarDados() {
+        System.out.println("ID: " + id + " | Nome: " + nome + " | Categoria: " + tipo);
+    }
+
+    public void adicionarEmprestimo(Emprestimo emprestimo) {
+        /// Adiciona um emprestimo na lista
+
+        /// Verifica se o emprestimo é nulo
+        if (emprestimo == null) {
+            return;
+        }
+
+        listaEmprestimos.salvar(emprestimo);
+    }
+
+    /// Remove um emprestimo pelo id
+    public Emprestimo removerEmprestimo(Emprestimo e){
+
+        /// Verifica se o objeto é válido
+        if(e == null){
             return null;
         }
 
-        // Percorre a estrutura customizada usando loops e índices
-        for (int i = 0; i < listaEmprestimos.tamanho(); i++) {
+        /// Percorre a lista usando índice
+        for(int i = 0; i < listaEmprestimos.tamanho(); i++){
+
             Emprestimo emp = listaEmprestimos.selecionar(i);
 
-            // Como o ID é do tipo primitivo 'long', a comparação deve usar o operador '=='
-            if (emp != null && emp.getId() == e.getId()) {
+            /// Compara os IDs (tipo primitivo usa ==)
+            if(emp != null && emp.getId() == e.getId()){
                 return listaEmprestimos.remover(i);
             }
         }
+
         return null;
     }
 
-    /**
-     * Varre todos os empréstimos ativos do usuário para checar se algum deles ultrapassou o prazo de devolução.
-     * @return true se houver pelo menos um empréstimo atrasado; false caso contrário.
-     */
-    public boolean temEmprestimoAtrasado() {
-        for (int i = 0; i < listaEmprestimos.tamanho(); i++) {
+    public boolean temEmprestimoAtrasado(){
+        /// Retorna true se algum emprestimo estiver atrasado
+
+        for(int i = 0; i < listaEmprestimos.tamanho(); i++){
+
             Emprestimo emp = listaEmprestimos.selecionar(i);
 
-            if (emp != null && emp.isAtrasado()) {
-                return true; // Bloqueia ações caso encontre uma pendência
+            if(emp != null && emp.isAtrasado()){
+                return true;
             }
         }
+
         return false;
     }
 
-    /**
-     * Valida a igualdade entre usuários com base em seus identificadores únicos (String id).
-     */
+    /// Compara dois usuarios pelo id
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
+    public boolean equals(Object obj){
+
+        /// Verifica se é o mesmo objeto
+        if(this == obj){
             return true;
         }
 
-        if (obj == null || getClass() != obj.getClass()) {
+        /// Verifica se é nulo ou tipo diferente
+        if(obj == null || getClass() != obj.getClass()){
             return false;
         }
 
         Usuario outro = (Usuario) obj;
 
-        if (this.id == null || outro.id == null) {
+        /// Verifica se os ids são válidos
+        if(this.id == null || outro.id == null){
             return false;
         }
 
@@ -119,10 +128,7 @@ public class Usuario {
     @Override
     public String toString() {
         return "Usuario{" +
-                "id='" + id + '\'' +
-                ", nome='" + nome + '\'' +
-                ", email='" + email + '\'' +
-                ", tipo=" + tipo +
-                '}';
+                "email='" + email + '\'' +
+                "senha: "+senha+'}';
     }
 }

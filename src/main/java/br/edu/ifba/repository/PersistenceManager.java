@@ -212,9 +212,9 @@ public class PersistenceManager {
         return ids;
     }
 
-    // =========================================================================
-    // MÉTODOS DE ESCRITA (SALVAMENTO UNITÁRIO / APPEND / SOBREESCRITA)
-    // =========================================================================
+// =========================================================================
+// MÉTODOS DE ESCRITA (SALVAMENTO UNITÁRIO / APPEND / SOBREESCRITA)
+// =========================================================================
 
     /**
      * Salva ou atualiza a listagem completa de exemplares físicos do acervo.
@@ -372,6 +372,10 @@ public class PersistenceManager {
         }
     }
 
+    public static void sobrescreverLivros(LivroDAOLista listaDeLivros) {
+
+    }
+
     // =========================================================================
     // UTILITÁRIO INTERNO (EVITA REPETIÇÃO DE CÓDIGO)
     // =========================================================================
@@ -382,7 +386,7 @@ public class PersistenceManager {
     private static void criarPastasSeNaoExistirem(File arquivo) {
         File pastaPai = arquivo.getParentFile();
         if (pastaPai != null && !pastaPai.exists()) {
-            pastaPai.mkdirs(); // Cria todas as pastas do caminho que não existirem
+            pastaPai.mkdirs();
         }
     }
 }
