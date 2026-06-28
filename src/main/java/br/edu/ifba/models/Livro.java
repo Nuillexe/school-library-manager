@@ -60,8 +60,7 @@ public class Livro {
 
     public Livro(Long id) {
         this.id = id;
-        this.disponivel = null;
-
+        this.disponivel = true;
         this.nome = null;
         this.autor = null;
         this.isbn = null;

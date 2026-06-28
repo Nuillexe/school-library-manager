@@ -45,7 +45,7 @@ public class Emprestimo {
         this.atrasado = false; // Inicia em dia
     }
 
-    public Emprestimo(int id,
+    public Emprestimo(long id,
                       Usuario usuario,
                       Livro livro,
                       LocalDate dataEmprestimo,

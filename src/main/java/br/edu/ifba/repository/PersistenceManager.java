@@ -168,6 +168,7 @@ public class PersistenceManager {
      * Carrega as reservas vinculando as referências reais de Usuários e Títulos.
      */
     public static ReservaDAOLista carregarReservas() {
+
         ReservaDAOLista dao = new ReservaDAOLista();
         File arquivo = new File(PASTA_DADOS_RESERVAS);
 
@@ -176,44 +177,55 @@ public class PersistenceManager {
         }
 
         try (BufferedReader br = new BufferedReader(new FileReader(arquivo))) {
+
             String linha;
+
             while ((linha = br.readLine()) != null) {
+
                 if (linha.isBlank()) {
                     continue;
                 }
 
                 String[] dados = linha.split(SEPARADOR_LEITURA);
 
-                if (dados.length >= 6) {
-                    int id = Integer.parseInt(dados[0]);
-                    String idUsuario = dados[1];
-                    String nomeUsuario = dados[2];
-                    String isbn = dados[3];
-                    String nomeTitulo = dados[4];
-                    LocalDateTime dataReserva = LocalDateTime.parse(dados[5]);
+                if (dados.length >= 4) {
 
-                    // Busca o usuário real
-                    Usuario usuario = usuarioDAO.buscarPorId(idUsuario);
-                    if (usuario == null) {
-                        usuario = new Usuario(idUsuario, nomeUsuario, "", "", TipoUsuario.ALUNO);
-                    }
+                    long id =
+                            Long.parseLong(dados[0]);
 
-                    // Busca o título real
-                    Titulo titulo = tituloDAO.buscarPorNome(nomeTitulo);
-                    if (titulo == null) {
-                        Livro livro = new Livro(0, nomeTitulo, "", isbn, "", "", LocalDate.now(), true);
-                        LivroDAOLista lista = new LivroDAOLista();
-                        lista.salvar(livro);
-                        titulo = new Titulo(lista);
-                    }
+                    String idUsuario =
+                            dados[1];
 
-                    Reserva reserva = new Reserva(id, usuario, titulo, dataReserva);
+                    String isbnTitulo =
+                            dados[2];
+
+                    LocalDateTime dataReserva =
+                            LocalDateTime.parse(dados[3]);
+
+                    // Objetos temporários
+                    Usuario usuarioFake =
+                            new Usuario(idUsuario);
+
+                    Titulo tituloFake =
+                            new Titulo(isbnTitulo);
+
+                    Reserva reserva =
+                            new Reserva(
+                                    id,
+                                    usuarioFake,
+                                    tituloFake,
+                                    dataReserva
+                            );
+
                     dao.salvar(reserva);
                 }
             }
+
         } catch (IOException e) {
-            System.out.println("Erro ao carregar reservas: " + e.getMessage());
+            System.out.println("Erro ao carregar reservas: "
+                    + e.getMessage());
         }
+
         return dao;
     }
 

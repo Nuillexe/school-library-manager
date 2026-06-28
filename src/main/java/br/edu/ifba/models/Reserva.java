@@ -38,7 +38,7 @@ public class Reserva {
         this.id = ++idCount; // Atribui ID auto-incremental único
     }
 
-    public Reserva(int id, Usuario usuario, Titulo titulo,
+    public Reserva(long id, Usuario usuario, Titulo titulo,
                    LocalDateTime dataReserva) {
 
         this.id = id;
