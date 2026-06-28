@@ -1,36 +1,24 @@
 package br.edu.ifba.repository;
 
-// Imports das suas classes de modelo
-import br.edu.ifba.models.Livro;
-import br.edu.ifba.models.Usuario;
+import br.edu.ifba.enums.TipoUsuario;
 import br.edu.ifba.models.Emprestimo;
+import br.edu.ifba.models.Livro;
 import br.edu.ifba.models.Reserva;
 import br.edu.ifba.models.Titulo;
-
-// Import explícito do Enum do seu projeto
-import br.edu.ifba.enums.TipoUsuario;
-
-// Imports dos seus DAOs customizados
-import br.edu.ifba.repository.dao.LivroDAOLista;
-import br.edu.ifba.repository.dao.UsuarioDAOLista;
+import br.edu.ifba.models.Usuario;
 import br.edu.ifba.repository.dao.EmprestimoDAOLista;
+import br.edu.ifba.repository.dao.LivroDAOLista;
 import br.edu.ifba.repository.dao.ReservaDAOLista;
-import br.edu.ifba.repository.dao.ReservaDAOFilaDePrioridade;
+import br.edu.ifba.repository.dao.TituloDAOLista;
+import br.edu.ifba.repository.dao.UsuarioDAOLista;
 
-// Imports nativos do Java para manipulação de arquivos (I/O) e datas
-import java.io.File;
-import java.io.FileReader;
-import java.io.BufferedReader;
-import java.io.FileWriter;
-import java.io.BufferedWriter;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class PersistenceManager {
 
-    // Constantes com as pastas e caminhos dos arquivos .txt fornecidos no esqueleto
     private static final String PASTA_DADOS_LIVROS = "resources/data/livros.txt";
     private static final String PASTA_DADOS_RESERVAS = "resources/data/reservas.txt";
     private static final String PASTA_DADOS_EMPRESTIMOS = "resources/data/emprestimos.txt";
@@ -40,164 +28,199 @@ public class PersistenceManager {
     private static final String SEPARADOR_LEITURA = "\\|";
     private static final String SEPARADOR_ESCRITA = "|";
 
-    // =========================================================================
-    // MÉTODOS DE LEITURA (CARREGAMENTO DOS ARQUIVOS TXT PARA A MEMÓRIA)
-    // =========================================================================
+    // ============================================================
+    // LEITURA DOS ARQUIVOS
+    // ============================================================
 
-    /**
-     * Lê o arquivo de livros e reconstrói o LivroDAOLista.
-     */
     public static LivroDAOLista carregarLivros() {
         LivroDAOLista dao = new LivroDAOLista();
         File arquivo = new File(PASTA_DADOS_LIVROS);
-        if (!arquivo.exists()) return dao;
 
-        // O bloco try-with-resources garante o fechamento automático do arquivo
+        if (!arquivo.exists()) {
+            return dao;
+        }
+
         try (BufferedReader br = new BufferedReader(new FileReader(arquivo))) {
             String linha;
             while ((linha = br.readLine()) != null) {
-                if (linha.isBlank()) continue;
+                if (linha.isBlank()) {
+                    continue;
+                }
+
                 String[] dados = linha.split(SEPARADOR_LEITURA);
+
                 if (dados.length >= 8) {
-                    // Recupera os dados guardados em formato texto (CSV separado por ';')
+                    int id = Integer.parseInt(dados[0]);
                     String nome = dados[1];
                     String autor = dados[2];
                     String isbn = dados[3];
                     String genero = dados[4];
                     String descricao = dados[5];
-                    LocalDate dataPub = LocalDate.parse(dados[6]);
+                    LocalDate dataPublicacao = LocalDate.parse(dados[6]);
                     boolean disponivel = Boolean.parseBoolean(dados[7]);
 
-                    // Recria o objeto livro usando o construtor padrão do grupo
-                    Livro livro = new Livro(nome, autor, isbn, genero, descricao, dataPub);
-                    livro.setDisponivel(disponivel);
-
+                    Livro livro = new Livro(id, nome, autor, isbn, genero, descricao, dataPublicacao, disponivel);
                     dao.salvar(livro);
                 }
             }
         } catch (IOException e) {
-            System.out.println("Erro ao carregar o arquivo de livros: " + e.getMessage());
+            System.out.println("Erro ao carregar livros: " + e.getMessage());
         }
         return dao;
     }
 
-    /**
-     * Lê o arquivo de usuários cadastrados e monta o UsuarioDAOLista.
-     */
     public static UsuarioDAOLista carregarUsuarios() {
         UsuarioDAOLista dao = new UsuarioDAOLista();
         File arquivo = new File(PASTA_DADOS_USUARIOS);
-        if (!arquivo.exists()) return dao;
+
+        if (!arquivo.exists()) {
+            return dao;
+        }
 
         try (BufferedReader br = new BufferedReader(new FileReader(arquivo))) {
             String linha;
             while ((linha = br.readLine()) != null) {
-                if (linha.isBlank()) continue;
+                if (linha.isBlank()) {
+                    continue;
+                }
+
                 String[] dados = linha.split(SEPARADOR_LEITURA);
+
                 if (dados.length >= 5) {
                     String id = dados[0];
                     String nome = dados[1];
                     String email = dados[2];
                     String senha = dados[3];
-                    // Converte o texto estrito de volta para a constante correspondente do Enum TipoUsuario
                     TipoUsuario tipo = TipoUsuario.valueOf(dados[4]);
 
-                    Usuario u = new Usuario(id, nome, email, senha, tipo);
-                    dao.salvar(u);
+                    Usuario usuario = new Usuario(id, nome, email, senha, tipo);
+                    dao.salvar(usuario);
                 }
             }
         } catch (IOException e) {
-            System.out.println("Erro ao carregar o arquivo de usuários: " + e.getMessage());
+            System.out.println("Erro ao carregar usuários: " + e.getMessage());
         }
         return dao;
     }
 
     /**
-     * Carrega o histórico de empréstimos da biblioteca a partir do arquivo txt.
+     * Carrega os empréstimos vinculando as referências reais de Usuários e Livros na memória.
      */
-    public static EmprestimoDAOLista carregarEmprestimos() {
+    public static EmprestimoDAOLista carregarEmprestimos(UsuarioDAOLista usuarioDAO, LivroDAOLista livroDAO) {
         EmprestimoDAOLista dao = new EmprestimoDAOLista();
         File arquivo = new File(PASTA_DADOS_EMPRESTIMOS);
-        if (!arquivo.exists()) return dao;
+
+        if (!arquivo.exists()) {
+            return dao;
+        }
 
         try (BufferedReader br = new BufferedReader(new FileReader(arquivo))) {
             String linha;
             while ((linha = br.readLine()) != null) {
-                if (linha.isBlank()) continue;
+                if (linha.isBlank()) {
+                    continue;
+                }
+
                 String[] dados = linha.split(SEPARADOR_LEITURA);
-                if (dados.length >= 9) {
-                    String userIdentificador = dados[1];
-                    String userNome = dados[2];
-                    String livroNome = dados[4];
-                    String livroIsbn = dados[5];
-                    LocalDate dataEmp = LocalDate.parse(dados[6]);
-                    LocalDate dataDev = LocalDate.parse(dados[7]);
-                    boolean atrasado = Boolean.parseBoolean(dados[8]);
 
-                    // Instancia Stubs temporários para manter o vínculo visual exigido nas tabelas da interface gráfica
-                    Usuario userStub = new Usuario(userIdentificador, userNome, "", "", TipoUsuario.ALUNO);
-                    Livro livroStub = new Livro(livroNome, "", livroIsbn, "", "", LocalDate.now());
+                if (dados.length >= 8) {
+                    int id = Integer.parseInt(dados[0]);
+                    String idUsuario = dados[1];
+                    String nomeUsuario = dados[2];
+                    String nomeLivro = dados[3];
+                    String isbn = dados[4];
+                    LocalDate dataEmprestimo = LocalDate.parse(dados[5]);
+                    LocalDate dataDevolucao = LocalDate.parse(dados[6]);
+                    boolean atrasado = Boolean.parseBoolean(dados[7]);
 
-                    Emprestimo emp = new Emprestimo(userStub, livroStub);
-                    emp.setDataEmprestimo(dataEmp);
-                    emp.setDataDevolucao(dataDev);
-                    emp.setAtrasado(atrasado);
+                    // Busca o usuário real carregado na memória
+                    Usuario usuario = usuarioDAO.buscarPorId(idUsuario);
+                    if (usuario == null) {
+                        usuario = new Usuario(idUsuario, nomeUsuario, "", "", TipoUsuario.ALUNO);
+                    }
 
-                    dao.salvar(emp);
+                    // Busca o livro real carregado na memória pelo ISBN
+                    Livro livro = null;
+                    for (Livro l : livroDAO.listar()) {
+                        if (l != null && l.getIsbn().equals(isbn)) {
+                            livro = l;
+                            break;
+                        }
+                    }
+                    if (livro == null) {
+                        livro = new Livro(0, nomeLivro, "", isbn, "", "", LocalDate.now(), true);
+                    }
+
+                    Emprestimo emprestimo = new Emprestimo(id, usuario, livro, dataEmprestimo, dataDevolucao, atrasado);
+                    dao.salvar(emprestimo);
                 }
             }
         } catch (IOException e) {
-            System.out.println("Erro ao carregar o arquivo de empréstimos: " + e.getMessage());
+            System.out.println("Erro ao carregar empréstimos: " + e.getMessage());
         }
         return dao;
     }
 
     /**
-     * Carrega a listagem global de reservas do arquivo de persistência.
+     * Carrega as reservas vinculando as referências reais de Usuários e Títulos.
      */
-    public static ReservaDAOLista carregarReservas() {
+    public static ReservaDAOLista carregarReservas(UsuarioDAOLista usuarioDAO, TituloDAOLista tituloDAO) {
         ReservaDAOLista dao = new ReservaDAOLista();
         File arquivo = new File(PASTA_DADOS_RESERVAS);
-        if (!arquivo.exists()) return dao;
+
+        if (!arquivo.exists()) {
+            return dao;
+        }
 
         try (BufferedReader br = new BufferedReader(new FileReader(arquivo))) {
             String linha;
             while ((linha = br.readLine()) != null) {
-                if (linha.isBlank()) continue;
+                if (linha.isBlank()) {
+                    continue;
+                }
+
                 String[] dados = linha.split(SEPARADOR_LEITURA);
+
                 if (dados.length >= 6) {
-                    String userIdentificador = dados[1];
-                    String userNome = dados[2];
-                    String tituloIsbn = dados[3];
-                    String tituloNome = dados[4];
-                    LocalDateTime dataRes = LocalDateTime.parse(dados[5]);
+                    int id = Integer.parseInt(dados[0]);
+                    String idUsuario = dados[1];
+                    String nomeUsuario = dados[2];
+                    String isbn = dados[3];
+                    String nomeTitulo = dados[4];
+                    LocalDateTime dataReserva = LocalDateTime.parse(dados[5]);
 
-                    // Monta a hierarquia mínima necessária exigida pelo modelo Titulo/Reserva
-                    Usuario userStub = new Usuario(userIdentificador, userNome, "", "", TipoUsuario.ALUNO);
-                    Livro livroModelo = new Livro(tituloNome, "", tituloIsbn, "", "", LocalDate.now());
-                    LivroDAOLista exLista = new LivroDAOLista();
-                    exLista.salvar(livroModelo);
-                    Titulo tituloStub = new Titulo(exLista);
+                    // Busca o usuário real
+                    Usuario usuario = usuarioDAO.buscarPorId(idUsuario);
+                    if (usuario == null) {
+                        usuario = new Usuario(idUsuario, nomeUsuario, "", "", TipoUsuario.ALUNO);
+                    }
 
-                    Reserva res = new Reserva(userStub, tituloStub);
-                    res.setDataReserva(dataRes);
+                    // Busca o título real
+                    Titulo titulo = tituloDAO.buscarPorNome(nomeTitulo);
+                    if (titulo == null) {
+                        Livro livro = new Livro(0, nomeTitulo, "", isbn, "", "", LocalDate.now(), true);
+                        LivroDAOLista lista = new LivroDAOLista();
+                        lista.salvar(livro);
+                        titulo = new Titulo(lista);
+                    }
 
-                    dao.salvar(res);
+                    Reserva reserva = new Reserva(id, usuario, titulo, dataReserva);
+                    dao.salvar(reserva);
                 }
             }
         } catch (IOException e) {
-            System.out.println("Erro ao carregar o arquivo de reservas: " + e.getMessage());
+            System.out.println("Erro ao carregar reservas: " + e.getMessage());
         }
         return dao;
     }
 
-    /**
-     * Lê as chaves brutas de IDs autorizados no sistema da biblioteca.
-     */
     public static ArrayList<String> carregarIds() {
         ArrayList<String> ids = new ArrayList<>();
         File arquivo = new File(PASTA_DADOS_IDS);
-        if (!arquivo.exists()) return ids;
+
+        if (!arquivo.exists()) {
+            return ids;
+        }
 
         try (BufferedReader br = new BufferedReader(new FileReader(arquivo))) {
             String linha;
@@ -207,59 +230,131 @@ public class PersistenceManager {
                 }
             }
         } catch (IOException e) {
-            System.out.println("Erro ao carregar os IDs autorizados: " + e.getMessage());
+            System.out.println("Erro ao carregar IDs: " + e.getMessage());
         }
         return ids;
     }
 
-// =========================================================================
-// MÉTODOS DE ESCRITA (SALVAMENTO UNITÁRIO / APPEND / SOBREESCRITA)
-// =========================================================================
+    // ============================================================
+    // ESCRITA DOS ARQUIVOS
+    // ============================================================
 
-    /**
-     * Salva ou atualiza a listagem completa de exemplares físicos do acervo.
-     */
-    public static void salvarLivro(Livro l) {
-
+    public static void salvarLivro(Livro livro) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(PASTA_DADOS_LIVROS, true))) {
+            bw.write(livro.getId() + SEPARADOR_ESCRITA +
+                    livro.getNome() + SEPARADOR_ESCRITA +
+                    livro.getAutor() + SEPARADOR_ESCRITA +
+                    livro.getIsbn() + SEPARADOR_ESCRITA +
+                    livro.getGenero() + SEPARADOR_ESCRITA +
+                    livro.getDescricao() + SEPARADOR_ESCRITA +
+                    livro.getDataPublicacao() + SEPARADOR_ESCRITA +
+                    livro.isDisponivel());
+            bw.newLine();
+        } catch (IOException e) {
+            System.out.println("Erro ao salvar livro.");
+        }
     }
 
-    /**
-     * Anexa (Append) um novo usuário cadastrado diretamente ao fim do arquivo de texto.
-     */
-    public static void salvarUsuario(Usuario u) {
+    public static void salvarUsuario(Usuario usuario) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(PASTA_DADOS_USUARIOS, true))) {
+            bw.write(usuario.getId() + SEPARADOR_ESCRITA +
+                    usuario.getNome() + SEPARADOR_ESCRITA +
+                    usuario.getEmail() + SEPARADOR_ESCRITA +
+                    usuario.getSenha() + SEPARADOR_ESCRITA +
+                    usuario.getTipo());
+            bw.newLine();
+        } catch (IOException e) {
+            System.out.println("Erro ao salvar usuário.");
+        }
     }
 
-    /**
-     * Anexa (Append) um novo registro de empréstimo feito ao fim do arquivo txt.
-     */
     public static void salvarEmprestimo(Emprestimo e) {
-
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(PASTA_DADOS_EMPRESTIMOS, true))) {
+            bw.write(e.getId() + SEPARADOR_ESCRITA +
+                    e.getUsuario().getId() + SEPARADOR_ESCRITA +
+                    e.getUsuario().getNome() + SEPARADOR_ESCRITA +
+                    e.getLivro().getNome() + SEPARADOR_ESCRITA +
+                    e.getLivro().getIsbn() + SEPARADOR_ESCRITA +
+                    e.getDataEmprestimo() + SEPARADOR_ESCRITA +
+                    e.getDataDevolucao() + SEPARADOR_ESCRITA +
+                    e.isAtrasado());
+            bw.newLine();
+        } catch (IOException ex) {
+            System.out.println("Erro ao salvar empréstimo: " + ex.getMessage());
+        }
     }
 
-    /**
-     * Anexa (Append) uma nova reserva gerada ao fim do arquivo txt.
-     */
     public static void salvarReserva(Reserva r) {
-
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(PASTA_DADOS_RESERVAS, true))) {
+            // Nota: Caso sua classe 'Titulo' não possua getIsbn() ou getNome() diretamente,
+            // ajuste aqui para buscar através do método correspondente do seu modelo.
+            bw.write(r.getId() + SEPARADOR_ESCRITA +
+                    r.getUsuario().getId() + SEPARADOR_ESCRITA +
+                    r.getUsuario().getNome() + SEPARADOR_ESCRITA +
+                    r.getTitulo().getIsbn() + SEPARADOR_ESCRITA +
+                    r.getTitulo().getNome() + SEPARADOR_ESCRITA +
+                    r.getDataReserva());
+            bw.newLine();
+        } catch (IOException ex) {
+            System.out.println("Erro ao salvar reserva: " + ex.getMessage());
+        }
     }
 
-    /**
-     * Sobrescreve a lista completa de empréstimos (usado ao devolver livros ou recalcular atrasos).
-     */
-    public static void sobrescreverEmprestimos(EmprestimoDAOLista listaDeEmprestimos) {
-
+    public static void sobrescreverEmprestimos(EmprestimoDAOLista lista) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(PASTA_DADOS_EMPRESTIMOS, false))) {
+            for (Emprestimo e : lista.listar()) {
+                if (e != null) {
+                    bw.write(e.getId() + SEPARADOR_ESCRITA +
+                            e.getUsuario().getId() + SEPARADOR_ESCRITA +
+                            e.getUsuario().getNome() + SEPARADOR_ESCRITA +
+                            e.getLivro().getNome() + SEPARADOR_ESCRITA +
+                            e.getLivro().getIsbn() + SEPARADOR_ESCRITA +
+                            e.getDataEmprestimo() + SEPARADOR_ESCRITA +
+                            e.getDataDevolucao() + SEPARADOR_ESCRITA +
+                            e.isAtrasado());
+                    bw.newLine();
+                }
+            }
+        } catch (IOException ex) {
+            System.out.println("Erro ao sobrescrever empréstimos: " + ex.getMessage());
+        }
     }
 
-    /**
-     * Sobrescreve a lista de reservas (usado quando um usuário desiste ou assume uma reserva).
-     */
-    public static void sobrescreverReservas(ReservaDAOLista listaDeReservas) {
-
+    public static void sobrescreverReservas(ReservaDAOLista lista) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(PASTA_DADOS_RESERVAS, false))) {
+            for (Reserva r : lista.listar()) {
+                if (r != null) {
+                    bw.write(r.getId() + SEPARADOR_ESCRITA +
+                            r.getUsuario().getId() + SEPARADOR_ESCRITA +
+                            r.getUsuario().getNome() + SEPARADOR_ESCRITA +
+                            r.getTitulo().getIsbn() + SEPARADOR_ESCRITA +
+                            r.getTitulo().getNome() + SEPARADOR_ESCRITA +
+                            r.getDataReserva());
+                    bw.newLine();
+                }
+            }
+        } catch (IOException ex) {
+            System.out.println("Erro ao sobrescrever reservas: " + ex.getMessage());
+        }
     }
 
-    public static void sobrescreverLivros(LivroDAOLista listaDeLivros) {
-
+    public static void sobrescreverLivros(LivroDAOLista lista) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(PASTA_DADOS_LIVROS, false))) {
+            for (Livro livro : lista.listar()) {
+                if (livro != null) {
+                    bw.write(livro.getId() + SEPARADOR_ESCRITA +
+                            livro.getNome() + SEPARADOR_ESCRITA +
+                            livro.getAutor() + SEPARADOR_ESCRITA +
+                            livro.getIsbn() + SEPARADOR_ESCRITA +
+                            livro.getGenero() + SEPARADOR_ESCRITA +
+                            livro.getDescricao() + SEPARADOR_ESCRITA +
+                            livro.getDataPublicacao() + SEPARADOR_ESCRITA +
+                            livro.isDisponivel());
+                    bw.newLine();
+                }
+            }
+        } catch (IOException ex) {
+            System.out.println("Erro ao sobrescrever livros: " + ex.getMessage());
+        }
     }
-
-
 }
