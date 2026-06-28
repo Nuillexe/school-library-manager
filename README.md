@@ -596,3 +596,109 @@ git push origin archive/Lp2
 
 Ao final do desenvolvimento, será realizado um Pull Request da branch `archive/Lp2` para a `main`.
 
+
+
+Fluxo Alternativo — Fork + Pull Request
+
+Caso algum integrante não possua permissão de escrita no repositório principal ou prefira trabalhar de forma isolada, pode utilizar o fluxo de Fork + Pull Request.
+
+1. Criar um Fork do Repositório
+
+Acesse o repositório:
+
+https://github.com/Nuillexe/school-library-manager
+
+Clique em:
+
+Fork
+
+Isso criará uma cópia do projeto em sua conta do GitHub.
+
+Exemplo:
+
+https://github.com/anaclaramarinhoviana77-alt/school-library-manager
+
+---
+
+2. Clonar o Fork
+
+git clone https://github.com/SEU_USUARIO/school-library-manager.git
+
+cd school-library-manager
+
+---
+
+3. Acessar a Branch do Projeto
+
+git checkout archive/Lp2
+
+git pull origin archive/Lp2
+
+---
+
+4. Realizar as Alterações
+
+Faça normalmente as modificações relacionadas à sua tarefa.
+
+---
+
+5. Salvar as Alterações
+
+git add .
+
+git commit -m "Descrição da alteração realizada"
+
+Exemplo:
+
+git commit -m "Implementa carregarUsuarios no PersistenceManager"
+
+---
+
+6. Enviar para o Seu Fork
+
+git push origin archive/Lp2
+
+Neste caso, o envio será feito para o seu próprio repositório, portanto não será necessária permissão no repositório principal.
+
+---
+
+7. Abrir um Pull Request
+
+Acesse seu Fork no GitHub.
+
+Clique em:
+
+Compare & Pull Request
+
+ou
+
+Contribute
+→ Open Pull Request
+
+Configure:
+
+Base Repository: Nuillexe/school-library-manager
+Base Branch: archive/Lp2
+
+Head Repository: seu-fork/school-library-manager
+Head Branch: archive/Lp2
+
+---
+
+8. Aguardar Revisão
+
+O Pull Request será enviado para o repositório principal.
+
+Após a revisão, as alterações poderão ser incorporadas à branch:
+
+archive/Lp2
+
+---
+
+Vantagens
+
+- Evita conflitos diretos na branch compartilhada.
+- Permite revisão de código antes da integração.
+- Nenhum integrante precisa de permissão de escrita no repositório principal.
+- Mantém um histórico organizado das contribuições de cada membro.
+
