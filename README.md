@@ -20,30 +20,31 @@
 
 # 📋 Quadro de Tarefas
 
-| ID | Tarefa | Responsável | Status |
-|----|---------|-------------|-------|
-| T01 | Estruturar arquivos iniciais | Indaia | ⬜ |
-| T02 | Adicionar mais dados de teste | Indaia | ⬜ |
-| T03 | Implementar carregarLivros() | Charles | ⬜ |
-| T04 | Implementar carregarUsuarios() | Charles | ⬜ |
-| T05 | Implementar carregarEmprestimos() | Charles | ⬜ |
-| T06 | Implementar carregarReservas() | Charles | ⬜ |
-| T07 | Implementar carregarIds() | Charles | ⬜ |
-| T08 | Implementar salvarLivro() | Maria Eduarda | ⬜ |
-| T09 | Implementar salvarUsuario() | Maria Eduarda | ⬜ |
-| T10 | Implementar salvarEmprestimo() | Maria Eduarda | ⬜ |
-| T11 | Implementar salvarReserva() | Maria Eduarda | ⬜ |
-| T12 | Implementar sobrescreverLivros() | Maria Eduarda | ⬜ |
-| T13 | Implementar sobrescreverUsuarios() | Maria Eduarda | ⬜ |
-| T14 | Implementar sobrescreverEmprestimos() | Maria Eduarda | ⬜ |
-| T15 | Implementar sobrescreverReservas() | Maria Eduarda | ⬜ |
-| T16 | Criar construtores auxiliares | Indaia | ⬜ |
-| T17 | Implementar reconstrução dos relacionamentos | Emanuel | ⬜ |
-| T18 | Criar métodos de persistência na BibliotecaRepository | Emanuel | ⬜ |
-| T19 | Ajustar Services para persistência em arquivos | Charles | ⬜ |
-| T20 | Substituir EDs por Collections Framework | Ana Clara | ⬜ |
-| T21 | Ajustar menu superior do Inventário | Kaique | ✅ |
-| T22 | Reduzir efeito de intermitência das telas | Kaique | ✅ |
+| ID | Tarefa | Responsável | Status | Observação |
+|----|---------|-------------|---------|---------|
+| T01 | Estruturar arquivos iniciais | Indaia | ⬜ ||
+| T02 | Adicionar mais dados de teste | Indaia | ⬜ ||
+| T03 | Implementar carregarLivros() | Charles | ⬜ ||
+| T04 | Implementar carregarUsuarios() | Charles | ⬜ ||
+| T05 | Implementar carregarEmprestimos() | Charles | ⬜ ||
+| T06 | Implementar carregarReservas() | Charles | ⬜ ||
+| T07 | Implementar carregarIds() | Charles | ⬜ ||
+| T08 | Implementar salvarLivro() | Maria Eduarda | ⬜ ||
+| T09 | Implementar salvarUsuario() | Maria Eduarda | ⬜ ||
+| T10 | Implementar salvarEmprestimo() | Maria Eduarda | ⬜ ||
+| T11 | Implementar salvarReserva() | Maria Eduarda | ⬜ ||
+| T12 | Implementar sobrescreverLivros() | Maria Eduarda | ⬜ ||
+| T13 | Implementar sobrescreverUsuarios() | Maria Eduarda | ⬜ ||
+| T14 | Implementar sobrescreverEmprestimos() | Maria Eduarda | ⬜ ||
+| T15 | Implementar sobrescreverReservas() | Maria Eduarda | ⬜ ||
+| T16 | Criar construtores auxiliares | Indaia | ⬜ ||
+| T17 | Implementar reconstrução dos relacionamentos | Emanuel | 🟨 ||
+| T18 | Criar métodos de persistência na BibliotecaRepository | Emanuel | ✅ ||
+| T19 | Ajustar Services para persistência em arquivos | Emanuel | ✅ ||
+| T20 | Substituir EDs por Collections Framework | Ana Clara | ⬜ ||
+| T21 | Ajustar menu superior do Inventário | Kaique | 🟨 | Falta adicionar ação ao botão de deslogar e trocar "nome aqui" pelo nome do usuario logado|
+| T22 | Reduzir efeito de intermitência das telas | Kaique | 🟨 |
+| T23 | Ajustar login na tela de bibliotecario, n é possivel entrar nessa tela | Kaique | 
 
 ---
 
