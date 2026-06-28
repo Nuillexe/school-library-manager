@@ -55,6 +55,21 @@ public class TituloDAOLista {
         return arrayRetorno;
     }
 
+    public Titulo buscarPorIsbn(String isbn) {
+        if (isbn == null) {
+            throw new IllegalArgumentException("ISBN não pode ser nulo.");
+        }
+        
+        for (int i = 0; i < listaTitulos.size(); i++) {
+            Titulo titulo = listaTitulos.get(i);
+
+            if (titulo != null && isbn.equalsIgnoreCase(titulo.getIsbn())) {
+                return titulo;
+            }
+        }
+        return null;
+    }
+
     public void atualizar(String isbn, Titulo tituloAtualizado) {
         for (int i = 0; i < listaTitulos.size(); i++) {
             Titulo t = listaTitulos.get(i);
