@@ -28,7 +28,7 @@ O histórico de desenvolvimento do sistema está dividido em marcos acadêmicos 
 ### 1. Estrutura de Dados (2026.1)
 * **Objetivo:** Implementação da lógica de negócios, gerenciamento de acervo e controle de filas de reserva utilizando persistência em memória. Com o propósito de consolidar os conceitos teóricos da disciplina, as estruturas de dados (como listas e filas de prioridade) foram implementadas de forma totalmente personalizada pela equipe. Os dados iniciais da aplicação eram povoados em tempo de execução por meio de uma classe semente (`DatabaseSeed`), simulando um banco pré-carregado com livros e usuários.
 * **Docente:** Prof. Claudio Rodolfo Santos de Oliveira ([@claudiorodolfo](https://github.com/claudiorodolfo)).
-* **Nota Histórica:** O estado final e estável desta entrega foi congelado e pode ser acessado diretamente na branch [`archive/ed-final`](https://github.com/Nuillexe/school-library-manager/tree/archive/ed).
+* **Nota Histórica:** O estado final e estável desta entrega foi congelado e pode ser acessado diretamente na branch [`archive/ed`](https://github.com/Nuillexe/school-library-manager/tree/archive/ed).
 
 ### 2. Linguagem de Programação II (2026.1)
 * **Objetivo:** Evoluir a arquitetura do sistema com a implementação de **persistência de dados real** através da manipulação e armazenamento de arquivos locais, além de refatorar o backend para utilizar exclusivamente as coleções nativas da API do Java (*Java Collections*).
