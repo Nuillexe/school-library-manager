@@ -25,6 +25,7 @@ public class BibliotecaRepository {
 
 
         ajustarRelacionamentos();
+        System.out.println(listaDeTitulos);
 
     }
 

@@ -58,7 +58,7 @@ public class UsuarioService {
         b.getListaDeEmprestimos().salvar(emprestimo); // Grava no registro central
         titulo.registrarEmprestimo(emprestimo);       // Registra no Título
         PersistenceManager.salvarEmprestimo(emprestimo);// Registra no banco de dados
-
+        PersistenceManager.sobrescreverLivros(b.getAcervo());
         System.out.println("✅ Sucesso! Devolução prevista: " + emprestimo.getDataDevolucao());
         return true;
     }
@@ -84,7 +84,7 @@ public class UsuarioService {
         livro.setDisponivel(true);
 
         // Recalcula estoque no Título correspondente
-        Titulo titulo = b.getTitulos().buscarPorNome(livro.getNome());
+        Titulo titulo = b.getTitulos().buscarPorIsbn(livro.getIsbn());
         if (titulo != null) {
             titulo.removerEmprestimo(emprestimo);
         }

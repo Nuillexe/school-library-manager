@@ -137,18 +137,8 @@ public class LivroDAOLista {
     }
 
     public void ordenar() {
-        for (int i = 0; i < listaLivros.size() - 1; i++) {
-            for (int j = 0; j < listaLivros.size() - i - 1; j++) {
-                Livro livro1 = listaLivros.get(j);
-                Livro livro2 = listaLivros.get(j + 1);
-
-                if (livro1 != null && livro2 != null &&
-                        livro1.getNome().compareToIgnoreCase(livro2.getNome()) > 0) {
-
-                    listaLivros.set(i, livro2);
-                    listaLivros.set(j + i, livro2);
-                }
-            }
-        }
+        listaLivros.sort(
+                (l1, l2) -> l1.getIsbn().compareToIgnoreCase(l2.getIsbn())
+        );
     }
 }

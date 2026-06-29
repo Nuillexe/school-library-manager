@@ -127,6 +127,7 @@ public class BibliotecarioService {
         user.removerEmprestimo(e);
         b.getListaDeEmprestimos().apagarPorId(e.getId());
         PersistenceManager.sobrescreverEmprestimos(b.getListaDeEmprestimos());
+        PersistenceManager.sobrescreverLivros(b.getAcervo());
 
         if (e.isAtrasado()) {
             System.out.println("⚠️ Devolução registrada com atraso para: " + user.getNome());
@@ -196,6 +197,7 @@ public class BibliotecarioService {
         // Consome a reserva retirando-a da fila do título e do índice global
         titulo.getFilaDeReservas().removerProximo();
         b.getListaDeReservas().apagar(proxima.getId());
+        PersistenceManager.sobrescreverReservas(b.getListaDeReservas());
 
         Usuario beneficiario = proxima.getUsuario();
 
