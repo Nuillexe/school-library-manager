@@ -155,7 +155,7 @@ O histórico do projeto está segmentado estrategicamente para facilitar a naveg
 
 * [`main`](https://github.com/Nuillexe/school-library-manager/tree/main): Estágio atual e final do projeto unificado, contendo a persistência em arquivos e todas as regras de negócio integradas.
 * [`archive/ed`](https://github.com/Nuillexe/school-library-manager/tree/archive/ed): Código estável e congelado referente à entrega final da disciplina de **Estrutura de Dados** (execução e persistência exclusivamente em memória).
-* [`archive/lp2`](https://github.com/Nuillexe/school-library-manager/tree/archive/lp2): Ramificação focada no desenvolvimento e nos requisitos da disciplina de **Linguagem de Programação II**, com ênfase na arquitetura de persistência via manipulação de arquivos locais e desacoplamento da interface JavaFX.
+* [`archive/Lp2`](https://github.com/Nuillexe/school-library-manager/tree/archive/Lp2): Ramificação focada no desenvolvimento e nos requisitos da disciplina de **Linguagem de Programação II**, com ênfase na arquitetura de persistência via manipulação de arquivos locais e desacoplamento da interface JavaFX.
 
 ---
 
