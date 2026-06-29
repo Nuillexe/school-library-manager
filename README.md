@@ -15,7 +15,7 @@ O sistema foi construído inicialmente utilizando estruturas de dados em memóri
 * 📄 [Documentação Geral](docs/)
 * 🧪 [📖 Guia de Testes](docs/GUIA_DE_TESTES.md)
 * 🌿 [Manual de Trabalho com GitHub](docs/GITHUB_MANUAL.md)  
-* 📋 [Guia de Tarefas LP2](docs/TAREFAS_LP2.md) 
+* 📋 [Guia de Tarefas LP2](docs/GUIA_DE_TAREFAS_LP2.md) 
 
 ---
 
