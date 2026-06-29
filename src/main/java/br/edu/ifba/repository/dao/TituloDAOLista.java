@@ -1,32 +1,32 @@
 package br.edu.ifba.repository.dao;
 import br.edu.ifba.models.Titulo;
-import br.edu.ifba.ed.ListaDinamica;
-import br.edu.ifba.ed.Listavel;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class TituloDAOLista {
 
-    private Listavel<Titulo> listaTitulos = new ListaDinamica<>();
+    private List<Titulo> listaTitulos = new ArrayList<>();
 
     public void salvar(Titulo t) {
         if (t == null) {
             throw new IllegalArgumentException("Título não pode ser nulo.");
         }
-        listaTitulos.anexar(t);
+        listaTitulos.add(t);
     }
 
     public Titulo[] listar() {
-        Titulo[] arrayRetorno = new Titulo[listaTitulos.tamanho()];
+        Titulo[] arrayRetorno = new Titulo[listaTitulos.size()];
 
-        for (int i = 0; i < listaTitulos.tamanho(); i++) {
-            arrayRetorno[i] = listaTitulos.selecionar(i);
+        for (int i = 0; i < listaTitulos.size(); i++) {
+            arrayRetorno[i] = listaTitulos.get(i);
         }
         return arrayRetorno;
     }
 
     public Titulo buscarPorNome(String nome) {
-        for (int i = 0; i < listaTitulos.tamanho(); i++) {
-            Titulo t = listaTitulos.selecionar(i);
+        for (int i = 0; i < listaTitulos.size(); i++) {
+            Titulo t = listaTitulos.get(i);
             if (t.getNome().equalsIgnoreCase(nome)) {
                 return t;
             }
@@ -37,8 +37,8 @@ public class TituloDAOLista {
     public Titulo[] buscarPorGenero(String genero) {
         int contador = 0;
 
-        for (int i = 0; i< listaTitulos.tamanho(); i++) {
-            Titulo t = listaTitulos.selecionar(i);
+        for (int i = 0; i< listaTitulos.size(); i++) {
+            Titulo t = listaTitulos.get(i);
             if (t.getGenero().equalsIgnoreCase(genero)) {
                 contador++;
             }
@@ -46,8 +46,8 @@ public class TituloDAOLista {
         Titulo[] arrayRetorno = new Titulo[contador];
         int indice = 0;
 
-        for (int i = 0; i < listaTitulos.tamanho(); i++) {
-            Titulo t = listaTitulos.selecionar(i);
+        for (int i = 0; i < listaTitulos.size(); i++) {
+            Titulo t = listaTitulos.get(i);
             if (t.getGenero().equalsIgnoreCase(genero)) {
                 arrayRetorno[indice++] = t;
             }
@@ -55,11 +55,26 @@ public class TituloDAOLista {
         return arrayRetorno;
     }
 
+    public Titulo buscarPorIsbn(String isbn) {
+        if (isbn == null) {
+            throw new IllegalArgumentException("ISBN não pode ser nulo.");
+        }
+        
+        for (int i = 0; i < listaTitulos.size(); i++) {
+            Titulo titulo = listaTitulos.get(i);
+
+            if (titulo != null && isbn.equalsIgnoreCase(titulo.getIsbn())) {
+                return titulo;
+            }
+        }
+        return null;
+    }
+
     public void atualizar(String isbn, Titulo tituloAtualizado) {
-        for (int i = 0; i < listaTitulos.tamanho(); i++) {
-            Titulo t = listaTitulos.selecionar(i);
+        for (int i = 0; i < listaTitulos.size(); i++) {
+            Titulo t = listaTitulos.get(i);
             if (t.getIsbn().equals(isbn)) {
-                listaTitulos.atualizar(tituloAtualizado, i);
+                listaTitulos.set(i, tituloAtualizado);
                 return;
             }
         }
@@ -67,25 +82,25 @@ public class TituloDAOLista {
     }
 
     public Titulo apagarPorIsbn(String isbn) {
-        for (int i = 0; i < listaTitulos.tamanho(); i++) {
-            Titulo t = listaTitulos.selecionar(i);
+        for (int i = 0; i < listaTitulos.size(); i++) {
+            Titulo t = listaTitulos.get(i);
             if (t.getIsbn().equals(isbn)) {
-                return listaTitulos.apagar(i);
+                return listaTitulos.remove(i);
             }
         }
         return null;
     }
 
     public void ordenar() {
-        for (int i = 0; i < listaTitulos.tamanho() - 1; i++) {
-            for (int j = 0; j < listaTitulos.tamanho() - i - 1; j++) {
-                Titulo titulo1 = listaTitulos.selecionar(j);
-                Titulo titulo2 = listaTitulos.selecionar(j + 1);
+        for (int i = 0; i < listaTitulos.size() - 1; i++) {
+            for (int j = 0; j < listaTitulos.size() - i - 1; j++) {
+                Titulo titulo1 = listaTitulos.get(j);
+                Titulo titulo2 = listaTitulos.get(j + 1);
 
                 if (titulo1.getNome().compareToIgnoreCase(titulo2.getNome()) > 0) {
 
-                    listaTitulos.atualizar(titulo2, j);
-                    listaTitulos.atualizar(titulo1, j + 1);
+                    listaTitulos.set(i, titulo2);
+                    listaTitulos.set(j + i, titulo2);
                 }
             }
         }

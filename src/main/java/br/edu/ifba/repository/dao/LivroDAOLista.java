@@ -1,23 +1,23 @@
 package br.edu.ifba.repository.dao;
 
 import br.edu.ifba.models.Livro;
-import br.edu.ifba.ed.ListaDinamica;
-import br.edu.ifba.ed.Listavel;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LivroDAOLista {
 
-    private Listavel<Livro> listaLivros = new ListaDinamica<Livro>();
+    private List<Livro> listaLivros = new ArrayList<>();
 
     public void salvar(Livro l) {
         if (l == null) {
             throw new IllegalArgumentException("Livro não pode ser nulo.");
         }
-        listaLivros.anexar(l);
+        listaLivros.add(l);
     }
 
     public Livro buscarPorId(Long id) {
-        for (int i = 0; i < listaLivros.tamanho(); i++) {
-            Livro l = listaLivros.selecionar(i);
+        for (int i = 0; i < listaLivros.size(); i++) {
+            Livro l = listaLivros.get(i);
             if (l != null && l.getId().equals(id)) {
                 return l;
             }
@@ -26,18 +26,18 @@ public class LivroDAOLista {
     }
 
     public Livro[] listar() {
-        Livro[] arrayRetorno = new Livro[listaLivros.tamanho()];
-        for (int i = 0; i < listaLivros.tamanho(); i++) {
-            arrayRetorno[i] = listaLivros.selecionar(i);
+        Livro[] arrayRetorno = new Livro[listaLivros.size()];
+        for (int i = 0; i < listaLivros.size(); i++) {
+            arrayRetorno[i] = listaLivros.get(i);
         }
         return arrayRetorno;
     }
 
     public void atualizar(Long id, Livro livroAtualizado) {
-        for (int i = 0; i < listaLivros.tamanho(); i++) {
-            Livro l = listaLivros.selecionar(i);
+        for (int i = 0; i < listaLivros.size(); i++) {
+            Livro l = listaLivros.get(i);
             if (l != null && l.getId().equals(id)) {
-                listaLivros.atualizar(livroAtualizado, i);
+                listaLivros.set(i, livroAtualizado);
                 return;
             }
         }
@@ -45,10 +45,10 @@ public class LivroDAOLista {
     }
 
     public Livro apagar(Long id) {
-        for (int i = 0; i < listaLivros.tamanho(); i++) {
-            Livro l = listaLivros.selecionar(i);
+        for (int i = 0; i < listaLivros.size(); i++) {
+            Livro l = listaLivros.get(i);
             if (l != null && l.getId().equals(id)) {
-                return listaLivros.apagar(i);
+                return listaLivros.remove(i);
             }
         }
         return null;
@@ -56,8 +56,8 @@ public class LivroDAOLista {
 
     public int contarExemplares(String nome) {
         int contador = 0;
-        for (int i = 0; i < listaLivros.tamanho(); i++) {
-            Livro l = listaLivros.selecionar(i);
+        for (int i = 0; i < listaLivros.size(); i++) {
+            Livro l = listaLivros.get(i);
             if (l != null && l.getNome().equalsIgnoreCase(nome)) {
                 contador++;
             }
@@ -67,8 +67,8 @@ public class LivroDAOLista {
 
     public int contarDisponiveis(String nome) {
         int contador = 0;
-        for (int i = 0; i < listaLivros.tamanho(); i++) {
-            Livro l = listaLivros.selecionar(i);
+        for (int i = 0; i < listaLivros.size(); i++) {
+            Livro l = listaLivros.get(i);
             if (l != null && l.getNome().equalsIgnoreCase(nome) && l.isDisponivel()) {
                 contador++;
             }
@@ -76,13 +76,13 @@ public class LivroDAOLista {
         return contador;
     }
 
-    /// Selecionar livros disponiveis
-    public Livro[] selecionarDisponiveis(){
+    /// get livros disponiveis
+    public Livro[] getDisponiveis(){
         int contador = 0;
         Livro l;
 
-        for (int i = 0; i < listaLivros.tamanho(); i++) {
-            l = listaLivros.selecionar(i);
+        for (int i = 0; i < listaLivros.size(); i++) {
+            l = listaLivros.get(i);
             if (l != null && l.isDisponivel())
                 contador++;
         }
@@ -90,8 +90,8 @@ public class LivroDAOLista {
         Livro[] livrosDisponiveis = new Livro[contador];
         int y = 0;
 
-        for(int i = 0; i < listaLivros.tamanho(); i++){
-            l = listaLivros.selecionar(i);
+        for(int i = 0; i < listaLivros.size(); i++){
+            l = listaLivros.get(i);
             if (l != null && l.isDisponivel()){
                 livrosDisponiveis[y++] = l;
             }
@@ -100,13 +100,13 @@ public class LivroDAOLista {
         return livrosDisponiveis;
     }
 
-    /// Selecionar livros Indisponiveis
-    public Livro[] selecionarIndisponiveis(){
+    /// get livros Indisponiveis
+    public Livro[] getIndisponiveis(){
         int contador = 0;
         Livro l;
 
-        for (int i = 0; i < listaLivros.tamanho(); i++) {
-            l = listaLivros.selecionar(i);
+        for (int i = 0; i < listaLivros.size(); i++) {
+            l = listaLivros.get(i);
             if (l != null && !l.isDisponivel())
                 contador++;
         }
@@ -114,8 +114,8 @@ public class LivroDAOLista {
         Livro[] livrosIndisponiveis = new Livro[contador];
         int y = 0;
 
-        for(int i = 0; i < listaLivros.tamanho(); i++){
-            l = listaLivros.selecionar(i);
+        for(int i = 0; i < listaLivros.size(); i++){
+            l = listaLivros.get(i);
             if (l != null && !l.isDisponivel()){
                 livrosIndisponiveis[y++] = l;
             }
@@ -125,11 +125,11 @@ public class LivroDAOLista {
     }
 
     public Livro selecionar(int i){
-        return listaLivros.selecionar(i);
+        return listaLivros.get(i);
     }
 
     public int quantidade(){
-        return listaLivros.tamanho();
+        return listaLivros.size();
     }
 
     public int tamanho(){
@@ -137,18 +137,8 @@ public class LivroDAOLista {
     }
 
     public void ordenar() {
-        for (int i = 0; i < listaLivros.tamanho() - 1; i++) {
-            for (int j = 0; j < listaLivros.tamanho() - i - 1; j++) {
-                Livro livro1 = listaLivros.selecionar(j);
-                Livro livro2 = listaLivros.selecionar(j + 1);
-
-                if (livro1 != null && livro2 != null &&
-                        livro1.getNome().compareToIgnoreCase(livro2.getNome()) > 0) {
-
-                    listaLivros.atualizar(livro2, j);
-                    listaLivros.atualizar(livro1, j + 1);
-                }
-            }
-        }
+        listaLivros.sort(
+                (l1, l2) -> l1.getIsbn().compareToIgnoreCase(l2.getIsbn())
+        );
     }
 }

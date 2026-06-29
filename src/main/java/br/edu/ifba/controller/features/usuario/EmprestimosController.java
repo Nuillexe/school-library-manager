@@ -37,7 +37,9 @@ public class EmprestimosController implements Initializable {
         Usuario logado = Sessao.getUsuarioLogado();
         this.usuarioService = new UsuarioService(logado);
 
-        lblNomeUsuario.setText(logado.getNome());
+        if (logado != null && lblNomeUsuario != null) {
+            lblNomeUsuario.setText(logado.getNome());
+        }
 
         // Regra de Negócio: Verifica se o usuário tem algum livro atrasado para mostrar o alerta
         boolean temAtraso = usuarioService.usuarioPossuiAtraso();
@@ -88,7 +90,7 @@ public class EmprestimosController implements Initializable {
         HBox header = new HBox(12);
         VBox iconBox = new VBox(new Label(atrasado ? "📕" : "📗"));
         iconBox.setStyle(atrasado ? "-fx-background-color: #FEE2E2;" : "-fx-background-color: #EFF6FF;");
-        iconBox.getStyleClass().add("loan-icon-box"); // Certifique-se que essa classe existe no CSS ou mantenha o style anterior
+        iconBox.getStyleClass().add("loan-icon-box");
 
         VBox info = new VBox(4);
         HBox.setHgrow(info, javafx.scene.layout.Priority.ALWAYS);
@@ -108,8 +110,8 @@ public class EmprestimosController implements Initializable {
         // --- Datas ---
         VBox datas = new VBox(8);
 
-        // Data de Retirada (pode ser a data do sistema no dia que foi criado)
-        datas.getChildren().add(criarLinhaData("📅 Data de Retirada", hoje.minusDays(7).format(FMT))); // Exemplo estático ou pegue do model se houver
+        // Data de Retirada
+        datas.getChildren().add(criarLinhaData("📅 Data de Retirada", hoje.minusDays(7).format(FMT)));
 
         // Data Prevista
         datas.getChildren().add(criarLinhaData("📅 Devolução Prevista", prevista.format(FMT)));
@@ -138,7 +140,12 @@ public class EmprestimosController implements Initializable {
 
     // ===== NAVEGAÇÃO UTILIZANDO A CLASSE TOOLS (Padronizado) =====
 
-    @FXML private void onLogout()         { navegarPara("/views/AuthViews/login.fxml"); }
+    @FXML
+    private void onLogout() {
+        Sessao.setUsuarioLogado(null); // Acrescentado para limpar a sessão ao deslogar
+        navegarPara("/views/AuthViews/login.fxml");
+    }
+
     @FXML private void onNavCatalogo()    { navegarPara("/views/usuarioViews/Catalogo.fxml"); }
     @FXML private void onNavEmprestimos() { System.out.println("Já está na página de Empréstimos"); }
     @FXML private void onNavReservas()    { navegarPara("/views/usuarioViews/Reservas.fxml"); }

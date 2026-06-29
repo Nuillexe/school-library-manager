@@ -1,0 +1,16 @@
+s000001|João Silva|joao.silva@email.com|123456|ALUNO
+s000002|Maria Oliveira|maria.oliveira@email.com|abc123|ALUNO
+s000003|Ana Silva|ana.silva@email.com|senha123|ALUNO
+s000004|Lucas Souza|lucas.souza@email.com|aluno4|ALUNO
+s000005|Beatriz Santos|beatriz.santos@email.com|aluno5|ALUNO
+s000006|Gabriel Rocha|gabriel.rocha@email.com|aluno6|ALUNO
+s000050|Zeca Camargo|zeca.c@email.com|aluno50|ALUNO
+p000001|Alexandro Silva|alexandro.silva@email.com|prof123|PROFESSOR
+p000002|Ana Pereira|ana.pereira@email.com|senha456|PROFESSOR
+p000003|Marcos Antônio|marcos.antonio@email.com|prof3|PROFESSOR
+p000004|Fernanda Carmo|fernanda.carmo@email.com|prof4|PROFESSOR
+p000005|Roberto Mendes|roberto.mendes@email.com|prof5|PROFESSOR
+l000001|Admin BiblioQueue|admin@biblioteca.com|admin|BIBLIOTECARIO
+l000002|Kaique Oliveira|kaique.oliveira@email.com|admin123|BIBLIOTECARIO
+l000003|Maria Eduarda|maria.eduarda@email.com|admin456|BIBLIOTECARIO
+

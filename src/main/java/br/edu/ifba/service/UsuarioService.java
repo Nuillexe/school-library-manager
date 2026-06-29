@@ -1,15 +1,17 @@
 package br.edu.ifba.service;
 
 import br.edu.ifba.models.*;
+import br.edu.ifba.repository.BibliotecaRepository;
+import br.edu.ifba.repository.PersistenceManager;
 import br.edu.ifba.repository.dao.EmprestimoDAOLista;
 
 public class UsuarioService {
 
-    private Biblioteca b;
+    private BibliotecaRepository b;
     private Usuario user; // Representa o usuário logado na sessão do aplicativo
 
     public UsuarioService(Usuario userLogado) {
-        this.b = Biblioteca.getInstance();
+        this.b = BibliotecaRepository.getInstance();
         this.user = userLogado;
     }
 
@@ -52,10 +54,11 @@ public class UsuarioService {
         livroFisicoEmprestado.setDisponivel(false);
         Emprestimo emprestimo = new Emprestimo(user, livroFisicoEmprestado);
 
-        user.adicionarEmprestimo(emprestimo);         // Aloca no perfil do usuário
+        user.getListaEmprestimos().salvar(emprestimo); // Aloca no perfil do usuário
         b.getListaDeEmprestimos().salvar(emprestimo); // Grava no registro central
         titulo.registrarEmprestimo(emprestimo);       // Registra no Título
-
+        PersistenceManager.salvarEmprestimo(emprestimo);// Registra no banco de dados
+        PersistenceManager.sobrescreverLivros(b.getAcervo());
         System.out.println("✅ Sucesso! Devolução prevista: " + emprestimo.getDataDevolucao());
         return true;
     }
@@ -81,7 +84,7 @@ public class UsuarioService {
         livro.setDisponivel(true);
 
         // Recalcula estoque no Título correspondente
-        Titulo titulo = b.getTitulos().buscarPorNome(livro.getNome());
+        Titulo titulo = b.getTitulos().buscarPorIsbn(livro.getIsbn());
         if (titulo != null) {
             titulo.removerEmprestimo(emprestimo);
         }
@@ -91,6 +94,7 @@ public class UsuarioService {
         // =====================================================================
         user.removerEmprestimo(emprestimo);
         b.getListaDeEmprestimos().apagarPorId(emprestimo.getId());
+        PersistenceManager.sobrescreverEmprestimos(b.getListaDeEmprestimos());
         // =====================================================================
 
         if (atrasado) {
@@ -163,6 +167,7 @@ public class UsuarioService {
         Reserva reserva = new Reserva(user, titulo);
         titulo.getFilaDeReservas().salvar(reserva);
         b.getListaDeReservas().salvar(reserva); // Sincroniza no índice global
+        PersistenceManager.salvarReserva(reserva);//salva no banco
 
         System.out.println("✅ Reserva efetuada! Você está na posição " +
                 titulo.getFilaDeReservas().posicao(reserva) + " da fila.");
@@ -176,6 +181,8 @@ public class UsuarioService {
             if (r != null && r.getUsuario().getId().equals(user.getId())) {
                 titulo.getFilaDeReservas().apagar(r.getId());
                 b.getListaDeReservas().apagar(r.getId());
+                PersistenceManager.sobrescreverReservas(b.getListaDeReservas());//atualiza no banco de dados
+
                 System.out.println("✅ Reserva cancelada com sucesso.");
                 return true;
             }

@@ -1,5 +1,6 @@
 package br.edu.ifba.controller.features.usuario;
 
+import br.edu.ifba.repository.BibliotecaRepository;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -10,7 +11,6 @@ import javafx.scene.control.Separator;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import br.edu.ifba.models.Biblioteca;
 import br.edu.ifba.models.Reserva;
 import br.edu.ifba.models.Titulo;
 import br.edu.ifba.models.Usuario;
@@ -43,7 +43,9 @@ public class ReservasController implements Initializable {
         this.usuarioService = new UsuarioService(logado);
 
         // Define o nome visual do usuário
-        lblNomeUsuario.setText(logado.getNome());
+        if (logado != null && lblNomeUsuario != null) {
+            lblNomeUsuario.setText(logado.getNome());
+        }
 
         carregarReservasReais();
     }
@@ -72,7 +74,7 @@ public class ReservasController implements Initializable {
         Usuario logado = Sessao.getUsuarioLogado();
 
         // Percorre todos os títulos da biblioteca para achar onde este usuário está na fila
-        for (Titulo t : Biblioteca.getInstance().getTitulos().listar()) {
+        for (Titulo t : BibliotecaRepository.getInstance().getTitulos().listar()) {
             for (Reserva r : t.getFilaDeReservas().listar()) {
                 if (r.getUsuario().getId().equals(logado.getId())) {
                     encontradas.add(r);
@@ -127,8 +129,7 @@ public class ReservasController implements Initializable {
         int pos = reserva.getTitulo().getFilaDeReservas().posicao(reserva)+1;
         detalhes.getChildren().add(criarLinhaInfo("Posição na fila", pos + "º"));
 
-        // Data da reserva (supondo que seu model Reserva tenha getDataReserva)
-        // Se o model não tiver data, você pode usar LocalDate.now() ou implementar no model
+        // Status
         detalhes.getChildren().add(criarLinhaInfo("Status", "Aguardando exemplar"));
 
         // --- Botão Cancelar ---
@@ -169,7 +170,12 @@ public class ReservasController implements Initializable {
 
     // ===== NAVEGAÇÃO UTILIZANDO A CLASSE TOOLS (Sua versão oficial) =====
 
-    @FXML private void onLogout()         { navegarPara( "/views/AuthViews/login.fxml"); }
+    @FXML
+    private void onLogout() {
+        Sessao.setUsuarioLogado(null); // Acrescentado para limpar a sessão ao deslogar
+        navegarPara("/views/AuthViews/login.fxml");
+    }
+
     @FXML private void onNavCatalogo()    { navegarPara("/views/usuarioViews/Catalogo.fxml"); }
     @FXML private void onNavEmprestimos() { navegarPara("/views/usuarioViews/Emprestimos.fxml"); }
     @FXML private void onNavReservas()    { System.out.println("Já está na página de Reservas"); }
@@ -184,5 +190,4 @@ public class ReservasController implements Initializable {
             e.printStackTrace();
         }
     }
-
 }

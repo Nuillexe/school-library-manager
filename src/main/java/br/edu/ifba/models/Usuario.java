@@ -31,6 +31,19 @@ public class Usuario {
     }
 
 
+    public Usuario(String id) {
+        this.id = id;
+
+        // Todos os campos de texto e objetos fora do parâmetro recebem null
+        this.nome = null;
+        this.email = null;
+        this.senha = null;
+        this.tipo = null;
+        this.listaEmprestimos = null;
+
+        // Tipo primitivo numérico assume 0
+        this.limiteLivros = 0;
+    }
     // Getters
     public String getId() { return id; }
     public String getNome() { return nome; }

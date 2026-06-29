@@ -26,6 +26,7 @@ public class CatalogoController implements Initializable {
 
     @FXML private ComboBox<String> comboCategorias;
     @FXML private VBox listaLivrosContainer;
+    @FXML private Label lblNomeUsuario;
 
     private UsuarioService usuarioService;
 
@@ -35,10 +36,15 @@ public class CatalogoController implements Initializable {
         Usuario logado = Sessao.getUsuarioLogado();
         this.usuarioService = new UsuarioService(logado);
 
-        // 2. Configura o ComboBox
+        // 2. Define o nome do usuário logado na interface
+        if (logado != null && lblNomeUsuario != null) {
+            lblNomeUsuario.setText(logado.getNome());
+        }
+
+        // 3. Configura o ComboBox
         configurarCategorias();
 
-        // 3. Carrega os livros reais do sistema
+        // 4. Carrega os livros reais do sistema
         atualizarListaDeLivros(usuarioService.obterCatalogo());
     }
 
@@ -143,17 +149,33 @@ public class CatalogoController implements Initializable {
         } catch (IOException e) {
             System.err.println("Erro ao abrir detalhes do livro: " + t.getNome());
             e.printStackTrace();
-        }catch (NullPointerException e){
+        } catch (NullPointerException e){
             System.err.println("Tela n encontrada " + t.getNome());
             e.printStackTrace();
         }
     }
 
-    @FXML private void onNavCatalogo()    { 
-        System.out.println("Já está no Catálogo"); 
+    @FXML private void onNavCatalogo() {
+        System.out.println("Já está no Catálogo");
     }
+
     @FXML private void onNavEmprestimos() { navegarPara("/views/usuarioViews/Emprestimos.fxml"); }
-    @FXML private void onNavReservas()    { navegarPara("/views/usuarioViews/Reservas.fxml"); }
+
+    @FXML private void onNavReservas() { navegarPara("/views/usuarioViews/Reservas.fxml"); }
+
+    // Método adicionado para realizar a ação de Logout e redirecionar para a autenticação
+    @FXML
+    private void onLogout() {
+        try {
+            Sessao.setUsuarioLogado(null);
+            Parent root = FXMLLoader.load(getClass().getResource("/views/AuthViews/login.fxml"));
+            Stage stage = (Stage) listaLivrosContainer.getScene().getWindow();
+            Tools.trocarCenaPreservandoJanela(stage, root);
+        } catch (IOException e) {
+            System.err.println("Erro ao deslogar: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
 
     private void navegarPara(String fxmlPath) {
         try {
@@ -166,6 +188,4 @@ public class CatalogoController implements Initializable {
             e.printStackTrace();
         }
     }
-
-
 }

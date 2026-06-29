@@ -1,15 +1,16 @@
 package br.edu.ifba.models;
 
 import java.time.LocalDate;
+import java.util.Arrays;
+
 import br.edu.ifba.repository.dao.EmprestimoDAOLista;
 import br.edu.ifba.repository.dao.LivroDAOLista;
-import br.edu.ifba.repository.dao.ReservaDAOFilaDePrioridade;
+import br.edu.ifba.repository.dao.filaDeReserva.ReservaDAOFilaDePrioridade;
 
 /**
  * Agrupa dados catalogados e gerencia a coleção física de exemplares, empréstimos e reservas deste título específico.
  */
 public class Titulo {
-
     private String nome;
     private String autor;
     private String isbn;
@@ -24,11 +25,8 @@ public class Titulo {
     private ReservaDAOFilaDePrioridade filaDeReservas; // Fila de prioridade estruturada de acordo com o Tipo do Usuário
     private EmprestimoDAOLista listaDeEmprestimos;
 
-    /**
-     * Construtor que sincroniza o título literário com seus subconjuntos e dados de persistência globais.
-     */
-    public Titulo(LivroDAOLista listaDeExemplares, EmprestimoDAOLista listaDeEmprestimos, ReservaDAOFilaDePrioridade filaDeReserva) {
 
+    public Titulo(LivroDAOLista listaDeExemplares){
         // Validação obrigatória: Não faz sentido criar um Título no catálogo sem nenhum exemplar atrelado
         if (listaDeExemplares == null || listaDeExemplares.tamanho() == 0) {
             throw new IllegalArgumentException("Lista de exemplares vazia");
@@ -38,8 +36,8 @@ public class Titulo {
         Livro modelo = listaDeExemplares.selecionar(0);
 
         this.listaDeExemplares = listaDeExemplares;
-        this.listaDeEmprestimos = (listaDeEmprestimos != null) ? listaDeEmprestimos : new EmprestimoDAOLista();
-        this.filaDeReservas = (filaDeReserva != null) ? filaDeReserva : new ReservaDAOFilaDePrioridade();
+        this.listaDeEmprestimos=new EmprestimoDAOLista();
+        this.filaDeReservas= new ReservaDAOFilaDePrioridade();
 
         this.nome = modelo.getNome();
         this.isbn = modelo.getIsbn();
@@ -60,90 +58,140 @@ public class Titulo {
             }
         }
         this.quantidadeDisponivel = contadorDisponiveis;
+
     }
 
-    // Getters e Setters de controle
 
-    public String getNome() { return nome; }
-    public String getAutor() { return autor; }
-    public String getIsbn() { return isbn; }
-    public String getGenero() { return genero; }
-    public String getDescricao() { return descricao; }
-    public LocalDate getDataPublicacao() { return dataPublicacao; }
+    public Titulo(String isbn) {
+        this.isbn = isbn;
 
-    public int getQuantidade() { return quantidade; }
-    public int getQuantidadeDeReservas() { return filaDeReservas.tamanho(); }
-    public int getQuantidadeDisponivel() { return quantidadeDisponivel; }
+        // Todos os campos de texto e objetos fora do parâmetro recebem null
+        this.nome = null;
+        this.autor = null;
+        this.genero = null;
+        this.descricao = null;
+        this.dataPublicacao = null;
+        this.listaDeExemplares = null;
+        this.filaDeReservas = null;
+        this.listaDeEmprestimos = null;
 
-    public LivroDAOLista getListaDeExemplares() { return listaDeExemplares; }
-    public ReservaDAOFilaDePrioridade getFilaDeReservas() { return filaDeReservas; }
-    public EmprestimoDAOLista getListaDeEmprestimos() { return listaDeEmprestimos; }
+        // Atributos primitivos numéricos assumem 0
+        this.quantidade = 0;
+        this.quantidadeDeReservas = 0;
+        this.quantidadeDisponivel = 0;
+    }
 
-    /**
-     * Varre a lista de exemplares para localizar e retornar o primeiro objeto físico livre para empréstimo.
-     * @return O objeto Livro disponível, ou null se todos estiverem ocupados.
-     */
-    public Livro obterExemplarDisponivel() {
-        Livro[] lista = listaDeExemplares.listar();
-        for (int i = 0; i < lista.length; i++) {
-            if (lista[i] != null && lista[i].isDisponivel()) {
-                return lista[i]; // Retorna a referência direta do exemplar físico encontrado
+    // --- Getters ---
+    public String getNome() {
+        return nome;
+    }
+    public String getAutor() {
+        return autor;
+    }
+    public String getIsbn() {
+        return isbn;
+    }
+    public String getGenero() {
+        return genero;
+    }
+    public String getDescricao() {
+        return descricao;
+    }
+    public LocalDate getDataPublicacao() {
+        return dataPublicacao;
+    }
+    public int getQuantidadeDeExemplares() {
+        return quantidade;
+    }
+
+    public int getQuantidadeDisponivel() {
+        return quantidadeDisponivel;
+    }
+
+    private int contarQuantidadeDisponivel(){
+        int cont = 0;
+        // Percorre os exemplares que este título possui
+        for (Livro l : listaDeExemplares.listar()) {
+            if (l.isDisponivel()) { // Verifica o booleano do livro físico
+                cont++;
             }
         }
+        return cont;
+    }
+
+    public ReservaDAOFilaDePrioridade getFilaDeReservas() {
+        System.out.println(Arrays.toString(filaDeReservas.listar()));
+        System.out.println("-----------");
+        return filaDeReservas;
+    }
+
+    public EmprestimoDAOLista getListaDeEmprestimos() {
+        return listaDeEmprestimos;
+    }
+
+    public LivroDAOLista getListaDeExemplares() {
+        return listaDeExemplares;
+    }
+
+    // Retorna um exemplar disponível
+    public Livro getExemplarDisponivel(){
+
+        Livro[] lista = listaDeExemplares.listar();
+
+        // Percorre todos os exemplares
+        for(int i = 0; i < lista.length; i++){
+
+            if(lista[i] != null && lista[i].isDisponivel()){
+                return lista[i];
+            }
+        }
+
         return null;
     }
 
-    /**
-     * Registra o empréstimo de um exemplar diminuindo os contadores internos de estoque.
-     */
-    public void registrarEmprestimo(Emprestimo novoEmprestimo) {
-        if (novoEmprestimo == null || quantidadeDisponivel <= 0) {
-            throw new IllegalStateException("Não há exemplares disponíveis");
-        }
-
+    // Retornar exception caso quantidade disponvel seja null
+    public void registrarEmprestimo(Emprestimo novoEmprestimo){
         listaDeEmprestimos.salvar(novoEmprestimo);
-        quantidadeDisponivel--; // Atualiza o controle imediato do estoque na estante
+
+        quantidadeDisponivel--;
     }
 
-    /**
-     * Processa a devolução de um empréstimo específico, liberando o espaço e incrementando o estoque.
-     */
-    public Emprestimo removerEmprestimo(Emprestimo e) {
-        if (e == null) {
+    public Emprestimo removerEmprestimo(Emprestimo e){
+
+        if(e == null){
             return null;
         }
 
-        // Varre a estrutura interna linear por índice
-        for (int i = 0; i < listaDeEmprestimos.tamanho(); i++) {
+        // Percorre a lista de empréstimos
+        for(int i = 0; i < listaDeEmprestimos.tamanho(); i++){
+
             Emprestimo emprestimo = listaDeEmprestimos.selecionar(i);
 
-            if (emprestimo != null && e.getId() == emprestimo.getId()) {
+            if(emprestimo != null && e.getId() == emprestimo.getId()){
+
                 listaDeEmprestimos.remover(i);
-                quantidadeDisponivel++; // Incrementa novamente a disponibilidade na estante
+
+                quantidadeDisponivel++;
+
                 return emprestimo;
             }
         }
+
         return null;
     }
 
-    /**
-     * Insere um novo exemplar físico de forma segura, garantindo que ele pertença ao mesmo código ISBN do Título.
-     */
-    public void addLivro(Livro l) {
-        if (l == null) {
-            throw new IllegalArgumentException("O exemplar não pode ser nulo.");
+    public void addLivro(Livro l){
+        if(l==null){
+            throw new IllegalArgumentException();
         }
 
-        // Validação de Integridade: O ISBN do exemplar físico deve ser idêntico ao do título catalogado
-        if (!l.getIsbn().equalsIgnoreCase(this.getIsbn())) {
+        if(!l.getIsbn().equalsIgnoreCase(this.getIsbn())){
             throw new IllegalArgumentException("Este não é um exemplar desse titulo");
         }
 
         this.listaDeExemplares.salvar(l);
-        this.quantidade = this.listaDeExemplares.tamanho(); // Sincroniza a contagem total
+        quantidade=this.listaDeExemplares.tamanho();
+        quantidadeDisponivel++;
 
-        if (l.isDisponivel()) {
-            this.quantidadeDisponivel++; // Aumenta o estoque se o livro físico inserido vier como disponível
-        }
     }
 }

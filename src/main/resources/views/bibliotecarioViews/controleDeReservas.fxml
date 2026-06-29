@@ -56,54 +56,54 @@
 
     <bottom>
         <HBox alignment="CENTER" prefHeight="90.0" style="-fx-background-color: white; -fx-border-color: #DDD transparent transparent transparent; -fx-padding: 10;">
-         <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
-            <children>
-               <ImageView fitHeight="55.0" onMouseClicked="#dashboardController" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@../../images/botaoDashboard.jpeg" />
-                  </image>
-                  <cursor>
-                     <Cursor fx:constant="HAND" />
-                  </cursor>
-               </ImageView>
-            </children>
-         </VBox>
-         <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
-            <children>
-               <ImageView fitHeight="55.0" onMouseClicked="#inventarioController" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@../../images/botaoInventario.jpeg" />
-                  </image>
-                  <cursor>
-                     <Cursor fx:constant="HAND" />
-                  </cursor>
-               </ImageView>
-            </children>
-         </VBox>
-         <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
-            <children>
-               <ImageView fitHeight="55.0" onMouseClicked="#controleDeReservasController" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@../../images/botaoFilaDeReserva.jpeg" />
-                  </image>
-                  <cursor>
-                     <Cursor fx:constant="HAND" />
-                  </cursor>
-               </ImageView>
-            </children>
-         </VBox>
-         <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
-            <children>
-               <ImageView fitHeight="55.0" onMouseClicked="#controleDeEmprestimosController" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@../../images/botaoDevolucoes.jpeg" />
-                  </image>
-                  <cursor>
-                     <Cursor fx:constant="HAND" />
-                  </cursor>
-               </ImageView>
-            </children>
-         </VBox>
+            <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+                <children>
+                    <ImageView fitHeight="55.0" onMouseClicked="#onNavDashboard" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@../../images/botaoDashboard.jpeg" />
+                        </image>
+                        <cursor>
+                            <Cursor fx:constant="HAND" />
+                        </cursor>
+                    </ImageView>
+                </children>
+            </VBox>
+            <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+                <children>
+                    <ImageView fitHeight="55.0" onMouseClicked="#onNavInventario" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@../../images/botaoInventario.jpeg" />
+                        </image>
+                        <cursor>
+                            <Cursor fx:constant="HAND" />
+                        </cursor>
+                    </ImageView>
+                </children>
+            </VBox>
+            <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+                <children>
+                    <ImageView fitHeight="55.0" onMouseClicked="#onNavReservas" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@../../images/botaoFilaDeReserva.jpeg" />
+                        </image>
+                        <cursor>
+                            <Cursor fx:constant="HAND" />
+                        </cursor>
+                    </ImageView>
+                </children>
+            </VBox>
+            <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+                <children>
+                    <ImageView fitHeight="55.0" onMouseClicked="#onNavEmprestimos" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@../../images/botaoDevolucoes.jpeg" />
+                        </image>
+                        <cursor>
+                            <Cursor fx:constant="HAND" />
+                        </cursor>
+                    </ImageView>
+                </children>
+            </VBox>
         </HBox>
     </bottom>
 </BorderPane>

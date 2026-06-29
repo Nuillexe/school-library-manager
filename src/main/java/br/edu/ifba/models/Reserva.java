@@ -38,6 +38,20 @@ public class Reserva {
         this.id = ++idCount; // Atribui ID auto-incremental único
     }
 
+    public Reserva(long id, Usuario usuario, Titulo titulo,
+                   LocalDateTime dataReserva) {
+
+        this.id = id;
+
+        if (id > idCount) {
+            idCount = id;
+        }
+
+        this.usuario = usuario;
+        this.titulo = titulo;
+        this.dataReserva = dataReserva;
+    }
+
     // Getters e Setters
 
     public Usuario getUsuario() {

@@ -44,7 +44,7 @@
 
                 <VBox spacing="4">
                     <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #1E293B;" styleClass="section-title" text="Meus Empréstimos" />
-                    <Label style="-fx-text-fill: #64748B; -fx-font-size: 13px;" styleClass="section-subtitle" text="Consulte seus empréstimos ativos, prazos de devolução e histórico." />
+                    <Label style="-fx-text-fill: #64748B; -fx-font-size: 13px;" styleClass="section-subtitle" text="Consulte seus empréstimos activos, prazos de devolução e histórico." />
                 </VBox>
 
                 <HBox fx:id="alertaBloqueado" alignment="TOP_LEFT" managed="false" spacing="12" styleClass="alert-card" visible="false">
@@ -76,37 +76,37 @@
 
     <bottom>
         <HBox alignment="CENTER" spacing="0" style="-fx-background-color: #FFFFFF; -fx-border-color: #E2E8F0 transparent transparent transparent; -fx-border-width: 1 0 0 0; -fx-padding: 8 0 8 0;" styleClass="bottom-bar">
-         <HBox alignment="CENTER" spacing="120" style="-fx-background-color: white; -fx-padding: 10 0 10 0; -fx-border-color: #E2E8F0 transparent transparent transparent; -fx-border-width: 1 0 0 0;">
-            <children>
-               <VBox alignment="CENTER" onMouseClicked="#onNavCatalogo" prefWidth="426.0" spacing="5" style="-fx-cursor: hand;">
-                  <children>
-                     <ImageView fitHeight="51.0" fitWidth="470.0" preserveRatio="true">
-                        <image>
-                           <Image url="@../../images/Catalogo.png" />
-                        </image>
-                     </ImageView>
-                  </children>
-               </VBox>
-               <VBox alignment="CENTER" onMouseClicked="#onNavEmprestimos" prefWidth="426.0" spacing="5" style="-fx-cursor: hand;">
-                  <children>
-                     <ImageView fitHeight="63.0" fitWidth="71.0" preserveRatio="true">
-                        <image>
-                           <Image url="@../../images/Emprestimo.png" />
-                        </image>
-                     </ImageView>
-                  </children>
-               </VBox>
-               <VBox alignment="CENTER" onMouseClicked="#onNavReservas" prefWidth="426.0" spacing="5" style="-fx-cursor: hand;">
-                  <children>
-                     <ImageView fitHeight="58.0" fitWidth="59.0" preserveRatio="true">
-                        <image>
-                           <Image url="@../../images/Reservas.png" />
-                        </image>
-                     </ImageView>
-                  </children>
-               </VBox>
-            </children>
-         </HBox>
+            <HBox alignment="CENTER" spacing="120" style="-fx-background-color: white; -fx-padding: 10 0 10 0; -fx-border-color: #E2E8F0 transparent transparent transparent; -fx-border-width: 1 0 0 0;">
+                <children>
+                    <VBox alignment="CENTER" onMouseClicked="#onNavCatalogo" prefWidth="426.0" spacing="5" style="-fx-cursor: hand;">
+                        <children>
+                            <ImageView fitHeight="51.0" fitWidth="470.0" preserveRatio="true">
+                                <image>
+                                    <Image url="@../../images/Catalogo.png" />
+                                </image>
+                            </ImageView>
+                        </children>
+                    </VBox>
+                    <VBox alignment="CENTER" onMouseClicked="#onNavEmprestimos" prefWidth="426.0" spacing="5" style="-fx-cursor: hand;">
+                        <children>
+                            <ImageView fitHeight="63.0" fitWidth="71.0" preserveRatio="true">
+                                <image>
+                                    <Image url="@../../images/Emprestimo.png" />
+                                </image>
+                            </ImageView>
+                        </children>
+                    </VBox>
+                    <VBox alignment="CENTER" onMouseClicked="#onNavReservas" prefWidth="426.0" spacing="5" style="-fx-cursor: hand;">
+                        <children>
+                            <ImageView fitHeight="58.0" fitWidth="59.0" preserveRatio="true">
+                                <image>
+                                    <Image url="@../../images/Reservas.png" />
+                                </image>
+                            </ImageView>
+                        </children>
+                    </VBox>
+                </children>
+            </HBox>
         </HBox>
     </bottom>
 

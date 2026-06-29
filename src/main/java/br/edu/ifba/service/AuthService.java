@@ -1,22 +1,14 @@
 package br.edu.ifba.service;
 
-import br.edu.ifba.models.Biblioteca;
 import br.edu.ifba.models.Usuario;
 import br.edu.ifba.enums.TipoUsuario;
+import br.edu.ifba.repository.BibliotecaRepository;
+import br.edu.ifba.repository.PersistenceManager;
 
 public class AuthService {
     // Instância única da biblioteca compartilhada no sistema
-    private static Biblioteca b = Biblioteca.getInstance();
+    private static BibliotecaRepository b = BibliotecaRepository.getInstance();
 
-    /**
-     * Realiza o login do usuário.
-     * Verifica se o email e a senha fornecidos correspondem a algum usuário
-     * já cadastrado na lista global da biblioteca.
-     *
-     * @param email Email inserido na tela de login
-     * @param senha Senha inserida na tela de login
-     * @return o Usuario autenticado, ou null se as credenciais forem inválidas
-     */
     public static Usuario login(String email, String senha) {
         // Percorre o array gerado pelo DAO customizado para verificar as credenciais
         for (Usuario u : b.getListaDeUsuarios().listar()) {
@@ -29,13 +21,6 @@ public class AuthService {
         return null;
     }
 
-    /**
-     * Realiza o cadastro de um novo usuário.
-     * Verifica se o ID fornecido é válido e autorizado consultando b.thisIDIsValid().
-     * Verifica também duplicidade de e-mail e ID para evitar inconsistência de dados.
-     *
-     * @return o novo Usuario cadastrado, ou null se o cadastro falhar
-     */
     public static Usuario cadastro(String nome, String email, String senha, String id) {
         // Valida se o ID estrutural está presente no banco de IDs autorizados da biblioteca
         if (!b.thisIDIsValid(id)) {
@@ -61,16 +46,12 @@ public class AuthService {
         // Instancia o novo usuário e o persiste na memória através do DAO
         Usuario novoUsuario = new Usuario(id, nome, email, senha, categoria);
         b.getListaDeUsuarios().salvar(novoUsuario);
-
+        PersistenceManager.salvarUsuario(novoUsuario);
         System.out.println("Cadastro realizado com sucesso! Bem-vindo(a), " + nome + ".");
         return novoUsuario;
     }
 
-    /**
-     * Infere a categoria do usuário a partir do prefixo do ID.
-     * CORREÇÃO: Alterado de 't' para 'p' para alinhar com o DataBaseSeed e com o
-     * método b.thisIDIsValid() que valida professores usando a letra 'p'.
-     */
+
     private static TipoUsuario resolverCategoria(String id) {
         if (id == null || id.isEmpty()) {
             return TipoUsuario.ALUNO;

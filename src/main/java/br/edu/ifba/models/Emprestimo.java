@@ -45,6 +45,26 @@ public class Emprestimo {
         this.atrasado = false; // Inicia em dia
     }
 
+    public Emprestimo(long id,
+                      Usuario usuario,
+                      Livro livro,
+                      LocalDate dataEmprestimo,
+                      LocalDate dataDevolucao,
+                      boolean atrasado) {
+
+        this.id = id;
+
+        if (id > idCount) {
+            idCount = id;
+        }
+
+        this.usuario = usuario;
+        this.livro = livro;
+        this.dataEmprestimo = dataEmprestimo;
+        this.dataDevolucao = dataDevolucao;
+        this.atrasado = atrasado;
+    }
+
     // Getters e Setters
 
     public long getId() {

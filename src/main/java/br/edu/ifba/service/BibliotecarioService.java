@@ -1,20 +1,20 @@
 package br.edu.ifba.service;
 
 import br.edu.ifba.models.*;
-import br.edu.ifba.repository.dao.EmprestimoDAOLista;
+import br.edu.ifba.repository.BibliotecaRepository;
+import br.edu.ifba.repository.PersistenceManager;
 import br.edu.ifba.repository.dao.LivroDAOLista;
-import br.edu.ifba.repository.dao.ReservaDAOFilaDePrioridade;
 import br.edu.ifba.repository.dao.ReservaDAOLista;
 
 public class BibliotecarioService {
 
-    private Biblioteca b;
+    private BibliotecaRepository b;
 
     public BibliotecarioService(Usuario userLogado) {
-        this.b = Biblioteca.getInstance();
+        this.b = BibliotecaRepository.getInstance();
     }
 
-    public Biblioteca getB() {
+    public BibliotecaRepository getB() {
         return b;
     }
 
@@ -126,6 +126,8 @@ public class BibliotecarioService {
         // Remove dos registros internos do usuário e do gerenciador global da biblioteca
         user.removerEmprestimo(e);
         b.getListaDeEmprestimos().apagarPorId(e.getId());
+        PersistenceManager.sobrescreverEmprestimos(b.getListaDeEmprestimos());
+        PersistenceManager.sobrescreverLivros(b.getAcervo());
 
         if (e.isAtrasado()) {
             System.out.println("⚠️ Devolução registrada com atraso para: " + user.getNome());
@@ -195,6 +197,7 @@ public class BibliotecarioService {
         // Consome a reserva retirando-a da fila do título e do índice global
         titulo.getFilaDeReservas().removerProximo();
         b.getListaDeReservas().apagar(proxima.getId());
+        PersistenceManager.sobrescreverReservas(b.getListaDeReservas());
 
         Usuario beneficiario = proxima.getUsuario();
 
@@ -234,7 +237,7 @@ public class BibliotecarioService {
         }
 
         b.getAcervo().salvar(novoLivro);
-
+        PersistenceManager.salvarLivro(novoLivro);
         // Verifica se o ISBN já existe para agrupar o exemplar sob o mesmo Título
         for (Titulo t : b.getTitulos().listar()) {
             if (t != null && novoLivro.getIsbn().equals(t.getIsbn())) {
@@ -248,7 +251,7 @@ public class BibliotecarioService {
         // Se for um ISBN inédito, cria-se uma nova estrutura de Título para gerenciar as futuras filas
         LivroDAOLista novaListaDeExemplares = new LivroDAOLista();
         novaListaDeExemplares.salvar(novoLivro);
-        b.getTitulos().salvar(new Titulo(novaListaDeExemplares, new EmprestimoDAOLista(), new ReservaDAOFilaDePrioridade()));
+        b.getTitulos().salvar(new Titulo(novaListaDeExemplares));
         System.out.println("✅ Novo título cadastrado com sucesso no acervo.");
     }
 
@@ -263,6 +266,7 @@ public class BibliotecarioService {
 
     public boolean removerLivro(Long idLivro) {
         Livro removido = b.getAcervo().apagar(idLivro);
+        PersistenceManager.sobrescreverLivros(b.getAcervo());
         if (removido == null) {
             System.out.println("Exemplar não encontrado.");
             return false;
