@@ -15,7 +15,7 @@ O sistema foi construído inicialmente utilizando estruturas de dados em memóri
 * 📄 [Documentação Geral](docs/)
 * 🧪 [📖 Guia de Testes](docs/GUIA_DE_TESTES.md)
 * 🌿 [Manual de Trabalho com GitHub](docs/GITHUB_MANUAL.md)  
-* 📋 [Guia de Tarefas LP2](docs/GUIA_DE_TAREFAS_LP2.md) 
+* 📋 [Guia de Tarefas LP2](docs/GUIA_DE_TAREFAS_lp2.md) 
 
 ---
 
@@ -30,7 +30,7 @@ O histórico de desenvolvimento do sistema está dividido em marcos acadêmicos 
 * **Docente:** Prof. Claudio Rodolfo Santos de Oliveira ([@claudiorodolfo](https://github.com/claudiorodolfo)).
 * **Nota Histórica:** O estado final e estável desta entrega foi congelado e pode ser acessado diretamente na branch [`archive/ed-final`](https://github.com/Nuillexe/school-library-manager/tree/archive/ed-final).
 
-### 2. Linguagem de Programação II (2026.2 - Em Andamento)
+### 2. Linguagem de Programação II (2026.1)
 * **Objetivo:** Evoluir a arquitetura do sistema com a implementação de **persistência de dados real** através da manipulação e armazenamento de arquivos locais, além de refatorar o backend para utilizar exclusivamente as coleções nativas da API do Java (*Java Collections*).
 * **Docente:** Prof. Alexandro dos Santos Silva ([@alexandrossilva](https://github.com/alexandrossilva)).
 
