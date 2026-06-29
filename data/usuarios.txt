@@ -13,4 +13,4 @@ p000005|Roberto Mendes|roberto.mendes@email.com|prof5|PROFESSOR
 l000001|Admin BiblioQueue|admin@biblioteca.com|admin|BIBLIOTECARIO
 l000002|Kaique Oliveira|kaique.oliveira@email.com|admin123|BIBLIOTECARIO
 l000003|Maria Eduarda|maria.eduarda@email.com|admin456|BIBLIOTECARIO
-s000007|emanuel|em@gmail.com|2|ALUNO
+

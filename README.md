@@ -1,598 +1,183 @@
-# LibQueue - Pendências de Desenvolvimento
+# 📚 BiblioQueue - Sistema de Gerenciamento de Biblioteca Escolar
 
-## 🔗 Acesso Rápido
+![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
+![JavaFX](https://img.shields.io/badge/JavaFX-ED8B00?style=for-the-badge&logo=java&logoColor=white)
+![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
 
-- [📋 Quadro de Tarefas](#-quadro-de-tarefas)
-- [🎯 Objetivo da Atualização](#-objetivo-da-atualização)
-- [📝 Estrutura dos Arquivos](#-estrutura-dos-arquivos)
-- [📖 Manual de Trabalho com GitHub](#manual-de-trabalho-com-github---libqueue)
+O **BiblioQueue** é um sistema de gerenciamento de biblioteca escolar desenvolvido em Java com JavaFX. O projeto permite o controle completo de usuários, acervo, empréstimos e reservas, oferecendo diferentes níveis de acesso customizados para alunos, professores e bibliotecários.
 
-## 📊 Status
-
-| Status | Significado |
-|----------|----------|
-| ⬜ | Não iniciado |
-| 🟨 | Em andamento |
-| ✅ | Concluído |
-| ❌ | Bloqueado |
+O sistema foi construído inicialmente utilizando estruturas de dados em memória e, posteriormente, evoluiu para incluir persistência de dados em arquivos locais, garantindo a consistência e a manutenção dos registros entre as execuções da aplicação.
 
 ---
 
-# 📋 Quadro de Tarefas
+## 🔗 Links Úteis e Documentação
 
-| ID | Tarefa | Responsável | Status | Observação |
-|----|---------|-------------|---------|---------|
-| T01 | Estruturar arquivos iniciais | Indaia | ⬜ ||
-| T02 | Adicionar mais dados de teste | Indaia | ⬜ ||
-| T03 | Implementar carregarLivros() | Charles | ⬜ ||
-| T04 | Implementar carregarUsuarios() | Charles | ⬜ ||
-| T05 | Implementar carregarEmprestimos() | Charles | ⬜ ||
-| T06 | Implementar carregarReservas() | Charles | ⬜ ||
-| T07 | Implementar carregarIds() | Charles | ⬜ ||
-| T08 | Implementar salvarLivro() | Maria Eduarda | ⬜ ||
-| T09 | Implementar salvarUsuario() | Maria Eduarda | ⬜ ||
-| T10 | Implementar salvarEmprestimo() | Maria Eduarda | ⬜ ||
-| T11 | Implementar salvarReserva() | Maria Eduarda | ⬜ ||
-| T12 | Implementar sobrescreverLivros() | Maria Eduarda | ⬜ ||
-| T13 | Implementar sobrescreverUsuarios() | Maria Eduarda | ⬜ ||
-| T14 | Implementar sobrescreverEmprestimos() | Maria Eduarda | ⬜ ||
-| T15 | Implementar sobrescreverReservas() | Maria Eduarda | ⬜ ||
-| T16 | Criar construtores auxiliares | Indaia | ⬜ ||
-| T17 | Implementar reconstrução dos relacionamentos | Emanuel | 🟨 ||
-| T18 | Criar métodos de persistência na BibliotecaRepository | Emanuel | ✅ ||
-| T19 | Ajustar Services para persistência em arquivos | Emanuel | ✅ ||
-| T20 | Substituir EDs por Collections Framework | Ana Clara | ⬜ ||
-| T21 | Ajustar menu superior do Inventário | Kaique | 🟨 | Falta adicionar ação ao botão de deslogar e trocar "nome aqui" pelo nome do usuario logado|
-| T22 | Reduzir efeito de intermitência das telas | Kaique | 🟨 |
-| T23 | Ajustar login na tela de bibliotecario, n é possivel entrar nessa tela | Kaique | 
+* 📄 [Documentação Geral](docs/)
+* 🧪 [📖 Guia de Testes](docs/GUIA_DE_TESTES.md)
+* 🌿 [Manual de Trabalho com GitHub](docs/GITHUB_MANUAL.md) — *Ajustar caminho se necessário*
+* 📋 [Guia de Tarefas LP2](docs/TAREFAS_LP2.md) — *Ajustar caminho se necessário*
 
 ---
 
-# Objetivo da Atualização
+## 🎓 Contexto Acadêmico
 
-O sistema deixará de utilizar a classe `DataBaseSeed` como mecanismo de persistência em memória e passará a utilizar arquivos `.txt` para armazenamento permanente dos dados.
+Este projeto nasceu e está sendo expandido como parte prática das disciplinas do curso de **Sistemas de Informação** no **Instituto Federal da Bahia (IFBA), Campus Vitória da Conquista**.
 
-A nova arquitetura será composta principalmente por:
+O histórico de desenvolvimento do sistema está dividido em marcos acadêmicos bem definidos:
 
-- `PersistenceManager` → responsável pela leitura e escrita dos arquivos.
-- `BibliotecaRepository` → responsável por manter os dados carregados, reconstruir relacionamentos entre objetos e fornecer acesso às informações do sistema.
+### 1. Estrutura de Dados (2026.1)
+* **Objetivo:** Implementação da lógica de negócios, gerenciamento de acervo e controle de filas de reserva utilizando persistência em memória. Com o propósito de consolidar os conceitos teóricos da disciplina, as estruturas de dados (como listas e filas de prioridade) foram implementadas de forma totalmente personalizada pela equipe. Os dados iniciais da aplicação eram povoados em tempo de execução por meio de uma classe semente (`DatabaseSeed`), simulando um banco pré-carregado com livros e usuários.
+* **Docente:** Prof. Claudio Rodolfo Santos de Oliveira ([@claudiorodolfo](https://github.com/claudiorodolfo)).
+* **Nota Histórica:** O estado final e estável desta entrega foi congelado e pode ser acessado diretamente na branch [`archive/ed-final`](https://github.com/Nuillexe/school-library-manager/tree/archive/ed-final).
 
-Arquivos utilizados:
-
-- `usuarios.txt`
-- `livros.txt`
-- `emprestimos.txt`
-- `reservas.txt`
-- `ids.txt`
+### 2. Linguagem de Programação II (2026.2 - Em Andamento)
+* **Objetivo:** Evoluir a arquitetura do sistema com a implementação de **persistência de dados real** através da manipulação e armazenamento de arquivos locais, além de refatorar o backend para utilizar exclusivamente as coleções nativas da API do Java (*Java Collections*).
+* **Docente:** Prof. Alexandro dos Santos Silva ([@alexandrossilva](https://github.com/alexandrossilva)).
 
 ---
 
-# Tarefas Detalhadas
+## 🚀 Funcionalidades Principais
 
-## T01 - Estruturar arquivos iniciais
-**Responsável:** Indaia
+### 👤 Gerenciamento de Usuários
+* Cadastro de novos usuários no sistema.
+* Login dinâmico utilizando e-mail e senha.
+* Níveis de acesso e permissões diferenciadas por perfil: **Aluno**, **Professor** e **Bibliotecário**.
 
-Migrar os dados atualmente presentes no `DataBaseSeed` para:
+### 📚 Gerenciamento de Acervo
+* Cadastro completo de novos títulos e livros.
+* Controle rigoroso de estoque e exemplares (Total no acervo vs. Disponíveis).
+* Consulta e busca rápida por título ou **ISBN**.
 
-- `usuarios.txt`
-- `livros.txt`
-- `ids.txt`
+### 🔄 Empréstimos e Devoluções
+* Registro e validação de empréstimos em tempo real.
+* Controle de devoluções e geração de histórico.
+* Atualização automática dos cards de disponibilidade de exemplares.
 
-Também validar se os arquivos estão compatíveis com os métodos de leitura que serão implementados.
-
----
-
-## T02 - Adicionar mais dados de teste
-**Responsável:** Indaia
-
-Adicionar:
-
-- Novos usuários.
-- Novos livros.
-- Novos exemplares.
-- Casos para testes de empréstimo.
-- Casos para testes de reserva.
-
-Objetivo: aumentar a cobertura de testes da aplicação.
+### ⏳ Reservas com Fila de Prioridade
+* Permite a reserva de títulos que estão totalmente indisponíveis no momento.
+* Organização automática de uma **fila de prioridade** baseada no tipo de usuário (ex: Professores possuem prioridade).
+* Liberação e gerenciamento automático do acervo conforme os livros retornam.
 
 ---
 
-## T03 - Implementar carregarLivros()
-**Responsável:** Charles
-**Classe:** PeristenceManager
+## 💾 Persistência de Dados (Fase LP2)
 
-Implementar:
+Para garantir que os dados não sejam perdidos ao fechar a aplicação, o sistema agora manipula arquivos de texto locais salvos automaticamente na pasta: `data/`.
 
-```java
-carregarLivros()
-```
-
-O método deverá:
-
-- Ler `livros.txt`.
-- Instanciar objetos Livro.
-- Retornar uma estrutura contendo todos os livros carregados.
+**Arquivos persistidos e restaurados automaticamente na inicialização:**
+* `livros.txt` — Dados cadastrais do acervo.
+* `usuarios.txt` — Registro de usuários e credenciais.
+* `emprestimos.txt` — Histórico e transações ativas de empréstimos.
+* `reservas.txt` — Fila de espera e gerenciamento de prioridades.
+* `ids.txt` — Controle sequencial de chaves primárias e autoincremento.
 
 ---
 
-## T04 - Implementar carregarUsuarios()
-**Responsável:** Charles
-**Classe:** PeristenceManagerImplementar:
+## 🛠️ Tecnologias Utilizadas
 
-```java
-carregarUsuarios()
-```
+* **Java 17+** (Linguagem base do projeto)
+* **JavaFX / FXML** (Construção de interfaces modernas e responsivas)
+* **CSS** (Estilização customizada das views)
+* **Git & GitHub** (Controle de versão e colaboração)
 
-O método deverá:
+🏗️ Arquitetura do Projeto
 
-- Ler `usuarios.txt`.
-- Instanciar objetos Usuario.
-- Retornar a lista carregada.
-
----
-
-## T05 - Implementar carregarEmprestimos()
-**Responsável:** Charles
-**Classe:** PeristenceManagerImplementar:
-
-```java
-carregarEmprestimos()
-```
-
-Observação:
-
-- Inicialmente poderá utilizar usuários e livros temporários para permitir a reconstrução posterior dos relacionamentos.
-
----
-
-## T06 - Implementar carregarReservas()
-**Responsável:** Charles
-**Classe:** PeristenceManagerImplementar:
-
-```java
-carregarReservas()
-```
-
-Observação:
-
-- Inicialmente poderá utilizar títulos temporários.
-
----
-
-## T07 - Implementar carregarIds()
-**Responsável:** Charles
-**Classe:** PeristenceManagerImplementar:
-
-```java
-carregarIds()
-```
-
-Responsável por carregar todos os IDs válidos da instituição.
-
----
-
-## T08 - Implementar salvarLivro()
-**Responsável:** Maria Eduarda
-**Classe:** PeristenceManagerImplementar:
-
-```java
-salvarLivro(Livro livro)
-```
-
-Utilizar escrita incremental (`append`) para adicionar novos registros sem apagar os existentes.
-
----
-
-## T09 - Implementar salvarUsuario()
-**Responsável:** Maria Eduarda
-**Classe:** PeristenceManagerImplementar:
-
-Implementar:
-
-```java
-salvarUsuario(Usuario usuario)
-```
-
-Utilizar escrita incremental.
-
----
-
-## T10 - Implementar salvarEmprestimo()
-**Responsável:** Maria Eduarda
-**Classe:** PeristenceManagerImplementar:
-Implementar:
-
-```java
-salvarEmprestimo(Emprestimo emprestimo)
-```
-
-Utilizar escrita incremental.
-
----
-
-## T11 - Implementar salvarReserva()
-**Responsável:** Maria Eduarda
-**Classe:** PeristenceManagerImplementar:
-Implementar:
-
-```java
-salvarReserva(Reserva reserva)
-```
-
-Utilizar escrita incremental.
-
----
-
-## T12 - Implementar sobrescreverLivros()
-**Responsável:** Maria Eduarda
-**Classe:** PeristenceManagerImplementar:
-Implementar:
-
-```java
-sobrescreverLivros(...)
-```
-
-Utilizado principalmente em operações de remoção ou atualização.
-
----
-
-## T13 - Implementar sobrescreverUsuarios()
-**Responsável:** Maria Eduarda
-**Classe:** PeristenceManagerImplementar:
-Implementar:
-
-```java
-sobrescreverUsuarios(...)
-```
-
-Utilizado principalmente em operações de remoção ou atualização.
-
----
-
-## T14 - Implementar sobrescreverEmprestimos()
-**Responsável:** Maria Eduarda
-**Classe:** PeristenceManagerImplementar:
-
-Implementar:
-
-```java
-sobrescreverEmprestimos(...)
-```
-
-Utilizado principalmente em operações de remoção ou atualização.
-
----
-
-## T15 - Implementar sobrescreverReservas()
-**Responsável:** Maria Eduarda
-**Classe:** PeristenceManagerImplementar:
-
-Implementar:
-
-```java
-sobrescreverReservas(...)
-```
-
-Utilizado principalmente em operações de remoção ou atualização.
-
----
-
-## T16 - Criar construtores auxiliares
-**Responsável:** Indaia
-
-Criar construtores simplificados para auxiliar no carregamento dos dados.
-
-Exemplos:
-
-```java
-Usuario(String id)
-
-Livro(long id)
-
-Titulo(String isbn)
-```
-
-Esses construtores serão utilizados para criação de objetos temporários durante a leitura dos arquivos.
-
----
-
-## T17 - Implementar reconstrução dos relacionamentos
-**Responsável:** Emanuel
-
-Implementar no `BibliotecaRepository`.
-
-Objetivos:
-
-- Substituir referências temporárias pelas referências reais.
-- Associar empréstimos aos respectivos usuários.
-- Associar reservas aos respectivos usuários.
-- Associar empréstimos aos respectivos livros.
-- Associar reservas aos respectivos títulos.
-- Reconstruir a lista de títulos.
-- Reconstruir as filas de reserva.
-
----
-
-## T18 - Criar métodos de persistência na BibliotecaRepository
-**Responsável:** Emanuel 
-
-Criar métodos responsáveis por manter sincronizados os arquivos e as estruturas em memória.
-
-Exemplos:
-
-```java
-adicionarLivro(...)
-removerLivro(...)
-
-adicionarUsuario(...)
-removerUsuario(...)
-
-adicionarEmprestimo(...)
-removerEmprestimo(...)
-
-adicionarReserva(...)
-removerReserva(...)
-```
-
----
-
-## T19 - Ajustar Services com base em Biblioteca Repositori 
-**Responsável:** Charles
-
-Atualizar os Services para utilizar a nova camada de persistência.
-
-Impactos:
-
-- Cadastro de usuários.
-- Cadastro de livros.
-- Empréstimos.
-- Devoluções.
-- Reservas.
-
----
-
-## T20 - Substituir EDs por Collections Framework
-**Responsável:** Ana Clara
-
-Avaliar substituição das estruturas implementadas manualmente por estruturas nativas do Java.
-
-Principais candidatas:
-
-```java
-List
-ArrayList
-Queue
-PriorityQueue
-Map
-```
-
-Garantir compatibilidade com os DAOs existentes.
-
----
-
-## T21 - Ajustar menu superior do Inventário
-**Responsável:** Kaique
-
-Corrigir:
-
-- Alinhamento.
-- Espaçamento.
-- Organização visual.
-- Responsividade.
-
----
-
-## T22 - Reduzir efeito de intermitência das telas
-**Responsável:** Kaique
-
-Investigar e corrigir o efeito de "piscar" durante a navegação entre telas.
-
-Possíveis causas:
-
-- Recarregamento excessivo de FXML.
-- Troca completa de Scene.
-- Recriação desnecessária de componentes.
-
----
-
-# Estrutura dos Arquivos
-
-## usuarios.txt
+O projeto adota estritamente o padrão arquitetural MVC (Model-View-Controller) com uma organização modular de pacotes focada em domínios de negócio:
 
 ```text
-id | nome | email | senha | tipo
+src/main/java/br/edu/ifba/
+├── controller/
+│   ├── auth/
+│   │   ├── Cadastro.java
+│   │   └── Login.java
+│   └── features/
+│       ├── bibliotecario/
+│       │   ├── AdicionarLivroController.java
+│       │   ├── BottomMenuController.java
+│       │   ├── ControleDeEmprestimosController.java
+│       │   ├── ControleDeReservasController.java
+│       │   ├── DashboardController.java
+│       │   ├── InventarioController.java
+│       │   └── TopBarController.java
+│       └── usuario/
+│           ├── CatalogoController.java
+│           ├── DetalheLivroController.java
+│           ├── EmprestimosController.java
+│           └── ReservasController.java
+├── enums/
+│   └── TipoUsuario.java
+├── models/
+│   ├── Emprestimo.java
+│   ├── Livro.java
+│   ├── Reserva.java
+│   ├── Titulo.java
+│   └── Usuario.java
+├── repository/
+│   ├── dao/
+│   ├── BibliotecaRepository.java
+│   └── PersistenceManager.java
+├── service/
+│   ├── AuthService.java
+│   ├── BibliotecarioService.java
+│   └── UsuarioService.java
+├── util/
+├── Launcher.java
+└── MainApp.java
+
+src/main/resources/
+├── images/
+└── views/
+├── AuthViews/
+│   ├── css/
+│   ├── cadastro.fxml
+│   └── login.fxml
+├── bibliotecarioViews/
+│   ├── css/
+│   ├── telaPadrao/
+│   ├── adicionarLivro.fxml
+│   ├── controleDeEmprestimos.fxml
+│   ├── controleDeReservas.fxml
+│   ├── dashboard.fxml
+│   └── inventario.fxml
+└── usuarioViews/
+├── css/
+├── Catalogo.fxml
+├── DetalheLivro.fxml
+├── Emprestimos.fxml
+└── Reservas.fxml
 ```
 
 ---
 
-## livros.txt
+## 🌿 Estrutura de Branches do Repositório
 
-```text
-id | nome | autor | isbn | genero | descricao | dataPublicacao | disponivel
-```
+O histórico do projeto está segmentado estrategicamente para facilitar a navegação e a avaliação por parte dos respectivos docentes:
 
----
-
-## emprestimos.txt
-
-```text
-id | dataEmprestimo | dataDevolucao | atrasado | idUsuario | idLivro
-```
+* [`main`](https://github.com/Nuillexe/school-library-manager/tree/main): Estágio atual e final do projeto unificado, contendo a persistência em arquivos e todas as regras de negócio integradas.
+* [`archive/ed`](https://github.com/Nuillexe/school-library-manager/tree/archive/ed): Código estável e congelado referente à entrega final da disciplina de **Estrutura de Dados** (execução e persistência exclusivamente em memória).
+* [`archive/lp2`](https://github.com/Nuillexe/school-library-manager/tree/archive/lp2): Ramificação focada no desenvolvimento e nos requisitos da disciplina de **Linguagem de Programação II**, com ênfase na arquitetura de persistência via manipulação de arquivos locais e desacoplamento da interface JavaFX.
 
 ---
 
-## reservas.txt
+## ⚙️ Como Executar o Projeto
 
-```text
-id | idUsuario | isbnTitulo | dataReserva
-```
+### 📋 Pré-requisitos
+* **Java JDK 17** ou superior instalado e configurado nas variáveis de ambiente.
+* **JavaFX SDK** configurado na sua máquina ou integrado diretamente na sua IDE de preferência.
 
----
+### 🚀 Passo a Passo
+1. Clone o repositório em sua máquina local utilizando o terminal:
+   ```bash
+   git clone [https://github.com/Nuillexe/school-library-manager.git](https://github.com/Nuillexe/school-library-manager.git)
 
-## ids.txt
-
-Lista contendo todos os IDs institucionais válidos.
-
-Exemplo:
-
-```text
-s000001
-s000002
-s000003
-p000001
-p000002
-l000001
-```
+2. Abra o diretório clonado na sua IDE de preferência (*IntelliJ IDEA*, *Eclipse* ou *VS Code*).
+3. Certifique-se de vincular as bibliotecas nativas do **JavaFX** ao *Build Path* ou às dependências do projeto.
+4. Execute a classe principal do sistema (localizada no pacote raiz `br.edu.ifba.biblioqueue`).
 
 ---
 
-# Dependências entre Tarefas
+## 👨‍💻 Equipe e Desenvolvimento
 
-1. T01 deve ser concluída antes da validação dos métodos de leitura.
-2. T16 deve ser concluída antes da implementação completa dos carregamentos.
-3. T03–T07 devem ser concluídas antes da reconstrução dos relacionamentos (T17).
-4. T17 depende da conclusão dos carregamentos.
-5. T18 depende da conclusão dos métodos de leitura.
-6. T19 depende da implementação da nova persistência.
-7. As tarefas de interface (T21 e T22) podem ser realizadas independentemente.
+Projeto desenvolvido como atividade prática acadêmica por alunos do curso de **Sistemas de Informação** do **Instituto Federal da Bahia (IFBA) – Campus Vitória da Conquista**.
 
----
-
-# Observações
-
-- A classe `DataBaseSeed` será removida.
-- Toda persistência passará a ser feita via arquivos.
-- O `PersistenceManager` será responsável apenas pela leitura e escrita dos arquivos.
-- O `BibliotecaRepository` será responsável por montar o estado completo do sistema.
-- Os relacionamentos entre objetos deverão ser reconstruídos após o carregamento dos dados.
-- Novas funcionalidades deverão utilizar o `BibliotecaRepository` como ponto central de acesso aos dados.
-
-
-# Manual de Trabalho com GitHub - LibQueue
-
-## 1. Clonar o Repositório
-
-```bash
-git clone https://github.com/Nuillexe/school-library-manager.git
-cd school-library-manager
-```
-
----
-
-## 2. Entrar na Branch do Projeto
-
-Todo o desenvolvimento desta etapa será realizado na branch:
-
-```bash
-git checkout archive/Lp2
-```
-
-Caso necessário:
-
-```bash
-git checkout -b archive/Lp2 origin/archive/Lp2
-```
-
-⚠️ Não realizar alterações diretamente na `main`.
-
----
-
-## 3. Atualizar Antes de Começar
-
-Sempre execute:
-
-```bash
-git pull origin archive/Lp2
-```
-
-Isso garante que você está trabalhando na versão mais recente do projeto.
-
----
-
-## 4. Realizar Alterações
-
-Implemente apenas as tarefas sob sua responsabilidade e evite modificar arquivos de outros membros sem necessidade.
-
----
-
-## 5. Criar um Commit
-
-Verifique os arquivos alterados:
-
-```bash
-git status
-```
-
-Adicione as alterações:
-
-```bash
-git add .
-```
-
-Realize o commit:
-
-```bash
-git commit -m "Descrição da alteração"
-```
-
-Exemplos:
-
-```bash
-git commit -m "Implementa carregarUsuarios"
-git commit -m "Implementa salvarEmprestimo"
-git commit -m "Refatora tela de inventario"
-```
-
----
-
-## 6. Enviar para o GitHub
-
-```bash
-git push origin archive/Lp2
-```
-
----
-
-## 7. Atualizar o README
-
-Ao iniciar ou concluir uma tarefa, atualizar o status correspondente:
-
-* ⬜ Não iniciado
-* 🟨 Em andamento
-* ✅ Concluído
-* ❌ Bloqueado
-
----
-
-## Regras da Equipe
-
-* Não realizar push na `main`.
-* Sempre executar `git pull` antes de começar.
-* Utilizar mensagens de commit claras.
-* Atualizar o README conforme o andamento das tarefas.
-* Em caso de conflito, comunicar a equipe antes de realizar alterações.
-
----
-
-## Fluxo Resumido
-
-```bash
-git clone https://github.com/Nuillexe/school-library-manager.git
-
-cd school-library-manager
-
-git checkout archive/Lp2
-
-git pull origin archive/Lp2
-
-# realizar alterações
-
-git add .
-
-git commit -m "Descrição da alteração"
-
-git push origin archive/Lp2
-```
-
-Ao final do desenvolvimento, será realizado um Pull Request da branch `archive/Lp2` para a `main`.
-
+📄 *Este software foi construído e disponibilizado exclusivamente para fins didáticos e educacionais.*
