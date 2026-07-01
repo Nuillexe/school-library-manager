@@ -14,8 +14,8 @@ O sistema foi construído inicialmente utilizando estruturas de dados em memóri
 
 * 📄 [Documentação Geral](docs/)
 * 🧪 [📖 Guia de Testes](docs/GUIA_DE_TESTES.md)
-* 🌿 [Manual de Trabalho com GitHub](docs/GITHUB_MANUAL.md) — *Ajustar caminho se necessário*
-* 📋 [Guia de Tarefas LP2](docs/TAREFAS_LP2.md) — *Ajustar caminho se necessário*
+* 🌿 [Manual de Trabalho com GitHub](docs/GITHUB_MANUAL.md)  
+* 📋 [Guia de Tarefas LP2](docs/GUIA_DE_TAREFAS_Lp2.md) 
 
 ---
 
@@ -28,9 +28,9 @@ O histórico de desenvolvimento do sistema está dividido em marcos acadêmicos 
 ### 1. Estrutura de Dados (2026.1)
 * **Objetivo:** Implementação da lógica de negócios, gerenciamento de acervo e controle de filas de reserva utilizando persistência em memória. Com o propósito de consolidar os conceitos teóricos da disciplina, as estruturas de dados (como listas e filas de prioridade) foram implementadas de forma totalmente personalizada pela equipe. Os dados iniciais da aplicação eram povoados em tempo de execução por meio de uma classe semente (`DatabaseSeed`), simulando um banco pré-carregado com livros e usuários.
 * **Docente:** Prof. Claudio Rodolfo Santos de Oliveira ([@claudiorodolfo](https://github.com/claudiorodolfo)).
-* **Nota Histórica:** O estado final e estável desta entrega foi congelado e pode ser acessado diretamente na branch [`archive/ed-final`](https://github.com/Nuillexe/school-library-manager/tree/archive/ed-final).
+* **Nota Histórica:** O estado final e estável desta entrega foi congelado e pode ser acessado diretamente na branch [`archive/ed`](https://github.com/Nuillexe/school-library-manager/tree/archive/ed).
 
-### 2. Linguagem de Programação II (2026.2 - Em Andamento)
+### 2. Linguagem de Programação II (2026.1)
 * **Objetivo:** Evoluir a arquitetura do sistema com a implementação de **persistência de dados real** através da manipulação e armazenamento de arquivos locais, além de refatorar o backend para utilizar exclusivamente as coleções nativas da API do Java (*Java Collections*).
 * **Docente:** Prof. Alexandro dos Santos Silva ([@alexandrossilva](https://github.com/alexandrossilva)).
 
@@ -155,7 +155,7 @@ O histórico do projeto está segmentado estrategicamente para facilitar a naveg
 
 * [`main`](https://github.com/Nuillexe/school-library-manager/tree/main): Estágio atual e final do projeto unificado, contendo a persistência em arquivos e todas as regras de negócio integradas.
 * [`archive/ed`](https://github.com/Nuillexe/school-library-manager/tree/archive/ed): Código estável e congelado referente à entrega final da disciplina de **Estrutura de Dados** (execução e persistência exclusivamente em memória).
-* [`archive/lp2`](https://github.com/Nuillexe/school-library-manager/tree/archive/lp2): Ramificação focada no desenvolvimento e nos requisitos da disciplina de **Linguagem de Programação II**, com ênfase na arquitetura de persistência via manipulação de arquivos locais e desacoplamento da interface JavaFX.
+* [`archive/Lp2`](https://github.com/Nuillexe/school-library-manager/tree/archive/Lp2): Ramificação focada no desenvolvimento e nos requisitos da disciplina de **Linguagem de Programação II**, com ênfase na arquitetura de persistência via manipulação de arquivos locais e desacoplamento da interface JavaFX.
 
 ---
 
