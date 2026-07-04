@@ -73,6 +73,19 @@ Para garantir que os dados não sejam perdidos ao fechar a aplicação, o sistem
 
 ---
 
+## 📚 Dados de Demonstração
+
+O projeto é distribuído com uma base inicial de dados para facilitar testes e demonstrações das funcionalidades.
+
+Os arquivos localizados na pasta `data/` contêm:
+
+- Usuários de exemplo;
+- Identificadores institucionais válidos para cadastro;
+- Livros e exemplares do acervo;
+- Empréstimos e reservas de demonstração.
+
+> Parte desses dados foi gerada com auxílio de Inteligência Artificial para fins acadêmicos e de simulação. Os registros foram utilizados apenas para compor um cenário de testes realista, permitindo validar as funcionalidades do sistema sem depender de uma base de dados real.
+
 ## 🛠️ Tecnologias Utilizadas
 
 * **Java 17+** (Linguagem base do projeto)

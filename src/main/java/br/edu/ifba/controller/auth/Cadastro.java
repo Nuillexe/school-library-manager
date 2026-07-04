@@ -59,11 +59,11 @@ public class Cadastro {
 
         Usuario novoUsuario = AuthService.cadastro(nome, email, senha, id);
         if (novoUsuario != null) {
-            Tools.enviarAlerta("Registro Realizado com sucesso");
+            Tools.enviarAlerta("Registro realizado com sucesso");
             Sessao.setUsuarioLogado(novoUsuario);
             Tools.navegarPara(event, "/views/usuarioViews/Catalogo.fxml");
         } else {
-            Tools.enviarAlerta("Registro Realizado não sucedido");
+            Tools.enviarAlerta("Não foi possivel realizar o registro, verifique se os campos foram preenchidos corretamente ");
         }
     }
 
