@@ -72,7 +72,7 @@ Nesta etapa foram implementados:
 
 A entrega final da disciplina encontra-se preservada na branch:
 
-- [`archive/lp2`](https://github.com/Nuillexe/school-library-manager/tree/archive/lp2)
+- [`archive/lp2`](https://github.com/Nuillexe/school-library-manager/tree/archive/Lp2)
 
 ---
 
