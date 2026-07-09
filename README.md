@@ -4,217 +4,264 @@
 ![JavaFX](https://img.shields.io/badge/JavaFX-ED8B00?style=for-the-badge&logo=java&logoColor=white)
 ![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
 
-O **BiblioQueue** é um sistema de gerenciamento de biblioteca escolar desenvolvido em Java com JavaFX. O projeto permite o controle completo de usuários, acervo, empréstimos e reservas, oferecendo diferentes níveis de acesso customizados para alunos, professores e bibliotecários.
+O **BiblioQueue** é um sistema de gerenciamento de biblioteca escolar desenvolvido em **Java** e **JavaFX**, permitindo o controle completo de usuários, acervo, empréstimos e reservas.
 
-O sistema foi construído inicialmente utilizando estruturas de dados em memória e, posteriormente, evoluiu para incluir persistência de dados em arquivos locais, garantindo a consistência e a manutenção dos registros entre as execuções da aplicação.
+O projeto evoluiu ao longo de duas disciplinas do curso de **Sistemas de Informação do IFBA**, passando de uma implementação baseada exclusivamente em estruturas de dados em memória para uma arquitetura com persistência permanente em arquivos locais.
+
+---
+
+# 🔗 Links Úteis
+
+- 📖 [Guia de Testes](docs/GUIA_DE_TESTES.md)
+- 🌿 [Manual de Trabalho com GitHub](docs/GITHUB_MANUAL.md)
+- 📋 [Guia de Tarefas LP2](docs/GUIA_DE_TAREFAS_LP2.md)
 
 ---
 
-## 🔗 Links Úteis e Documentação
-
-* 📄 [Documentação Geral](docs/)
-* 🧪 [📖 Guia de Testes](docs/GUIA_DE_TESTES.md)
-* 🌿 [Manual de Trabalho com GitHub](docs/GITHUB_MANUAL.md)  
-* 📋 [Guia de Tarefas LP2](docs/GUIA_DE_TAREFAS_Lp2.md) 
-
----
-## 🎓 Contexto Acadêmico e Documentação
+# 🎓 Contexto Acadêmico e Documentação
 
 Este projeto foi desenvolvido como atividade prática das disciplinas do curso de **Sistemas de Informação** do **Instituto Federal da Bahia (IFBA) – Campus Vitória da Conquista**.
 
-Ao longo de sua evolução, o sistema passou por diferentes etapas de desenvolvimento, cada uma associada a objetivos específicos das disciplinas cursadas.
+## Estrutura de Dados (2026.1)
 
-### 1. Estrutura de Dados (2026.1)
+### Objetivo
 
-**Objetivo:** Implementação da lógica de negócios, gerenciamento de acervo e controle de filas de reserva utilizando persistência em memória.
+Implementação da lógica de negócios, gerenciamento de acervo e controle de filas de reserva utilizando persistência em memória.
 
-Com o propósito de consolidar os conceitos teóricos da disciplina, as estruturas de dados (listas, filas e filas de prioridade) foram implementadas de forma personalizada pela equipe, sem utilização das coleções nativas da linguagem. Os dados iniciais da aplicação eram carregados em tempo de execução por meio da classe `DatabaseSeed`, responsável por simular um banco de dados previamente populado. 
+Com o propósito de consolidar os conceitos teóricos da disciplina, as estruturas de dados (listas, filas e filas de prioridade) foram implementadas manualmente pela equipe, sem utilização das coleções nativas da linguagem.
 
-**Docente:** Prof. Claudio Rodolfo Santos de Oliveira ([@claudiorodolfo](https://github.com/claudiorodolfo))
+Os dados iniciais eram carregados em tempo de execução por meio da classe `DatabaseSeed`, responsável por simular um banco de dados previamente populado.
 
-**Documentação:**
-- `docs/docs_academicos/Artigo_Final_ED.pdf`[(https://github.com/Nuillexe/school-library-manager/blob/main/docs/docs_academicos/Artigo_ED.pdf)]
+**Docente:** Prof. Claudio Rodolfo Santos de Oliveira ([claudiorodolfo](https://github.com/claudiorodolfo))
 
-**Nota Histórica:** Esta versão representa a entrega final da disciplina de Estrutura de Dados e encontra-se preservada na branch:
-- `archive/ed`[(https://github.com/Nuillexe/school-library-manager/tree/archive/ed)]
+### Documentação
 
----
+- [Artigo Final de Estrutura de Dados](docs/docs_academicos/Artigo_ED.pdf)
 
-### 2. Linguagem de Programação II (2026.1)
+### Nota Histórica
 
-**Objetivo:** Evoluir a arquitetura do sistema através da implementação de persistência permanente em arquivos locais, refatoração do backend e adoção das coleções da Java Collections Framework. Além disso, fazer uso do framework JavaFx
+A entrega final da disciplina encontra-se preservada na branch:
 
-Nesta etapa, a estrutura de armazenamento foi reformulada para permitir que livros, usuários, empréstimos e reservas permanecessem disponíveis entre diferentes execuções do sistema. Também foram realizadas melhorias na organização dos pacotes, documentação do projeto e recuperação automática dos relacionamentos entre objetos carregados da persistência. Quanto ao uso do JavaFx, a interface foi aprimorada 
-
-**Docente:** Prof. Alexandro dos Santos Silva ([@alexandrossilva](https://github.com/alexandrossilva))
-
-**Documentação:**
-- `docs/docs_academicos/Relatorio_Final_LP2.pdf`([https://github.com/Nuillexe/school-library-manager/blob/main/docs/docs_academicos/Relatorio_LP2.pdf])
-- `docs/guia_de_testes.md`[(https://github.com/Nuillexe/school-library-manager/blob/main/docs/GUIA_DE_TESTES.md)]
-
-**Nota Histórica:** Esta versão representa a entrega final da disciplina de Linguagem de Programação II e encontra-se preservada na branch:
-- `archive/lp2`[(https://github.com/Nuillexe/school-library-manager/tree/archive/Lp2)]
+- [`archive/ed`](https://github.com/Nuillexe/school-library-manager/tree/archive/ed)
 
 ---
 
-### Versão Atual
+## Linguagem de Programação II (2026.1)
 
-A branch `main` reúne a versão mais recente e estável do projeto, consolidando as funcionalidades desenvolvidas ao longo das disciplinas e servindo como referência principal para demonstração e portfólio.
+### Objetivo
 
-## 🌿 Estrutura de Branches
+Evoluir a arquitetura do sistema através da implementação de persistência permanente em arquivos locais, adoção das coleções da Java Collections Framework e aprimoramento da interface gráfica utilizando JavaFX.
 
-O repositório mantém versões históricas do projeto associadas às disciplinas em que foi desenvolvido:
+Nesta etapa foram implementados:
 
-- `main`[(https://github.com/Nuillexe/school-library-manager/tree/main)] — versão mais recente e consolidada do sistema.
-- `archive/ed`[(https://github.com/Nuillexe/school-library-manager/tree/archive/ed)] — entrega final da disciplina de Estrutura de Dados.
-- `archive/lp2`[(https://github.com/Nuillexe/school-library-manager/tree/archive/Lp2)] — entrega final da disciplina de Linguagem de Programação II.
+- Persistência de dados em arquivos `.txt`;
+- Recuperação automática dos relacionamentos entre objetos;
+- Refatoração dos repositórios;
+- Melhor organização arquitetural;
+- Documentação e guias de utilização;
+- Aprimoramentos na interface gráfica.
 
+**Docente:** Prof. Alexandro dos Santos Silva ([alexandrossilva](https://github.com/alexandrossilva))
 
-## 🚀 Funcionalidades Principais
+### Documentação
 
-### 👤 Gerenciamento de Usuários
-* Cadastro de novos usuários no sistema.
-* Login dinâmico utilizando e-mail e senha.
-* Níveis de acesso e permissões diferenciadas por perfil: **Aluno**, **Professor** e **Bibliotecário**.
+- [Relatório Final de LP2](docs/docs_academicos/Relatorio_LP2.pdf)
+- [Guia de Testes](docs/GUIA_DE_TESTES.md)
 
-### 📚 Gerenciamento de Acervo
-* Cadastro completo de novos títulos e livros.
-* Controle rigoroso de estoque e exemplares (Total no acervo vs. Disponíveis).
-* Consulta e busca rápida por título ou **ISBN**.
+### Nota Histórica
 
-### 🔄 Empréstimos e Devoluções
-* Registro e validação de empréstimos em tempo real.
-* Controle de devoluções e geração de histórico.
-* Atualização automática dos cards de disponibilidade de exemplares.
+A entrega final da disciplina encontra-se preservada na branch:
 
-### ⏳ Reservas com Fila de Prioridade
-* Permite a reserva de títulos que estão totalmente indisponíveis no momento.
-* Organização automática de uma **fila de prioridade** baseada no tipo de usuário (ex: Professores possuem prioridade).
-* Liberação e gerenciamento automático do acervo conforme os livros retornam.
+- [`archive/lp2`](https://github.com/Nuillexe/school-library-manager/tree/archive/lp2)
 
 ---
 
-## 💾 Persistência de Dados (Fase LP2)
+## Versão Atual
 
-Para garantir que os dados não sejam perdidos ao fechar a aplicação, o sistema agora manipula arquivos de texto locais salvos automaticamente na pasta: `data/`.
-
-**Arquivos persistidos e restaurados automaticamente na inicialização:**
-* `livros.txt` — Dados cadastrais do acervo.
-* `usuarios.txt` — Registro de usuários e credenciais.
-* `emprestimos.txt` — Histórico e transações ativas de empréstimos.
-* `reservas.txt` — Fila de espera e gerenciamento de prioridades.
-* `ids.txt` — Controle sequencial de chaves primárias e autoincremento.
+A branch **main** reúne a versão mais recente e estável do projeto, consolidando as funcionalidades desenvolvidas ao longo das disciplinas e servindo como referência principal para demonstração e portfólio.
 
 ---
 
-## 📚 Dados de Demonstração
+# 🌿 Estrutura de Branches
 
-O projeto é distribuído com uma base inicial de dados para facilitar testes e demonstrações das funcionalidades.
+O repositório mantém versões históricas do projeto associadas às disciplinas em que foi desenvolvido.
 
-Os arquivos localizados na pasta `data/` contêm:
+| Branch | Descrição |
+|----------|----------|
+| `main` | Versão consolidada e atual do sistema |
+| `archive/ed` | Entrega final da disciplina de Estrutura de Dados |
+| `archive/lp2` | Entrega final da disciplina de Linguagem de Programação II |
 
-- Usuários de exemplo;
-- Identificadores institucionais válidos para cadastro;
-- Livros e exemplares do acervo;
-- Empréstimos e reservas de demonstração.
+---
 
-> Esses dados foram gerados com auxílio de Inteligência Artificial para fins acadêmicos e de simulação. Os registros foram utilizados apenas para compor um cenário de testes realista, permitindo validar as funcionalidades do sistema sem depender de uma base de dados real.
+# 🚀 Funcionalidades Principais
 
-## 🛠️ Tecnologias Utilizadas
+## 👤 Gerenciamento de Usuários
 
-* **Java 17+** (Linguagem base do projeto)
-* **JavaFX / FXML** (Construção de interfaces modernas e responsivas)
-* **CSS** (Estilização customizada das views)
-* **Git & GitHub** (Controle de versão e colaboração)
+- Cadastro de novos usuários;
+- Login por e-mail e senha;
+- Controle de permissões por perfil;
+- Perfis disponíveis:
+  - Aluno;
+  - Professor;
+  - Bibliotecário.
 
-🏗️ Arquitetura do Projeto
+## 📚 Gerenciamento de Acervo
 
-O projeto adota estritamente o padrão arquitetural MVC (Model-View-Controller) com uma organização modular de pacotes focada em domínios de negócio:
+- Cadastro de títulos;
+- Cadastro de exemplares;
+- Consulta por ISBN;
+- Controle de disponibilidade;
+- Controle de estoque.
+
+## 🔄 Empréstimos e Devoluções
+
+- Registro de empréstimos;
+- Registro de devoluções;
+- Histórico de movimentações;
+- Atualização automática de disponibilidade.
+
+## ⏳ Reservas com Prioridade
+
+- Reserva de títulos indisponíveis;
+- Fila de prioridade para professores;
+- Gerenciamento automático de espera;
+- Liberação automática após devoluções.
+
+---
+
+# 💾 Persistência de Dados
+
+Para garantir que os dados permaneçam disponíveis entre diferentes execuções da aplicação, o sistema utiliza persistência baseada em arquivos texto armazenados na pasta:
 
 ```text
-src/main/java/br/edu/ifba/
-├── controller/
-│   ├── auth/
-│   │   ├── Cadastro.java
-│   │   └── Login.java
-│   └── features/
-│       ├── bibliotecario/
-│       │   ├── AdicionarLivroController.java
-│       │   ├── BottomMenuController.java
-│       │   ├── ControleDeEmprestimosController.java
-│       │   ├── ControleDeReservasController.java
-│       │   ├── DashboardController.java
-│       │   ├── InventarioController.java
-│       │   └── TopBarController.java
-│       └── usuario/
-│           ├── CatalogoController.java
-│           ├── DetalheLivroController.java
-│           ├── EmprestimosController.java
-│           └── ReservasController.java
-├── enums/
-│   └── TipoUsuario.java
-├── models/
-│   ├── Emprestimo.java
-│   ├── Livro.java
-│   ├── Reserva.java
-│   ├── Titulo.java
-│   └── Usuario.java
-├── repository/
-│   ├── dao/
-│   ├── BibliotecaRepository.java
-│   └── PersistenceManager.java
-├── service/
-│   ├── AuthService.java
-│   ├── BibliotecarioService.java
-│   └── UsuarioService.java
-├── util/
-├── Launcher.java
-└── MainApp.java
+data/
+```
 
-src/main/resources/
-├── images/
-└── views/
-├── AuthViews/
-│   ├── css/
-│   ├── cadastro.fxml
-│   └── login.fxml
-├── bibliotecarioViews/
-│   ├── css/
-│   ├── telaPadrao/
-│   ├── adicionarLivro.fxml
-│   ├── controleDeEmprestimos.fxml
-│   ├── controleDeReservas.fxml
-│   ├── dashboard.fxml
-│   └── inventario.fxml
-└── usuarioViews/
-├── css/
-├── Catalogo.fxml
-├── DetalheLivro.fxml
-├── Emprestimos.fxml
-└── Reservas.fxml
+Arquivos utilizados:
+
+```text
+livros.txt
+usuarios.txt
+emprestimos.txt
+reservas.txt
+ids.txt
+```
+
+A leitura e escrita são centralizadas pela classe:
+
+```java
+PersistenceManager
+```
+
+localizada no pacote:
+
+```text
+repository
 ```
 
 ---
 
-## ⚙️ Como Executar o Projeto
+# 📚 Dados de Demonstração
 
-### 📋 Pré-requisitos
-* **Java JDK 17** ou superior instalado e configurado nas variáveis de ambiente.
-* **JavaFX SDK** configurado na sua máquina ou integrado diretamente na sua IDE de preferência.
+O projeto é distribuído com uma base inicial de dados para facilitar testes e demonstrações.
 
-### 🚀 Passo a Passo
-1. Clone o repositório em sua máquina local utilizando o terminal:
-   ```bash
-   git clone [https://github.com/Nuillexe/school-library-manager.git](https://github.com/Nuillexe/school-library-manager.git)
+Os arquivos da pasta `data/` contêm:
 
-2. Abra o diretório clonado na sua IDE de preferência (*IntelliJ IDEA*, *Eclipse* ou *VS Code*).
-3. Certifique-se de vincular as bibliotecas nativas do **JavaFX** ao *Build Path* ou às dependências do projeto.
-4. Execute a classe principal do sistema (localizada no pacote raiz `br.edu.ifba.biblioqueue`).
+- Usuários de exemplo;
+- Livros e exemplares;
+- Empréstimos;
+- Reservas;
+- Identificadores institucionais válidos.
+
+> Os dados presentes em `livros.txt` e `ids.txt` foram gerados com auxílio de Inteligência Artificial exclusivamente para fins acadêmicos e de simulação. Nenhuma informação corresponde a registros reais de uma instituição de ensino.
+
+## Sobre os IDs Institucionais
+
+O sistema exige um identificador institucional válido para permitir o cadastro de novos usuários.
+
+A lista de identificadores válidos encontra-se em:
+
+```text
+data/ids.txt
+```
+
+Os IDs foram gerados artificialmente para simular uma instituição de ensino e seguem o padrão:
+
+```text
+s = Student (Aluno)
+p = Professor
+l = Bibliotecário
+```
+
+Exemplos:
+
+```text
+s000007
+p000006
+l000004
+```
+
+Esse mecanismo foi implementado para impedir o cadastro de usuários externos à instituição simulada.
 
 ---
 
-## 👨‍💻 Equipe e Desenvolvimento
+# 🛠️ Tecnologias Utilizadas
 
-Projeto desenvolvido como atividade prática acadêmica por alunos do curso de **Sistemas de Informação** do **Instituto Federal da Bahia (IFBA) – Campus Vitória da Conquista**.
+- Java 17+
+- JavaFX
+- FXML
+- CSS
+- Git
+- GitHub
 
-📄 *Este software foi construído e disponibilizado exclusivamente para fins didáticos e educacionais.*
+---
+
+# 🏗️ Arquitetura
+
+O projeto segue a arquitetura **MVC (Model-View-Controller)**.
+
+```text
+src/main/java/br/edu/ifba/
+├── controller/
+├── enums/
+├── models/
+├── repository/
+├── service/
+├── util/
+├── Launcher.java
+└── MainApp.java
+```
+
+---
+
+# ⚙️ Como Executar
+
+## Pré-requisitos
+
+- Java JDK 17+
+- JavaFX SDK
+
+## Execução
+
+Clone o projeto:
+
+```bash
+git clone https://github.com/Nuillexe/school-library-manager.git
+```
+
+Abra o projeto em sua IDE preferida:
+
+- IntelliJ IDEA
+- Eclipse
+- VS Code
+
+Configure o JavaFX e execute a classe principal da aplicação.
+
+---
+
+# 👨‍💻 Equipe e Desenvolvimento
+
+Projeto desenvolvido como atividade acadêmica do curso de **Sistemas de Informação** do **Instituto Federal da Bahia (IFBA) – Campus Vitória da Conquista**.
+
+📄 *Software desenvolvido exclusivamente para fins educacionais e acadêmicos.*
