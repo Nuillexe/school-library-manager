@@ -217,24 +217,86 @@ Esse mecanismo foi implementado para impedir o cadastro de usuários externos à
 
 ---
 
-# 🏗️ Arquitetura
+## 🏗️ Arquitetura do Projeto
 
-O projeto segue a arquitetura **MVC (Model-View-Controller)**.
+O projeto adota uma arquitetura inspirada no padrão MVC (Model-View-Controller), complementada por camadas de serviços e repositórios para promover melhor separação de responsabilidades, organização do código e facilidade de manutenção.
 
+A estrutura dos pacotes está organizada da seguinte forma:
 ```text
 src/main/java/br/edu/ifba/
 ├── controller/
+│   ├── auth/
+│   │   ├── Cadastro.java
+│   │   └── Login.java
+│   └── features/
+│       ├── bibliotecario/
+│       │   ├── AdicionarLivroController.java
+│       │   ├── BottomMenuController.java
+│       │   ├── ControleDeEmprestimosController.java
+│       │   ├── ControleDeReservasController.java
+│       │   ├── DashboardController.java
+│       │   ├── InventarioController.java
+│       │   └── TopBarController.java
+│       └── usuario/
+│           ├── CatalogoController.java
+│           ├── DetalheLivroController.java
+│           ├── EmprestimosController.java
+│           └── ReservasController.java
 ├── enums/
+│   └── TipoUsuario.java
 ├── models/
+│   ├── Emprestimo.java
+│   ├── Livro.java
+│   ├── Reserva.java
+│   ├── Titulo.java
+│   └── Usuario.java
 ├── repository/
+│   ├── dao/
+│   ├── BibliotecaRepository.java
+│   └── PersistenceManager.java
 ├── service/
+│   ├── AuthService.java
+│   ├── BibliotecarioService.java
+│   └── UsuarioService.java
 ├── util/
 ├── Launcher.java
 └── MainApp.java
+
+src/main/resources/
+├── images/
+└── views/
+├── AuthViews/
+│   ├── css/
+│   ├── cadastro.fxml
+│   └── login.fxml
+├── bibliotecarioViews/
+│   ├── css/
+│   ├── telaPadrao/
+│   ├── adicionarLivro.fxml
+│   ├── controleDeEmprestimos.fxml
+│   ├── controleDeReservas.fxml
+│   ├── dashboard.fxml
+│   └── inventario.fxml
+└── usuarioViews/
+├── css/
+├── Catalogo.fxml
+├── DetalheLivro.fxml
+├── Emprestimos.fxml
+└── Reservas.fxml
 ```
 
 ---
 
+### Organização das Camadas
+
+- **Model:** entidades centrais do domínio, como Usuário, Livro, Empréstimo e Reserva.
+- **View:** interfaces gráficas desenvolvidas com JavaFX e arquivos FXML.
+- **Controller:** responsáveis por receber eventos da interface e coordenar as ações do sistema.
+- **Service:** implementação das regras de negócio e validações.
+- **Repository/DAO:** manipulação e persistência dos dados da aplicação.
+- **Util:** funcionalidades auxiliares utilizadas por diferentes módulos.
+
+  
 # ⚙️ Como Executar
 
 ## Pré-requisitos
