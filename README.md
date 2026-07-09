@@ -13,8 +13,8 @@ O projeto evoluiu ao longo de duas disciplinas do curso de **Sistemas de Informa
 # 🔗 Links Úteis
 
 - 📖 [Guia de Testes](docs/GUIA_DE_TESTES.md)
-- 🌿 [Manual de Trabalho com GitHub](docs/GITHUB_MANUAL.md)
-- 📋 [Guia de Tarefas LP2](docs/GUIA_DE_TAREFAS_LP2.md)
+- 🌿 [Manual de Trabalho com GitHub](docs/MANUAL_GITHUB.md)
+- 📋 [Guia de Tarefas LP2](docs/GUIA_DE_TAREFAS_Lp2.md)
 
 ---
 
