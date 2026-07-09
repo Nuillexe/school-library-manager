@@ -18,23 +18,48 @@ O sistema foi construído inicialmente utilizando estruturas de dados em memóri
 * 📋 [Guia de Tarefas LP2](docs/GUIA_DE_TAREFAS_Lp2.md) 
 
 ---
+## 🎓 Contexto Acadêmico e Documentação
 
-## 🎓 Contexto Acadêmico
+Este projeto foi desenvolvido como atividade prática das disciplinas do curso de **Sistemas de Informação** do **Instituto Federal da Bahia (IFBA) – Campus Vitória da Conquista**.
 
-Este projeto nasceu e está sendo expandido como parte prática das disciplinas do curso de **Sistemas de Informação** no **Instituto Federal da Bahia (IFBA), Campus Vitória da Conquista**.
-
-O histórico de desenvolvimento do sistema está dividido em marcos acadêmicos bem definidos:
+Ao longo de sua evolução, o sistema passou por diferentes etapas de desenvolvimento, cada uma associada a objetivos específicos das disciplinas cursadas.
 
 ### 1. Estrutura de Dados (2026.1)
-* **Objetivo:** Implementação da lógica de negócios, gerenciamento de acervo e controle de filas de reserva utilizando persistência em memória. Com o propósito de consolidar os conceitos teóricos da disciplina, as estruturas de dados (como listas e filas de prioridade) foram implementadas de forma totalmente personalizada pela equipe. Os dados iniciais da aplicação eram povoados em tempo de execução por meio de uma classe semente (`DatabaseSeed`), simulando um banco pré-carregado com livros e usuários.
-* **Docente:** Prof. Claudio Rodolfo Santos de Oliveira ([@claudiorodolfo](https://github.com/claudiorodolfo)).
-* **Nota Histórica:** O estado final e estável desta entrega foi congelado e pode ser acessado diretamente na branch [`archive/ed`](https://github.com/Nuillexe/school-library-manager/tree/archive/ed).
 
-### 2. Linguagem de Programação II (2026.1)
-* **Objetivo:** Evoluir a arquitetura do sistema com a implementação de **persistência de dados real** através da manipulação e armazenamento de arquivos locais, além de refatorar o backend para utilizar exclusivamente as coleções nativas da API do Java (*Java Collections*).
-* **Docente:** Prof. Alexandro dos Santos Silva ([@alexandrossilva](https://github.com/alexandrossilva)).
+**Objetivo:** Implementação da lógica de negócios, gerenciamento de acervo e controle de filas de reserva utilizando persistência em memória.
+
+Com o propósito de consolidar os conceitos teóricos da disciplina, as estruturas de dados (listas, filas e filas de prioridade) foram implementadas de forma personalizada pela equipe, sem utilização das coleções nativas da linguagem. Os dados iniciais da aplicação eram carregados em tempo de execução por meio da classe `DatabaseSeed`, responsável por simular um banco de dados previamente populado.
+
+**Docente:** Prof. Claudio Rodolfo Santos de Oliveira ([@claudiorodolfo](https://github.com/claudiorodolfo))
+
+**Documentação:**
+- `docs/docs_academicos/Artigo_Final_ED.pdf`
+
+**Nota Histórica:** Esta versão representa a entrega final da disciplina de Estrutura de Dados e encontra-se preservada na branch:
+- `archive/ed`
 
 ---
+
+### 2. Linguagem de Programação II (2026.1)
+
+**Objetivo:** Evoluir a arquitetura do sistema através da implementação de persistência permanente em arquivos locais, refatoração do backend e adoção das coleções da Java Collections Framework.
+
+Nesta etapa, a estrutura de armazenamento foi reformulada para permitir que livros, usuários, empréstimos e reservas permanecessem disponíveis entre diferentes execuções do sistema. Também foram realizadas melhorias na organização dos pacotes, documentação do projeto e recuperação automática dos relacionamentos entre objetos carregados da persistência.
+
+**Docente:** Prof. Alexandro dos Santos Silva ([@alexandrossilva](https://github.com/alexandrossilva))
+
+**Documentação:**
+- `docs/docs_academicos/Relatorio_Final_LP2.pdf`
+- `docs/guia_de_testes.md`
+
+**Nota Histórica:** Esta versão representa a entrega final da disciplina de Linguagem de Programação II e encontra-se preservada na branch:
+- `archive/lp2`
+
+---
+
+### Versão Atual
+
+A branch `main` reúne a versão mais recente e estável do projeto, consolidando as funcionalidades desenvolvidas ao longo das disciplinas e servindo como referência principal para demonstração e portfólio.
 
 ## 🚀 Funcionalidades Principais
 
@@ -159,16 +184,6 @@ src/main/resources/
 ├── Emprestimos.fxml
 └── Reservas.fxml
 ```
-
----
-
-## 🌿 Estrutura de Branches do Repositório
-
-O histórico do projeto está segmentado estrategicamente para facilitar a navegação e a avaliação por parte dos respectivos docentes:
-
-* [`main`](https://github.com/Nuillexe/school-library-manager/tree/main): Estágio atual e final do projeto unificado, contendo a persistência em arquivos e todas as regras de negócio integradas.
-* [`archive/ed`](https://github.com/Nuillexe/school-library-manager/tree/archive/ed): Código estável e congelado referente à entrega final da disciplina de **Estrutura de Dados** (execução e persistência exclusivamente em memória).
-* [`archive/Lp2`](https://github.com/Nuillexe/school-library-manager/tree/archive/Lp2): Ramificação focada no desenvolvimento e nos requisitos da disciplina de **Linguagem de Programação II**, com ênfase na arquitetura de persistência via manipulação de arquivos locais e desacoplamento da interface JavaFX.
 
 ---
 
