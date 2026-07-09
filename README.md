@@ -28,38 +28,47 @@ Ao longo de sua evolução, o sistema passou por diferentes etapas de desenvolvi
 
 **Objetivo:** Implementação da lógica de negócios, gerenciamento de acervo e controle de filas de reserva utilizando persistência em memória.
 
-Com o propósito de consolidar os conceitos teóricos da disciplina, as estruturas de dados (listas, filas e filas de prioridade) foram implementadas de forma personalizada pela equipe, sem utilização das coleções nativas da linguagem. Os dados iniciais da aplicação eram carregados em tempo de execução por meio da classe `DatabaseSeed`, responsável por simular um banco de dados previamente populado.
+Com o propósito de consolidar os conceitos teóricos da disciplina, as estruturas de dados (listas, filas e filas de prioridade) foram implementadas de forma personalizada pela equipe, sem utilização das coleções nativas da linguagem. Os dados iniciais da aplicação eram carregados em tempo de execução por meio da classe `DatabaseSeed`, responsável por simular um banco de dados previamente populado. 
 
 **Docente:** Prof. Claudio Rodolfo Santos de Oliveira ([@claudiorodolfo](https://github.com/claudiorodolfo))
 
 **Documentação:**
-- `docs/docs_academicos/Artigo_Final_ED.pdf`
+- `docs/docs_academicos/Artigo_Final_ED.pdf`[(https://github.com/Nuillexe/school-library-manager/blob/main/docs/docs_academicos/Artigo_ED.pdf)]
 
 **Nota Histórica:** Esta versão representa a entrega final da disciplina de Estrutura de Dados e encontra-se preservada na branch:
-- `archive/ed`
+- `archive/ed`[(https://github.com/Nuillexe/school-library-manager/tree/archive/ed)]
 
 ---
 
 ### 2. Linguagem de Programação II (2026.1)
 
-**Objetivo:** Evoluir a arquitetura do sistema através da implementação de persistência permanente em arquivos locais, refatoração do backend e adoção das coleções da Java Collections Framework.
+**Objetivo:** Evoluir a arquitetura do sistema através da implementação de persistência permanente em arquivos locais, refatoração do backend e adoção das coleções da Java Collections Framework. Além disso, fazer uso do framework JavaFx
 
-Nesta etapa, a estrutura de armazenamento foi reformulada para permitir que livros, usuários, empréstimos e reservas permanecessem disponíveis entre diferentes execuções do sistema. Também foram realizadas melhorias na organização dos pacotes, documentação do projeto e recuperação automática dos relacionamentos entre objetos carregados da persistência.
+Nesta etapa, a estrutura de armazenamento foi reformulada para permitir que livros, usuários, empréstimos e reservas permanecessem disponíveis entre diferentes execuções do sistema. Também foram realizadas melhorias na organização dos pacotes, documentação do projeto e recuperação automática dos relacionamentos entre objetos carregados da persistência. Quanto ao uso do JavaFx, a interface foi aprimorada 
 
 **Docente:** Prof. Alexandro dos Santos Silva ([@alexandrossilva](https://github.com/alexandrossilva))
 
 **Documentação:**
-- `docs/docs_academicos/Relatorio_Final_LP2.pdf`
-- `docs/guia_de_testes.md`
+- `docs/docs_academicos/Relatorio_Final_LP2.pdf`([https://github.com/Nuillexe/school-library-manager/blob/main/docs/docs_academicos/Relatorio_LP2.pdf])
+- `docs/guia_de_testes.md`[(https://github.com/Nuillexe/school-library-manager/blob/main/docs/GUIA_DE_TESTES.md)]
 
 **Nota Histórica:** Esta versão representa a entrega final da disciplina de Linguagem de Programação II e encontra-se preservada na branch:
-- `archive/lp2`
+- `archive/lp2`[(https://github.com/Nuillexe/school-library-manager/tree/archive/Lp2)]
 
 ---
 
 ### Versão Atual
 
 A branch `main` reúne a versão mais recente e estável do projeto, consolidando as funcionalidades desenvolvidas ao longo das disciplinas e servindo como referência principal para demonstração e portfólio.
+
+## 🌿 Estrutura de Branches
+
+O repositório mantém versões históricas do projeto associadas às disciplinas em que foi desenvolvido:
+
+- `main`[(https://github.com/Nuillexe/school-library-manager/tree/main)] — versão mais recente e consolidada do sistema.
+- `archive/ed`[(https://github.com/Nuillexe/school-library-manager/tree/archive/ed)] — entrega final da disciplina de Estrutura de Dados.
+- `archive/lp2`[(https://github.com/Nuillexe/school-library-manager/tree/archive/Lp2)] — entrega final da disciplina de Linguagem de Programação II.
+
 
 ## 🚀 Funcionalidades Principais
 
@@ -109,7 +118,7 @@ Os arquivos localizados na pasta `data/` contêm:
 - Livros e exemplares do acervo;
 - Empréstimos e reservas de demonstração.
 
-> Parte desses dados foi gerada com auxílio de Inteligência Artificial para fins acadêmicos e de simulação. Os registros foram utilizados apenas para compor um cenário de testes realista, permitindo validar as funcionalidades do sistema sem depender de uma base de dados real.
+> Esses dados foram gerados com auxílio de Inteligência Artificial para fins acadêmicos e de simulação. Os registros foram utilizados apenas para compor um cenário de testes realista, permitindo validar as funcionalidades do sistema sem depender de uma base de dados real.
 
 ## 🛠️ Tecnologias Utilizadas
 
