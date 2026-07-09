@@ -22,7 +22,7 @@
 | T18 | Criar métodos de persistência na BibliotecaRepository | Emanuel | ✅ ||
 | T19 | Ajustar Services para persistência em arquivos | Emanuel | ✅ ||
 | T20 | Substituir EDs por Collections Framework | Ana Clara | ✅ ||
-| T21 | Ajustar menu superior do Inventário | Kaique | ✅ | Falta adicionar ação ao botão de deslogar e trocar "nome aqui" pelo nome do usuario logado|
+| T21 | Ajustar menu superior do Inventário | Kaique | ✅ | |
 | T22 | Reduzir efeito de intermitência das telas | Kaique | ✅ |
 | T23 | Ajustar login na tela de bibliotecario, n é possivel entrar nessa tela | Kaique |✅ 
 
