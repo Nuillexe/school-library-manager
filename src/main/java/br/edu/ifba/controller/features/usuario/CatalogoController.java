@@ -133,7 +133,7 @@ public class CatalogoController implements Initializable {
     private void abrirDetalhe(Titulo t) {
         try {
             // 1. Carrega o FXML
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/usuarioViews/DetalheLivro.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/usuario_views/DetalheLivro.fxml"));
             Parent root = loader.load();
 
             // 2. Acessa o Controller da tela de detalhes
@@ -159,16 +159,16 @@ public class CatalogoController implements Initializable {
         System.out.println("Já está no Catálogo");
     }
 
-    @FXML private void onNavEmprestimos() { navegarPara("/views/usuarioViews/Emprestimos.fxml"); }
+    @FXML private void onNavEmprestimos() { navegarPara("/views/usuario_views/Emprestimos.fxml"); }
 
-    @FXML private void onNavReservas() { navegarPara("/views/usuarioViews/Reservas.fxml"); }
+    @FXML private void onNavReservas() { navegarPara("/views/usuario_views/Reservas.fxml"); }
 
     // Método adicionado para realizar a ação de Logout e redirecionar para a autenticação
     @FXML
     private void onLogout() {
         try {
             Sessao.setUsuarioLogado(null);
-            Parent root = FXMLLoader.load(getClass().getResource("/views/AuthViews/login.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/views/auth_views/login.fxml"));
             Stage stage = (Stage) listaLivrosContainer.getScene().getWindow();
             Tools.trocarCenaPreservandoJanela(stage, root);
         } catch (IOException e) {

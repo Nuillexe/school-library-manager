@@ -143,12 +143,12 @@ public class EmprestimosController implements Initializable {
     @FXML
     private void onLogout() {
         Sessao.setUsuarioLogado(null); // Acrescentado para limpar a sessão ao deslogar
-        navegarPara("/views/AuthViews/login.fxml");
+        navegarPara("/views/auth_views/login.fxml");
     }
 
-    @FXML private void onNavCatalogo()    { navegarPara("/views/usuarioViews/Catalogo.fxml"); }
+    @FXML private void onNavCatalogo()    { navegarPara("/views/usuario_views/Catalogo.fxml"); }
     @FXML private void onNavEmprestimos() { System.out.println("Já está na página de Empréstimos"); }
-    @FXML private void onNavReservas()    { navegarPara("/views/usuarioViews/Reservas.fxml"); }
+    @FXML private void onNavReservas()    { navegarPara("/views/usuario_views/Reservas.fxml"); }
 
     private void navegarPara(String fxmlPath) {
         try {

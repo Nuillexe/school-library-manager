@@ -83,13 +83,13 @@ public class DashboardController implements Initializable {
     @FXML
     private void handleLogout() {
         Sessao.encerrarSessao();
-        navegarPara("/views/AuthViews/login.fxml");
+        navegarPara("/views/auth_views/login.fxml");
     }
 
     @FXML private void onNavDashboard() { /* Página atual */ }
-    @FXML private void onNavInventario() { navegarPara("/views/bibliotecarioViews/inventario.fxml"); }
-    @FXML private void onNavReservas() { navegarPara("/views/bibliotecarioViews/controleDeReservas.fxml"); }
-    @FXML private void onNavEmprestimos() { navegarPara("/views/bibliotecarioViews/controleDeEmprestimos.fxml"); }
+    @FXML private void onNavInventario() { navegarPara("/views/bibliotecario_views/inventario.fxml"); }
+    @FXML private void onNavReservas() { navegarPara("/views/bibliotecario_views/controleDeReservas.fxml"); }
+    @FXML private void onNavEmprestimos() { navegarPara("/views/bibliotecario_views/controleDeEmprestimos.fxml"); }
 
     private void navegarPara(String fxmlPath) {
         try {

@@ -14,22 +14,22 @@ public class BottomMenuController {
 
     @FXML
     private void irDashboard(MouseEvent event) {
-        carregarTela(event, "/views/bibliotecarioViews/dashboard.fxml");
+        carregarTela(event, "/views/bibliotecario_views/dashboard.fxml");
     }
 
     @FXML
     private void irInventario(MouseEvent event) {
-        carregarTela(event, "/views/bibliotecarioViews/inventario.fxml");
+        carregarTela(event, "/views/bibliotecario_views/inventario.fxml");
     }
 
     @FXML
     private void irFilaReserva(MouseEvent event) {
-        carregarTela(event, "/views/bibliotecarioViews/controleDeReservas.fxml");
+        carregarTela(event, "/views/bibliotecario_views/controleDeReservas.fxml");
     }
 
     @FXML
     private void irDevolucoes(MouseEvent event) {
-        carregarTela(event, "/views/bibliotecarioViews/controleDeEmprestimos.fxml");
+        carregarTela(event, "/views/bibliotecario_views/controleDeEmprestimos.fxml");
     }
 
     private void carregarTela(MouseEvent event, String caminhoFXML) {
@@ -49,7 +49,7 @@ public class BottomMenuController {
             Sessao.encerrarSessao();
             System.out.println("Logout realizado via BottomMenu. Redirecionando para login...");
             
-            Parent root = FXMLLoader.load(getClass().getResource("/views/AuthViews/login.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/views/auth_views/login.fxml"));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Tools.trocarCenaPreservandoJanela(stage, root);
         } catch (IOException e) {

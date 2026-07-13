@@ -61,7 +61,7 @@ public class Cadastro {
         if (novoUsuario != null) {
             Tools.enviarAlerta("Registro realizado com sucesso");
             Sessao.setUsuarioLogado(novoUsuario);
-            Tools.navegarPara(event, "/views/usuarioViews/Catalogo.fxml");
+            Tools.navegarPara(event, "/views/usuario_views/Catalogo.fxml");
         } else {
             Tools.enviarAlerta("Não foi possivel realizar o registro, verifique se os campos foram preenchidos corretamente ");
         }
@@ -69,6 +69,6 @@ public class Cadastro {
 
     @FXML
     public void irParaLogin(ActionEvent event) {
-        Tools.navegarPara(event, "/views/AuthViews/login.fxml");
+        Tools.navegarPara(event, "/views/auth_views/login.fxml");
     }
 }

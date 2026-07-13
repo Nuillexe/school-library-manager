@@ -120,13 +120,13 @@ public class ControleDeReservasController implements Initializable {
     // --- Navegação Unificada e Segura ---
     @FXML private void handleLogout(MouseEvent event) {
         Sessao.encerrarSessao();
-        navegarPara("/views/AuthViews/login.fxml", event);
+        navegarPara("/views/auth_views/login.fxml", event);
     }
 
-    @FXML private void onNavDashboard(MouseEvent event) { navegarPara("/views/bibliotecarioViews/dashboard.fxml", event); }
-    @FXML private void onNavInventario(MouseEvent event) { navegarPara("/views/bibliotecarioViews/inventario.fxml", event); }
+    @FXML private void onNavDashboard(MouseEvent event) { navegarPara("/views/bibliotecario_views/dashboard.fxml", event); }
+    @FXML private void onNavInventario(MouseEvent event) { navegarPara("/views/bibliotecario_views/inventario.fxml", event); }
     @FXML private void onNavReservas(MouseEvent event) { renderizarFilasDeReserva(); }
-    @FXML private void onNavEmprestimos(MouseEvent event) { navegarPara("/views/bibliotecarioViews/controleDeEmprestimos.fxml", event); }
+    @FXML private void onNavEmprestimos(MouseEvent event) { navegarPara("/views/bibliotecario_views/controleDeEmprestimos.fxml", event); }
 
     private void navegarPara(String fxmlPath, MouseEvent event) {
         try {
