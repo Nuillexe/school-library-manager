@@ -341,9 +341,7 @@ public class PersistenceManager {
 
     public static void sobrescreverEmprestimos(EmprestimoDAOLista listaDeEmprestimos) {
 
-        try {
-            FileWriter fw = new FileWriter(PASTA_DADOS_EMPRESTIMOS);
-            BufferedWriter bw = new BufferedWriter(fw);
+        try(BufferedWriter bw = new BufferedWriter(new FileWriter(PASTA_DADOS_EMPRESTIMOS))) {
 
             for (int i = 0; i < listaDeEmprestimos.tamanho(); i++) {
 
@@ -370,9 +368,7 @@ public class PersistenceManager {
 
     public static void sobrescreverReservas(ReservaDAOLista listaDeReservas) {
 
-        try {
-            FileWriter fw = new FileWriter(PASTA_DADOS_RESERVAS);
-            BufferedWriter bw = new BufferedWriter(fw);
+        try(BufferedWriter bw = new BufferedWriter(new FileWriter(PASTA_DADOS_RESERVAS))) {
 
             for (Reserva r : listaDeReservas.listar()) {
 
@@ -395,10 +391,7 @@ public class PersistenceManager {
 
     public static void sobrescreverUsuarios(UsuarioDAOLista listaDeUsuarios) {
 
-        try {
-            FileWriter fw = new FileWriter(PASTA_DADOS_USUARIOS);
-            BufferedWriter bw = new BufferedWriter(fw);
-
+        try(BufferedWriter bw = new BufferedWriter(new FileWriter(PASTA_DADOS_USUARIOS))) {
             Usuario[] usuarios = listaDeUsuarios.listar();
 
             for (Usuario u : usuarios) {
@@ -423,9 +416,7 @@ public class PersistenceManager {
 
     public static void sobrescreverLivros(LivroDAOLista listaDeLivros) {
 
-        try {
-            FileWriter fw = new FileWriter(PASTA_DADOS_LIVROS);
-            BufferedWriter bw = new BufferedWriter(fw);
+        try(BufferedWriter bw = new BufferedWriter(new FileWriter(PASTA_DADOS_LIVROS))) {
 
             for (int i = 0; i < listaDeLivros.tamanho(); i++) {
 
@@ -449,6 +440,22 @@ public class PersistenceManager {
 
         } catch (IOException e) {
             throw new RuntimeException("Erro ao sobrescrever livros.", e);
+        }
+    }
+
+    public static void limparReservas() {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(PASTA_DADOS_RESERVAS))) {
+            // abre o arquivo sem append e não escreve nada
+        } catch (IOException e) {
+            throw new RuntimeException("Erro ao limpar arquivo de reservas.", e);
+        }
+    }
+
+    public static void limparEmprestimos() {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(PASTA_DADOS_EMPRESTIMOS))) {
+            // abre o arquivo sem append e não escreve nada
+        } catch (IOException e) {
+            throw new RuntimeException("Erro ao limpar arquivo de reservas.", e);
         }
     }
 }

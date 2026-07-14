@@ -11,15 +11,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 
 public class DashboardController implements Initializable {
 
@@ -29,6 +28,8 @@ public class DashboardController implements Initializable {
     @FXML private ListView<Reserva> lvFilaReserva;
 
     @FXML private BorderPane mainContainer;
+
+    @FXML private Button resetBtn;
 
     private BibliotecarioService service;
 
@@ -79,6 +80,24 @@ public class DashboardController implements Initializable {
             }
         });
     }
+
+    @FXML
+    private void apagarReservasEEmprestimos(ActionEvent event){
+        Alert confirmacao=new Alert(Alert.AlertType.CONFIRMATION);
+
+        confirmacao.setTitle("Tem certeza que deseja reinicializar o sistema?");
+        confirmacao.setContentText("Todas as reservas e emprestimos serão cancelados e todos os livros passarão a " +
+                "estar disponiveis no sistema");
+
+        Optional<ButtonType> resposta= confirmacao.showAndWait();
+        if(resposta.isPresent() && resposta.get()== ButtonType.OK) {
+            service.reinicializarSistema();
+            Tools.enviarAlerta("Operação bem sucedida");
+        }else {
+            Tools.enviarAlerta("Operação cancelada");
+        }
+    }
+
 
     @FXML
     private void handleLogout() {

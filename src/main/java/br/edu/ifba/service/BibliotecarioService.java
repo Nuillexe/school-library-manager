@@ -9,7 +9,7 @@ import br.edu.ifba.util.Tools;
 
 public class BibliotecarioService {
 
-    private BibliotecaRepository b;
+    private static BibliotecaRepository b;
 
     public BibliotecarioService(Usuario userLogado) {
         this.b = BibliotecaRepository.getInstance();
@@ -312,4 +312,25 @@ public class BibliotecarioService {
         Tools.enviarAlerta("✅ Livro removido: \"" + removido.getNome() + "\" (ID: " + idLivro + ")");
         return true;
     }
+
+    public static void reinicializarSistema(){
+        colocarTodosOsLivrosComoDisponiveis();
+        cancelarTodosEmprestimosEReservas();
+    }
+
+    private static void colocarTodosOsLivrosComoDisponiveis(){
+        for (Livro l : b.getAcervo().listar())
+            l.setDisponivel(true);
+        PersistenceManager.sobrescreverLivros(b.getAcervo());
+    }
+
+    private static void cancelarTodosEmprestimosEReservas(){
+        b.getListaDeReservas().limpar();
+        PersistenceManager.limparReservas();
+
+        b.getListaDeEmprestimos().limpar();
+        PersistenceManager.limparEmprestimos();
+    }
+
+
 }
