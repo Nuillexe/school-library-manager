@@ -94,4 +94,8 @@ public class EmprestimoDAOLista {
         }
         return null;
     }
+
+    public void limpar(){
+        listaEmprestimos.clear();
+    }
 }

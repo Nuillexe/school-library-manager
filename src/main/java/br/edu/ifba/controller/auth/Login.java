@@ -58,15 +58,15 @@ public class Login {
 
         Sessao.setUsuarioLogado(userLogado);
         if (userLogado.getTipo().equals(TipoUsuario.ALUNO) || userLogado.getTipo().equals(TipoUsuario.PROFESSOR)) {
-            Tools.navegarPara(event, "/views/usuarioViews/Catalogo.fxml");
+            Tools.navegarPara(event, "/views/usuario_views/Catalogo.fxml");
             return;
         }
 
-        Tools.navegarPara(event, "/views/bibliotecarioViews/dashboard.fxml");
+        Tools.navegarPara(event, "/views/bibliotecario_views/dashboard.fxml");
     }
 
     @FXML
     public void fazerCadastro(ActionEvent event) {
-        Tools.navegarPara(event, "/views/AuthViews/cadastro.fxml");
+        Tools.navegarPara(event, "/views/auth_views/cadastro.fxml");
     }
 }

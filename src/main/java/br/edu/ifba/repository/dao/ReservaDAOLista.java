@@ -117,4 +117,8 @@ public class ReservaDAOLista {
     public int tamanho() {
         return listaReservas.size();
     }
+
+    public void limpar(){
+        listaReservas.clear();
+    }
 }

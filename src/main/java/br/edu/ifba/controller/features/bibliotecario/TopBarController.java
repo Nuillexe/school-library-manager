@@ -27,7 +27,7 @@ public class TopBarController {
             Sessao.encerrarSessao();
             System.out.println("Sessão encerrada com sucesso");
 
-            Parent root = FXMLLoader.load(getClass().getResource("/views/AuthViews/login.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/views/auth_views/login.fxml"));
 
             // Pega a janela (Stage) atual a partir do evento do clique
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

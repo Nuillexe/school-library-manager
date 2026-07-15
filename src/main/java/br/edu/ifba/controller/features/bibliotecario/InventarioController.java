@@ -11,7 +11,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
@@ -150,13 +149,13 @@ public class InventarioController implements Initializable {
     // --- Métodos de Navegação (Cópia e Cola) ---
     @FXML private void handleLogout(MouseEvent event) {
         Sessao.encerrarSessao();
-        navegarPara("/views/AuthViews/login.fxml", event);
+        navegarPara("/views/auth_views/login.fxml", event);
     }
-    @FXML private void handleAdicionarLivro(MouseEvent event) { navegarPara("/views/bibliotecarioViews/adicionarLivro.fxml", event); }
-    @FXML private void dashboardController(MouseEvent event) { navegarPara("/views/bibliotecarioViews/dashboard.fxml", event); }
+    @FXML private void handleAdicionarLivro(MouseEvent event) { navegarPara("/views/bibliotecario_views/adicionarLivro.fxml", event); }
+    @FXML private void dashboardController(MouseEvent event) { navegarPara("/views/bibliotecario_views/dashboard.fxml", event); }
     @FXML private void inventarioController(MouseEvent event) { renderizarInventario(); }
-    @FXML private void controleDeReservasController(MouseEvent event) { navegarPara("/views/bibliotecarioViews/controleDeReservas.fxml", event); }
-    @FXML private void controleDeEmprestimosController(MouseEvent event) { navegarPara("/views/bibliotecarioViews/controleDeEmprestimos.fxml", event); }
+    @FXML private void controleDeReservasController(MouseEvent event) { navegarPara("/views/bibliotecario_views/controleDeReservas.fxml", event); }
+    @FXML private void controleDeEmprestimosController(MouseEvent event) { navegarPara("/views/bibliotecario_views/controleDeEmprestimos.fxml", event); }
 
     private void navegarPara(String fxmlPath, MouseEvent event) {
         try {

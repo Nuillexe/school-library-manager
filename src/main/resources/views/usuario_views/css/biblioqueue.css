@@ -396,3 +396,15 @@
     -fx-background-color: #CBD5E1;
     -fx-background-radius: 3;
 }
+
+.btn-reset {
+    -fx-background-color: #c0392b;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 8, 0, 0, 2);
+}
+
+.btn-reset:hover {
+    -fx-background-color: #a93226;
+}

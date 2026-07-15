@@ -12,9 +12,13 @@ import br.edu.ifba.repository.dao.ReservaDAOLista;
 import br.edu.ifba.repository.dao.UsuarioDAOLista;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 public class PersistenceManager {
 
@@ -341,9 +345,7 @@ public class PersistenceManager {
 
     public static void sobrescreverEmprestimos(EmprestimoDAOLista listaDeEmprestimos) {
 
-        try {
-            FileWriter fw = new FileWriter(PASTA_DADOS_EMPRESTIMOS);
-            BufferedWriter bw = new BufferedWriter(fw);
+        try(BufferedWriter bw = new BufferedWriter(new FileWriter(PASTA_DADOS_EMPRESTIMOS))) {
 
             for (int i = 0; i < listaDeEmprestimos.tamanho(); i++) {
 
@@ -370,9 +372,7 @@ public class PersistenceManager {
 
     public static void sobrescreverReservas(ReservaDAOLista listaDeReservas) {
 
-        try {
-            FileWriter fw = new FileWriter(PASTA_DADOS_RESERVAS);
-            BufferedWriter bw = new BufferedWriter(fw);
+        try(BufferedWriter bw = new BufferedWriter(new FileWriter(PASTA_DADOS_RESERVAS))) {
 
             for (Reserva r : listaDeReservas.listar()) {
 
@@ -395,10 +395,7 @@ public class PersistenceManager {
 
     public static void sobrescreverUsuarios(UsuarioDAOLista listaDeUsuarios) {
 
-        try {
-            FileWriter fw = new FileWriter(PASTA_DADOS_USUARIOS);
-            BufferedWriter bw = new BufferedWriter(fw);
-
+        try(BufferedWriter bw = new BufferedWriter(new FileWriter(PASTA_DADOS_USUARIOS))) {
             Usuario[] usuarios = listaDeUsuarios.listar();
 
             for (Usuario u : usuarios) {
@@ -423,9 +420,7 @@ public class PersistenceManager {
 
     public static void sobrescreverLivros(LivroDAOLista listaDeLivros) {
 
-        try {
-            FileWriter fw = new FileWriter(PASTA_DADOS_LIVROS);
-            BufferedWriter bw = new BufferedWriter(fw);
+        try(BufferedWriter bw = new BufferedWriter(new FileWriter(PASTA_DADOS_LIVROS))) {
 
             for (int i = 0; i < listaDeLivros.tamanho(); i++) {
 
@@ -449,6 +444,45 @@ public class PersistenceManager {
 
         } catch (IOException e) {
             throw new RuntimeException("Erro ao sobrescrever livros.", e);
+        }
+    }
+
+    public static void limparReservas() {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(PASTA_DADOS_RESERVAS))) {
+            // abre o arquivo sem append e não escreve nada
+        } catch (IOException e) {
+            throw new RuntimeException("Erro ao limpar arquivo de reservas.", e);
+        }
+    }
+
+    public static void limparEmprestimos() {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(PASTA_DADOS_EMPRESTIMOS))) {
+            // abre o arquivo sem append e não escreve nada
+        } catch (IOException e) {
+            throw new RuntimeException("Erro ao limpar arquivo de reservas.", e);
+        }
+    }
+
+    public static void apagarTodosOsUsuariosCriados(){
+        apagarArquivoAPartirDaLinha(PASTA_DADOS_USUARIOS, 14);
+    }
+
+    public static void apagarArquivoAPartirDaLinha(String caminho, int linhaInicial) {
+        try {
+            Path path = Paths.get(caminho);
+
+            List<String> linhas = Files.readAllLines(path);
+
+            if (linhaInicial < 0 || linhaInicial >= linhas.size()) {
+                return;
+            }
+
+            linhas.subList(linhaInicial, linhas.size()).clear();
+
+            Files.write(path, linhas);
+
+        } catch (IOException e) {
+            throw new RuntimeException("Erro ao apagar linhas do arquivo.", e);
         }
     }
 }

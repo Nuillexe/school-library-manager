@@ -173,11 +173,11 @@ public class ReservasController implements Initializable {
     @FXML
     private void onLogout() {
         Sessao.setUsuarioLogado(null); // Acrescentado para limpar a sessão ao deslogar
-        navegarPara("/views/AuthViews/login.fxml");
+        navegarPara("/views/auth_views/login.fxml");
     }
 
-    @FXML private void onNavCatalogo()    { navegarPara("/views/usuarioViews/Catalogo.fxml"); }
-    @FXML private void onNavEmprestimos() { navegarPara("/views/usuarioViews/Emprestimos.fxml"); }
+    @FXML private void onNavCatalogo()    { navegarPara("/views/usuario_views/Catalogo.fxml"); }
+    @FXML private void onNavEmprestimos() { navegarPara("/views/usuario_views/Emprestimos.fxml"); }
     @FXML private void onNavReservas()    { System.out.println("Já está na página de Reservas"); }
 
     private void navegarPara(String fxmlPath) {

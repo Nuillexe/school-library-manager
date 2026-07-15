@@ -21,7 +21,6 @@ import javafx.stage.Stage;
 import java.time.LocalDate;
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 
@@ -62,7 +61,7 @@ public class AdicionarLivroController implements Initializable {
             Sessao.encerrarSessao();
             System.out.println("Logout realizado. Redirecionando para login...");
             
-            Parent root = FXMLLoader.load(getClass().getResource("/views/AuthViews/login.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/views/auth_views/login.fxml"));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Tools.trocarCenaPreservandoJanela(stage, root);
         } catch (IOException e) {
@@ -135,32 +134,32 @@ public class AdicionarLivroController implements Initializable {
         }
 
 
-        Tools.navegarPara(event, "/views/bibliotecarioViews/inventario.fxml");
+        Tools.navegarPara(event, "/views/bibliotecario_views/inventario.fxml");
     }
 
     @FXML
     private void handleVoltar(MouseEvent event) {
-        navegarPara("/views/bibliotecarioViews/inventario.fxml", event);
+        navegarPara("/views/bibliotecario_views/inventario.fxml", event);
     }
 
     @FXML
     private void dashboardController(MouseEvent event) {
-        navegarPara("/views/bibliotecarioViews/dashboard.fxml", event);
+        navegarPara("/views/bibliotecario_views/dashboard.fxml", event);
     }
 
     @FXML
     private void inventarioController(MouseEvent event) {
-        navegarPara("/views/bibliotecarioViews/inventario.fxml", event);
+        navegarPara("/views/bibliotecario_views/inventario.fxml", event);
     }
 
     @FXML
     private void controleDeReservasController(MouseEvent event) {
-        navegarPara("/views/bibliotecarioViews/controleDeReservas.fxml", event);
+        navegarPara("/views/bibliotecario_views/controleDeReservas.fxml", event);
     }
 
     @FXML
     private void controleDeEmprestimosController(MouseEvent event) {
-        navegarPara("/views/bibliotecarioViews/controleDeEmprestimos.fxml", event);
+        navegarPara("/views/bibliotecario_views/controleDeEmprestimos.fxml", event);
     }
 
     private void navegarPara(String fxmlPath, MouseEvent event) {
