@@ -12,9 +12,13 @@ import br.edu.ifba.repository.dao.ReservaDAOLista;
 import br.edu.ifba.repository.dao.UsuarioDAOLista;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 public class PersistenceManager {
 
@@ -456,6 +460,29 @@ public class PersistenceManager {
             // abre o arquivo sem append e não escreve nada
         } catch (IOException e) {
             throw new RuntimeException("Erro ao limpar arquivo de reservas.", e);
+        }
+    }
+
+    public static void apagarTodosOsUsuariosCriados(){
+        apagarArquivoAPartirDaLinha(PASTA_DADOS_USUARIOS, 14);
+    }
+
+    public static void apagarArquivoAPartirDaLinha(String caminho, int linhaInicial) {
+        try {
+            Path path = Paths.get(caminho);
+
+            List<String> linhas = Files.readAllLines(path);
+
+            if (linhaInicial < 0 || linhaInicial >= linhas.size()) {
+                return;
+            }
+
+            linhas.subList(linhaInicial, linhas.size()).clear();
+
+            Files.write(path, linhas);
+
+        } catch (IOException e) {
+            throw new RuntimeException("Erro ao apagar linhas do arquivo.", e);
         }
     }
 }

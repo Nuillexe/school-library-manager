@@ -316,6 +316,7 @@ public class BibliotecarioService {
     public static void reinicializarSistema(){
         colocarTodosOsLivrosComoDisponiveis();
         cancelarTodosEmprestimosEReservas();
+        PersistenceManager.apagarTodosOsUsuariosCriados();
     }
 
     private static void colocarTodosOsLivrosComoDisponiveis(){

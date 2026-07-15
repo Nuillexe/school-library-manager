@@ -23,10 +23,7 @@ public class BibliotecaRepository {
         this.listaDeReservas = PersistenceManager.carregarReservas();
         this.listaDeIds=PersistenceManager.carregarIds();
 
-
         ajustarRelacionamentos();
-        System.out.println(listaDeTitulos);
-
     }
 
     public static BibliotecaRepository getInstance() {
@@ -108,7 +105,7 @@ public class BibliotecaRepository {
         for(Emprestimo e: listaDeEmprestimos.listar()){
             for(Titulo t: listaDeTitulos.listar()){
                 if(e.getLivro().getIsbn().equalsIgnoreCase(t.getIsbn())){
-                    t.registrarEmprestimo(e);
+                    t.getListaDeEmprestimos().salvar(e);
                 }
             }
         }
@@ -153,6 +150,11 @@ public class BibliotecaRepository {
     public TituloDAOLista getTitulos(){
         return this.listaDeTitulos;
     }
+
+    public void setListaDeUsuarios(UsuarioDAOLista listaDeUsuarios) {
+        this.listaDeUsuarios = listaDeUsuarios;
+    }
+
 
     /*public TituloDAOLista getTitulosAtualizados() {
         // Toda vez que alguém pedir os títulos, você re-agrupa para garantir
