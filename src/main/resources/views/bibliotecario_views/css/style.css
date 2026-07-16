@@ -1,0 +1,81 @@
+/* ===== BiblioQueue - Stylesheet ===== */
+
+/* --- Root & Background --- */
+.root {
+    -fx-background-color: #E8EEF7;
+    -fx-font-family: "Segoe UI", "Arial", sans-serif;
+}
+
+/* --- TopBar (navbar preta) --- */
+.top-bar {
+    -fx-background-color: #1A1A2E;
+    -fx-padding: 10 20 10 20;
+    -fx-min-height: 50px;
+}
+
+.top-bar-title {
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+/* --- Header azul (boas-vindas) --- */
+.user-header {
+    -fx-background-color: #1E3A8A;
+    -fx-padding: 14 24 14 24;
+}
+
+.welcome-label {
+    -fx-text-fill: #CBD5E1;
+    -fx-font-size: 12px;
+}
+
+.user-name-label {
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.logout-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+}
+
+/* --- BottomBar (nav inferior) --- */
+.bottom-bar {
+    -fx-background-color: white;
+    -fx-border-color: #E2E8F0;
+    -fx-border-width: 1 0 0 0;
+    -fx-padding: 8 0 8 0;
+    -fx-min-height: 60px;
+}
+
+.nav-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #94A3B8;
+    -fx-font-size: 11px;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+    -fx-padding: 4 20 4 20;
+    -fx-graphic-text-gap: 4;
+}
+
+.nav-btn-active {
+    -fx-text-fill: #1E3A8A;
+    -fx-font-weight: bold;
+}
+
+.btn-reset {
+    -fx-background-color: #c0392b;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 8, 0, 0, 2);
+}
+
+.btn-reset:hover {
+    -fx-background-color: #a93226;
+}

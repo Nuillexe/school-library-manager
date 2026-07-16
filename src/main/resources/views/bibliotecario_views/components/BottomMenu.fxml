@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox alignment="CENTER" prefHeight="90.0" style="-fx-background-color: white; -fx-border-color: #DDD transparent transparent transparent; -fx-padding: 10;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifba.controller.features.bibliotecario.BottomMenuController">
+   <children>
+      <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+         <children>
+            <ImageView fitHeight="55.0" onMouseClicked="#navegarParaDashboard" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/botaoDashboard.jpeg" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+         </children>
+      </VBox>
+      <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+         <children>
+            <ImageView fitHeight="55.0" onMouseClicked="#navegarParaInventario" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/botaoInventario.jpeg" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+         </children>
+      </VBox>
+      <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+         <children>
+            <ImageView fitHeight="55.0" onMouseClicked="#navegarParaControleDeReservas" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/botaoFilaDeReserva.jpeg" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+         </children>
+      </VBox>
+      <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+         <children>
+            <ImageView fitHeight="55.0" onMouseClicked="#navegarParaControleDeEmprestimos" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/botaoDevolucoes.jpeg" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+         </children>
+      </VBox>
+   </children>
+</HBox>

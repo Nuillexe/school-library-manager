@@ -45,11 +45,11 @@ Qualquer usuário cadastrado pode acessar o sistema utilizando suas credenciais.
 
 ## Bibliotecários
 
-| Nome              | Email                                                         | Senha    |
-| ----------------- | ------------------------------------------------------------- | -------- |
-| Admin BiblioQueue | [admin@biblioteca.com](mailto:admin@biblioteca.com)           | admin    |
-| Kaique Oliveira   | [kaique.oliveira@email.com](mailto:kaique.oliveira@email.com) | admin123 |
-| Maria Eduarda     | [maria.eduarda@email.com](mailto:maria.eduarda@email.com)     | admin456 |
+| Nome            | Email                                                         | Senha    |
+|-----------------| ------------------------------------------------------------- | -------- |
+| Admin           | [admin@biblioteca.com](mailto:admin@biblioteca.com)           | admin    |
+| Kaique Oliveira | [kaique.oliveira@email.com](mailto:kaique.oliveira@email.com) | admin123 |
+| Maria Eduarda   | [maria.eduarda@email.com](mailto:maria.eduarda@email.com)     | admin456 |
 
 ---
 

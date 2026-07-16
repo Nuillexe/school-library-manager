@@ -155,37 +155,4 @@ public class CatalogoController implements Initializable {
         }
     }
 
-    @FXML private void onNavCatalogo() {
-        System.out.println("Já está no Catálogo");
-    }
-
-    @FXML private void onNavEmprestimos() { navegarPara("/views/usuario_views/Emprestimos.fxml"); }
-
-    @FXML private void onNavReservas() { navegarPara("/views/usuario_views/Reservas.fxml"); }
-
-    // Método adicionado para realizar a ação de Logout e redirecionar para a autenticação
-    @FXML
-    private void onLogout() {
-        try {
-            Sessao.setUsuarioLogado(null);
-            Parent root = FXMLLoader.load(getClass().getResource("/views/auth_views/login.fxml"));
-            Stage stage = (Stage) listaLivrosContainer.getScene().getWindow();
-            Tools.trocarCenaPreservandoJanela(stage, root);
-        } catch (IOException e) {
-            System.err.println("Erro ao deslogar: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
-    private void navegarPara(String fxmlPath) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
-            Stage stage = (Stage) listaLivrosContainer.getScene().getWindow();
-            Tools.trocarCenaPreservandoJanela(stage, root);
-
-        } catch (IOException e) {
-            System.err.println("Erro ao navegar para: " + fxmlPath);
-            e.printStackTrace();
-        }
-    }
 }

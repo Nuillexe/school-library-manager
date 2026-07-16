@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
@@ -9,32 +7,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="720.0" prefWidth="1280.0" stylesheets="@css/biblioqueue.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifba.controller.features.usuario.ReservasController">
-
+<BorderPane prefHeight="720.0" prefWidth="1280.0" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifba.controller.features.usuario.ReservasController">
     <top>
-        <HBox alignment="CENTER_LEFT" spacing="12" style="-fx-background-color: #1E3A8A; -fx-padding: 14 24 14 24;">
-            <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
-                <Label style="-fx-text-fill: #FFFFFF; -fx-font-size: 11px;" text="Bem Vindo" />
-                <Label fx:id="lblNomeUsuario" style="-fx-text-fill: #FFFFFF; -fx-font-weight: bold; -fx-font-size: 16px;" text="Ana Silva" />
-            </VBox>
-
-            <HBox alignment="CENTER_RIGHT" spacing="16">
-                <ImageView fitHeight="250.0" fitWidth="300.0" preserveRatio="true">
-                    <image>
-                        <Image url="@../../images/logo.png" />
-                    </image>
-                </ImageView>
-                <Button onAction="#onLogout" style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-cursor: hand; -fx-padding: 0;">
-                    <graphic>
-                        <ImageView fx:id="irParaLogin" fitHeight="35.0" fitWidth="35.0" preserveRatio="true">
-                            <image>
-                                <Image url="@../../images/botaoSeta.jpeg" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-            </HBox>
-        </HBox>
+        <fx:include source="components/TopBar.fxml" />
     </top>
 
     <center>
@@ -68,42 +43,7 @@
             </VBox>
         </ScrollPane>
     </center>
-
     <bottom>
-        <HBox alignment="CENTER" spacing="0" style="-fx-background-color: #FFFFFF; -fx-border-color: #E2E8F0 transparent transparent transparent; -fx-border-width: 1 0 0 0; -fx-padding: 6 0 6 0;">
-            <HBox alignment="CENTER" spacing="120" style="-fx-background-color: white; -fx-padding: 10 0 10 0; -fx-border-color: #E2E8F0 transparent transparent transparent; -fx-border-width: 1 0 0 0;">
-                <children>
-                    <VBox alignment="CENTER" onMouseClicked="#onNavCatalogo" prefWidth="426.0" spacing="5" style="-fx-cursor: hand;">
-                        <children>
-                            <ImageView fitHeight="51.0" fitWidth="470.0" preserveRatio="true">
-                                <image>
-                                    <Image url="@../../images/Catalogo.png" />
-                                </image>
-                            </ImageView>
-                        </children>
-                    </VBox>
-                    <VBox alignment="CENTER" onMouseClicked="#onNavEmprestimos" prefWidth="426.0" spacing="5" style="-fx-cursor: hand;">
-                        <children>
-                            <ImageView fitHeight="63.0" fitWidth="71.0" preserveRatio="true">
-                                <image>
-                                    <Image url="@../../images/Emprestimo.png" />
-                                </image>
-                            </ImageView>
-                        </children>
-                    </VBox>
-                    <VBox alignment="CENTER" onMouseClicked="#onNavReservas" prefWidth="426.0" spacing="5" style="-fx-cursor: hand;">
-                        <children>
-                            <ImageView fitHeight="58.0" fitWidth="59.0" preserveRatio="true">
-                                <image>
-                                    <Image url="@../../images/Reservas.png" />
-                                </image>
-                            </ImageView>
-                        </children>
-                    </VBox>
-                </children>
-            </HBox>
-
-        </HBox>
+        <fx:include source="components/BottomMenu.fxml"/>
     </bottom>
-
 </BorderPane>

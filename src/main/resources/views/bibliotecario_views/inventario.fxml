@@ -15,31 +15,8 @@
 
 <BorderPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifba.controller.features.bibliotecario.InventarioController">
     <top>
-        <HBox alignment="CENTER_LEFT" maxHeight="80.0" minHeight="80.0" prefHeight="80.0" style="-fx-background-color: #1A3783;" BorderPane.alignment="CENTER">
-            <padding><Insets left="40.0" right="40.0" /></padding>
-            <children>
-                <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
-                    <children>
-                        <Label style="-fx-text-fill: white; -fx-font-size: 14px;" text="Bem Vindo" />
-                        <Label fx:id="NomeUsuario" style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 18px;" text="Nome aqui" />
-                    </children>
-                </VBox>
-                <VBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
-                    <children>
-                        <ImageView fitHeight="250.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
-                            <image><Image url="@../../images/logo.png" /></image>
-                        </ImageView>
-                    </children>
-                </VBox>
-                <ImageView fx:id="irParaLogin" fitHeight="35.0" fitWidth="35.0" onMouseClicked="#handleLogout" pickOnBounds="true" preserveRatio="true">
-                    <image><Image url="@../../images/botaoSeta.jpeg" /></image>
-                    <cursor><Cursor fx:constant="HAND" /></cursor>
-                    <HBox.margin><Insets left="20.0" /></HBox.margin>
-                </ImageView>
-            </children>
-        </HBox>
+        <fx:include source="components/TopBar.fxml" />
     </top>
-
     <center>
         <StackPane>
             <ScrollPane fitToWidth="true" style="-fx-background-color: #E9EEF7; -fx-background: #E9EEF7;">
@@ -67,55 +44,6 @@
     </center>
 
     <bottom>
-        <HBox alignment="CENTER" prefHeight="85.0" style="-fx-background-color: white; -fx-border-color: #D1D1D1 transparent transparent transparent;">
-         <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
-            <children>
-               <ImageView fitHeight="55.0" onMouseClicked="#dashboardController" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@../../images/botaoDashboard.jpeg" />
-                  </image>
-                  <cursor>
-                     <Cursor fx:constant="HAND" />
-                  </cursor>
-               </ImageView>
-            </children>
-         </VBox>
-         <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
-            <children>
-               <ImageView fitHeight="55.0" onMouseClicked="#inventarioController" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@../../images/botaoInventario.jpeg" />
-                  </image>
-                  <cursor>
-                     <Cursor fx:constant="HAND" />
-                  </cursor>
-               </ImageView>
-            </children>
-         </VBox>
-         <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
-            <children>
-               <ImageView fitHeight="55.0" onMouseClicked="#controleDeReservasController" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@../../images/botaoFilaDeReserva.jpeg" />
-                  </image>
-                  <cursor>
-                     <Cursor fx:constant="HAND" />
-                  </cursor>
-               </ImageView>
-            </children>
-         </VBox>
-         <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
-            <children>
-               <ImageView fitHeight="55.0" onMouseClicked="#controleDeEmprestimosController" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@../../images/botaoDevolucoes.jpeg" />
-                  </image>
-                  <cursor>
-                     <Cursor fx:constant="HAND" />
-                  </cursor>
-               </ImageView>
-            </children>
-         </VBox>
-        </HBox>
+        <fx:include source="components/BottomMenu.fxml"/>
     </bottom>
 </BorderPane>

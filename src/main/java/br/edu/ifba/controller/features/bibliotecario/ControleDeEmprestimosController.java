@@ -3,24 +3,16 @@ package br.edu.ifba.controller.features.bibliotecario;
 import br.edu.ifba.models.Emprestimo;
 import br.edu.ifba.service.BibliotecarioService;
 import br.edu.ifba.util.Sessao;
-import br.edu.ifba.util.Tools;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-
-import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -28,7 +20,6 @@ import java.util.ResourceBundle;
 
 public class ControleDeEmprestimosController implements Initializable {
 
-    @FXML private Label NomeUsuario;
     @FXML private FlowPane containerDevolucoes;
 
     private BibliotecarioService service;
@@ -37,7 +28,6 @@ public class ControleDeEmprestimosController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         if (Sessao.getUsuarioLogado() != null) {
-            this.NomeUsuario.setText(Sessao.getUsuarioLogado().getNome());
             this.service = new BibliotecarioService(Sessao.getUsuarioLogado());
             renderizarEmprestimos();
         }
@@ -132,29 +122,5 @@ public class ControleDeEmprestimosController implements Initializable {
 
         linha.getChildren().addAll(lblRotulo, spacer, lblValor);
         return linha;
-    }
-
-    // --- Navegação Padronizada com a Classe Tools ---
-    @FXML
-    private void handleLogout(MouseEvent event) {
-        Sessao.encerrarSessao();
-        navegarPara("/views/auth_views/login.fxml", event);
-    }
-
-    @FXML private void onNavDashboard(MouseEvent event) { navegarPara("/views/bibliotecario_views/dashboard.fxml", event); }
-    @FXML private void onNavInventario(MouseEvent event) { navegarPara("/views/bibliotecario_views/inventario.fxml", event); }
-    @FXML private void onNavReservas(MouseEvent event) { navegarPara("/views/bibliotecario_views/controleDeReservas.fxml", event); }
-    @FXML private void onNavEmprestimos(MouseEvent event) { renderizarEmprestimos(); }
-
-    private void navegarPara(String fxmlPath, MouseEvent event) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            // Alterado para usar a Tools, preservando o tamanho de 1280x720 sem quebras visuais
-            Tools.trocarCenaPreservandoJanela(stage, root);
-        } catch (IOException e) {
-            System.err.println("Erro ao navegar para " + fxmlPath + ": " + e.getMessage());
-            e.printStackTrace();
-        }
     }
 }
