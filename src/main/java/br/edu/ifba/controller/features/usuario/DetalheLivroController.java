@@ -48,8 +48,6 @@ public class DetalheLivroController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         Usuario logado = Sessao.getUsuarioLogado();
         this.usuarioService = new UsuarioService(logado);
-        lblNomeUsuario.setText(logado.getNome());
-
         int ativos = logado.getListaEmprestimos().tamanho();
         int limite = logado.getLimiteLivros();
         lblEmprestimosAtivos.setText("Empréstimos ativos: " + ativos + "/" + limite);
