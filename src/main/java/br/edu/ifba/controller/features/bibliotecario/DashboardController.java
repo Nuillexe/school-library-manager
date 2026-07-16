@@ -22,7 +22,7 @@ import javafx.event.ActionEvent;
 
 public class DashboardController implements Initializable {
 
-    @FXML private Label userLabel, lblQtdAcervo, lblQtdEmprestimos, lblQtdHoje,
+    @FXML private Label lblQtdAcervo, lblQtdEmprestimos, lblQtdHoje,
             lblQtdAtrasos, lblQtdReservas, lblQtdUsuariosAtraso, lblFilaContagem;
 
     @FXML private ListView<Reserva> lvFilaReserva;
@@ -38,7 +38,7 @@ public class DashboardController implements Initializable {
         Usuario logado = Sessao.getUsuarioLogado();
 
         if (logado != null) {
-            userLabel.setText(logado.getNome());
+
             this.service = new BibliotecarioService(logado);
             carregarDadosDashboard();
             configurarListaDeReservas();

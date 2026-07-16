@@ -1,11 +1,14 @@
 package br.edu.ifba.util;
 
 import javafx.application.Platform;
+import javafx.event.Event;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Node;
+
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -20,7 +23,8 @@ public class Tools {
         aviso.showAndWait();
     }
 
-    public static void navegarPara(ActionEvent event, String caminhoFXML) {
+
+    public static void navegarPara(Event event, String caminhoFXML) {
         try {
             // Carrega o novo arquivo
             Parent root = FXMLLoader.load(Tools.class.getResource(caminhoFXML));
@@ -31,8 +35,10 @@ public class Tools {
             trocarCenaPreservandoJanela(stage, root);
 
         } catch (IOException e) {
-            Tools.enviarAlerta("Erro ao carregar a tela: " + e);
+            Tools.enviarAlerta("Erro ao carregar a tela: " + caminhoFXML);
+
             System.err.println("Erro ao carregar a tela: " + caminhoFXML);
+            System.err.println("ERRO:" + e);
             e.printStackTrace();
         }
     }
@@ -41,18 +47,7 @@ public class Tools {
      * Navega para uma nova tela a partir de um Node, preservando a maximização da janela.
      * Use este método em controllers que fazem navegação manualmente (sem ActionEvent).
      */
-    public static void navegarPara(Node source, String caminhoFXML) {
-        try {
-            Parent root = FXMLLoader.load(Tools.class.getResource(caminhoFXML));
-            Stage stage = (Stage) source.getScene().getWindow();
 
-            trocarCenaPreservandoJanela(stage, root);
-        } catch (IOException e) {
-            Tools.enviarAlerta("Erro ao carregar a tela: " + e);
-            System.err.println("Erro ao carregar a tela: " + caminhoFXML);
-            e.printStackTrace();
-        }
-    }
 
     public static void trocarCenaPreservandoJanela(Stage stage, Parent root) {
         boolean estaMaximizada = stage.isMaximized();
@@ -70,5 +65,6 @@ public class Tools {
 
         stage.show();
     }
+
 
 }

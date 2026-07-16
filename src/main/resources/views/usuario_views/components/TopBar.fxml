@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox alignment="CENTER_LEFT" maxHeight="80.0" minHeight="80.0" prefHeight="80.0" prefWidth="633.0" style="-fx-background-color: #1A3783;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifba.controller.features.usuario.TopBarController">
+   <padding>
+      <Insets left="40.0" right="40.0" />
+   </padding>
+   <children>
+      <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+         <children>
+            <Label style="-fx-text-fill: white; -fx-font-size: 14px;" text="Bem Vindo" />
+            <Label fx:id="NomeUsuario" style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 18px;" text="Nome aqui" />
+         </children>
+      </VBox>
+      <VBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+         <children>
+            <ImageView fitHeight="85.0" fitWidth="284.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/logo.png" />
+               </image>
+            </ImageView>
+         </children>
+      </VBox>
+      <ImageView fx:id="logoutBtn" fitHeight="35.0" fitWidth="35.0" onMouseClicked="#handleLogout" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/botaoSeta.jpeg" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <HBox.margin>
+            <Insets left="20.0" />
+         </HBox.margin>
+      </ImageView>
+   </children>
+</HBox>

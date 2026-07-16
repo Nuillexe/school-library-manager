@@ -23,9 +23,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static br.edu.ifba.util.Tools.navegarPara;
+
 public class InventarioController implements Initializable {
 
-    @FXML private Label NomeUsuario;
     @FXML private FlowPane containerLivros;
 
     private BibliotecarioService service;
@@ -33,7 +34,6 @@ public class InventarioController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         if (Sessao.getUsuarioLogado() != null) {
-            this.NomeUsuario.setText(Sessao.getUsuarioLogado().getNome());
             this.service = new BibliotecarioService(Sessao.getUsuarioLogado());
             renderizarInventario();
         }
@@ -145,23 +145,6 @@ public class InventarioController implements Initializable {
         return card;
     }
 
+    @FXML private void handleAdicionarLivro(MouseEvent event) { navegarPara(event,"/views/bibliotecario_views/adicionarLivro.fxml"); }
 
-    // --- Métodos de Navegação (Cópia e Cola) ---
-    @FXML private void handleLogout(MouseEvent event) {
-        Sessao.encerrarSessao();
-        navegarPara("/views/auth_views/login.fxml", event);
-    }
-    @FXML private void handleAdicionarLivro(MouseEvent event) { navegarPara("/views/bibliotecario_views/adicionarLivro.fxml", event); }
-    @FXML private void dashboardController(MouseEvent event) { navegarPara("/views/bibliotecario_views/dashboard.fxml", event); }
-    @FXML private void inventarioController(MouseEvent event) { renderizarInventario(); }
-    @FXML private void controleDeReservasController(MouseEvent event) { navegarPara("/views/bibliotecario_views/controleDeReservas.fxml", event); }
-    @FXML private void controleDeEmprestimosController(MouseEvent event) { navegarPara("/views/bibliotecario_views/controleDeEmprestimos.fxml", event); }
-
-    private void navegarPara(String fxmlPath, MouseEvent event) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Tools.trocarCenaPreservandoJanela(stage, root);
-        } catch (IOException e) { e.printStackTrace(); }
-    }
 }

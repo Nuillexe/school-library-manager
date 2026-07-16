@@ -24,7 +24,6 @@ import java.util.ResourceBundle;
 
 public class ControleDeReservasController implements Initializable {
 
-    @FXML private Label NomeUsuario;
     @FXML private FlowPane containerFilas;
 
     private BibliotecarioService service;
@@ -33,7 +32,6 @@ public class ControleDeReservasController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         Usuario logado = Sessao.getUsuarioLogado();
         if (logado != null) {
-            this.NomeUsuario.setText(logado.getNome());
             this.service = new BibliotecarioService(logado);
             renderizarFilasDeReserva();
         }
@@ -117,25 +115,4 @@ public class ControleDeReservasController implements Initializable {
         return item;
     }
 
-    // --- Navegação Unificada e Segura ---
-    @FXML private void handleLogout(MouseEvent event) {
-        Sessao.encerrarSessao();
-        navegarPara("/views/auth_views/login.fxml", event);
-    }
-
-    @FXML private void onNavDashboard(MouseEvent event) { navegarPara("/views/bibliotecario_views/dashboard.fxml", event); }
-    @FXML private void onNavInventario(MouseEvent event) { navegarPara("/views/bibliotecario_views/inventario.fxml", event); }
-    @FXML private void onNavReservas(MouseEvent event) { renderizarFilasDeReserva(); }
-    @FXML private void onNavEmprestimos(MouseEvent event) { navegarPara("/views/bibliotecario_views/controleDeEmprestimos.fxml", event); }
-
-    private void navegarPara(String fxmlPath, MouseEvent event) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Tools.trocarCenaPreservandoJanela(stage, root);
-        } catch (IOException e) {
-            System.err.println("Erro ao navegar para " + fxmlPath + ": " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
 }
