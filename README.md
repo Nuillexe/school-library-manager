@@ -10,7 +10,7 @@ O projeto evoluiu ao longo de duas disciplinas do curso de **Sistemas de Informa
 
 ---
 
-# 🔗 Links Úteis
+## 🔗 Links Úteis
 
 - 📖 [Guia de Testes](docs/GUIA_DE_TESTES.md)
 - 🌿 [Manual de Trabalho com GitHub](docs/MANUAL_GITHUB.md)
