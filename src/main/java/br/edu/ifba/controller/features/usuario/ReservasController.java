@@ -2,23 +2,18 @@ package br.edu.ifba.controller.features.usuario;
 
 import br.edu.ifba.repository.BibliotecaRepository;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import br.edu.ifba.models.Reserva;
 import br.edu.ifba.models.Titulo;
 import br.edu.ifba.models.Usuario;
 import br.edu.ifba.service.UsuarioService;
 import br.edu.ifba.util.Sessao;
-import br.edu.ifba.util.Tools;
 
-import java.io.IOException;
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -38,11 +33,10 @@ public class ReservasController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Inicializa o Service com o usuário da sessão
+
         Usuario logado = Sessao.getUsuarioLogado();
         this.usuarioService = new UsuarioService(logado);
 
-        // Define o nome visual do usuário
         if (logado != null && lblNomeUsuario != null) {
             lblNomeUsuario.setText(logado.getNome());
         }
@@ -50,13 +44,9 @@ public class ReservasController implements Initializable {
         carregarReservasReais();
     }
 
-    /**
-     * Busca todas as reservas do usuário percorrendo os títulos da biblioteca
-     */
     private void carregarReservasReais() {
         List<Reserva> reservasAtivas = buscarReservasDoUsuario();
 
-        // Atualiza o contador visual (ex: 1/3)
         lblContadorReservas.setText(reservasAtivas.size() + "/" + LIMITE_RESERVAS);
 
         if (reservasAtivas.isEmpty()) {
@@ -66,14 +56,10 @@ public class ReservasController implements Initializable {
         }
     }
 
-    /**
-     * Lógica para encontrar as reservas: No seu sistema, elas estão dentro de cada Titulo
-     */
     private List<Reserva> buscarReservasDoUsuario() {
         List<Reserva> encontradas = new ArrayList<>();
         Usuario logado = Sessao.getUsuarioLogado();
 
-        // Percorre todos os títulos da biblioteca para achar onde este usuário está na fila
         for (Titulo t : BibliotecaRepository.getInstance().getTitulos().listar()) {
             for (Reserva r : t.getFilaDeReservas().listar()) {
                 if (r.getUsuario().getId().equals(logado.getId())) {
@@ -122,14 +108,11 @@ public class ReservasController implements Initializable {
 
         Separator sep = new Separator();
 
-        // --- Detalhes da Posição e Data ---
         VBox detalhes = new VBox(8);
 
-        // Posição na fila (calculada pelo DAO do título)
-        int pos = reserva.getTitulo().getFilaDeReservas().posicao(reserva)+1;
-        detalhes.getChildren().add(criarLinhaInfo("Posição na fila", pos + "º"));
+        int posicao = reserva.getTitulo().getFilaDeReservas().posicao(reserva)+1;
+        detalhes.getChildren().add(criarLinhaInfo("Posição na fila", posicao + "º"));
 
-        // Status
         detalhes.getChildren().add(criarLinhaInfo("Status", "Aguardando exemplar"));
 
         // --- Botão Cancelar ---
@@ -138,7 +121,6 @@ public class ReservasController implements Initializable {
         Button btnCancelar = new Button("Cancelar Reserva");
         btnCancelar.setStyle("-fx-background-color: transparent; -fx-text-fill: #DC2626; -fx-border-color: #FECACA; -fx-cursor: hand;");
 
-        // Chama o método desistirDaReserva do seu UsuarioService
         btnCancelar.setOnAction(e -> {
             if (usuarioService.desistirDaReserva(reserva.getTitulo())) {
                 carregarReservasReais(); // Atualiza a tela após cancelar
@@ -166,28 +148,5 @@ public class ReservasController implements Initializable {
         emptyStateReservas.setManaged(true);
         listaReservasContainer.setVisible(false);
         listaReservasContainer.setManaged(false);
-    }
-
-    // ===== NAVEGAÇÃO UTILIZANDO A CLASSE TOOLS (Sua versão oficial) =====
-
-    @FXML
-    private void onLogout() {
-        Sessao.setUsuarioLogado(null); // Acrescentado para limpar a sessão ao deslogar
-        navegarPara("/views/auth_views/login.fxml");
-    }
-
-    @FXML private void onNavCatalogo()    { navegarPara("/views/usuario_views/Catalogo.fxml"); }
-    @FXML private void onNavEmprestimos() { navegarPara("/views/usuario_views/Emprestimos.fxml"); }
-    @FXML private void onNavReservas()    { System.out.println("Já está na página de Reservas"); }
-
-    private void navegarPara(String fxmlPath) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
-            Stage stage = (Stage) lblNomeUsuario.getScene().getWindow();
-            Tools.trocarCenaPreservandoJanela(stage, root);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }

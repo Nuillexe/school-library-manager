@@ -1,7 +1,7 @@
 package br.edu.ifba.controller.features.bibliotecario;
 
 import br.edu.ifba.util.Sessao;
-import br.edu.ifba.util.Tools;
+import br.edu.ifba.util.NavigationManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -32,7 +32,7 @@ public class TopBarController {
             // Pega a janela (Stage) atual a partir do evento do clique
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-            Tools.trocarCenaPreservandoJanela(stage, root);
+            NavigationManager.trocarCenaPreservandoJanela(stage, root);
 
         } catch (IOException e) {
             System.err.println("Erro ao carregar a tela de login: " + e.getMessage());

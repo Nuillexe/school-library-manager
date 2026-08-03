@@ -8,7 +8,7 @@
 18|Core Java: Volume II - Advanced Features|Cay S. Horstmann|9780134177298|Tecnologia|Guia profundo sobre os recursos avançados do Java - 10.ed. Upper Saddle River: Prentice Hall|2017-05-10|true
 19|Core Java: Volume II - Advanced Features|Cay S. Horstmann|9780134177298|Tecnologia|Guia profundo sobre os recursos avançados do Java - 10.ed. Upper Saddle River: Prentice Hall|2017-05-10|true
 20|Core Java: Volume II - Advanced Features|Cay S. Horstmann|9780134177298|Tecnologia|Guia profundo sobre os recursos avançados do Java - 10.ed. Upper Saddle River: Prentice Hall|2017-05-10|true
-51|Java: Como Programar |Paul Deitel|9780134694726|Programação|O guia definitivo para Java.|2016-01-01|true
+51|Java: Como Programar |Paul Deitel|9780134694726|Programação|O guia definitivo para Java.|2016-01-01|false
 52|Java: Como Programar |Paul Deitel|9780134694726|Programação|O guia definitivo para Java.|2016-01-01|true
 53|Java: Como Programar |Paul Deitel|9780134694726|Programação|O guia definitivo para Java.|2016-01-01|true
 54|Java: Como Programar |Paul Deitel|9780134694726|Programação|O guia definitivo para Java.|2016-01-01|true
@@ -17,9 +17,9 @@
 57|Java: Como Programar |Paul Deitel|9780134694726|Programação|O guia definitivo para Java.|2016-01-01|true
 58|Java: Como Programar |Paul Deitel|9780134694726|Programação|O guia definitivo para Java.|2016-01-01|true
 77|Algoritmos: Teoria e Prática|Thomas H. Cormen|9788521608325|Tecnologia|A bíblia dos algoritmos, essencial para estruturas de dados avançadas|2012-08-16|true
-78|Introdução a Algoritmos e Programação|Anita Lopes|9788521634812|Tecnologia|Livro didático excelente para iniciantes em lógica de programação|2017-03-10|true
+78|Introdução a Algoritmos e Programação|Anita Lopes|9788521634812|Tecnologia|Livro didático excelente para iniciantes em lógica de programação|2017-03-10|false
 79|Introdução a Algoritmos e Programação|Anita Lopes|9788521634812|Tecnologia|Livro didático excelente para iniciantes em lógica de programação|2017-03-10|true
-62|Core Java: Volume I - Fundamentos|Cay S. Horstmann|9788521637110|Tecnologia|Guia profundo sobre os recursos essenciais do Java|2020-05-10|true
+62|Core Java: Volume I - Fundamentos|Cay S. Horstmann|9788521637110|Tecnologia|Guia profundo sobre os recursos essenciais do Java|2020-05-10|false
 75|A Linguagem de Programação C|Brian W. Kernighan|9788535213844|Tecnologia|O livro clássico (Bíblia do C) escrito pelos próprios criadores da linguagem|1988-04-01|true
 1|Java: Como Programar|Paul Deitel; Harvey Deitel|9788543004792|Tecnologia|Livro base para aprendizado de POO em Java - 10.ed. São Paulo: Pearson Education|2017-01-01|true
 2|Java: Como Programar|Paul Deitel; Harvey Deitel|9788543004792|Tecnologia|Livro base para aprendizado de POO em Java - 10.ed. São Paulo: Pearson Education|2017-01-01|true

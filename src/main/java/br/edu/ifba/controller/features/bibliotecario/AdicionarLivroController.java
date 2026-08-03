@@ -3,8 +3,9 @@ package br.edu.ifba.controller.features.bibliotecario;
 import br.edu.ifba.models.Livro;
 import br.edu.ifba.models.Usuario;
 import br.edu.ifba.service.BibliotecarioService;
+import br.edu.ifba.util.AlertManager;
 import br.edu.ifba.util.Sessao;
-import br.edu.ifba.util.Tools;
+import br.edu.ifba.util.NavigationManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -74,14 +75,14 @@ public class AdicionarLivroController implements Initializable {
                 System.out.println("Data convertida com sucesso: " + dataDePublicacao);
             } catch (java.time.format.DateTimeParseException e) {
                 System.err.println("Erro: A data digitada é inválida! Use o padrão dd/MM/yyyy");
-                Tools.enviarAlerta("Erro: A data digitada é inválida! Use o padrão dd/MM/yyyy");
+                AlertManager.alertar("Erro: A data digitada é inválida! Use o padrão dd/MM/yyyy");
                 return;
             }
         }
 
         if (titulo.isBlank() || isbn.isBlank() || categoria.isBlank() || autor.isBlank()
                 || descricao.isBlank()) {
-            Tools.enviarAlerta("Preencha todos os campos obrigatórios.");
+            AlertManager.alertar("Preencha todos os campos obrigatórios.");
             return;
         }
 
@@ -89,24 +90,24 @@ public class AdicionarLivroController implements Initializable {
         try {
             quantidade = Integer.parseInt(quantidadeTexto);
         } catch (NumberFormatException e) {
-            Tools.enviarAlerta("Quantidade precisa ser um número válidos.");
+            AlertManager.alertar("Quantidade precisa ser um número válidos.");
             return;
         }
 
         if (quantidade <= 0) {
-            Tools.enviarAlerta("A quantidade deve ser maior que zero.");
+            AlertManager.alertar("A quantidade deve ser maior que zero.");
             return;
         }
 
         if (bibliotecarioService == null) {
-            Tools.enviarAlerta("Serviço de bibliotecário indisponível.");
+            AlertManager.alertar("Serviço de bibliotecário indisponível.");
             return;
         }
 
         for (int i = 0; i < quantidade; i++) {
             Livro livro = new Livro(titulo, autor, isbn, categoria, descricao, dataDePublicacao);
             bibliotecarioService.adicionarLivro(livro);
-            Tools.enviarAlerta(" Dados do livro recém criado:\n" +
+            AlertManager.alertar(" Dados do livro recém criado:\n" +
                     "nome: "+livro.getNome()+"\n"+
                     "dataDePublicação: "+livro.getDataPublicacao()+"\n"+
                     "Descricao: "+livro.getDescricao()+"\n"+
@@ -115,11 +116,11 @@ public class AdicionarLivroController implements Initializable {
         }
 
 
-        Tools.navegarPara(event, "/views/bibliotecario_views/inventario.fxml");
+        NavigationManager.navegarPara(event, "/views/bibliotecario/inventario.fxml");
     }
 
     @FXML
     private void handleVoltar(MouseEvent event) {
-        Tools.navegarPara(event,"/views/bibliotecario_views/inventario.fxml");
+        NavigationManager.navegarPara(event, "/views/bibliotecario/inventario.fxml");
     }
 }

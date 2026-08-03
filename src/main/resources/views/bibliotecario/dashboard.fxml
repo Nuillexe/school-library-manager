@@ -20,7 +20,7 @@
         <HBox spacing="30" style="-fx-background-color: #E9EEF7;">
             <padding><Insets bottom="30.0" left="40.0" right="40.0" top="30.0" /></padding>
 
-            <VBox alignment="TOP_CENTER" prefHeight="453.0" prefWidth="790.0" spacing="25" stylesheets="@../usuario_views/css/style.css" HBox.hgrow="ALWAYS">
+            <VBox alignment="TOP_CENTER" prefHeight="453.0" prefWidth="790.0" spacing="25" stylesheets="@../usuario/css/style.css" HBox.hgrow="ALWAYS">
                 <VBox spacing="5" stylesheets="@css/style.css">
                     <Label style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #1A1A1A;" text="Dashboard Geral" />
                     <Label style="-fx-text-fill: #555555; -fx-font-size: 16px;" text="Resumo estatístico da biblioteca" />

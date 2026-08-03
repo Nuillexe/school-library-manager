@@ -13,7 +13,7 @@ public class MainApp extends Application {
         Parent root = loader.load();
         primaryStage.setTitle("Sistema de Biblioteca");
         primaryStage.setScene(new Scene(root));
-        primaryStage.setMaximized(false); // Truque: reseta para forçar o JavaFX a recalcular
+        primaryStage.setMaximized(false);
         primaryStage.setMaximized(true);
         primaryStage.show();
     }

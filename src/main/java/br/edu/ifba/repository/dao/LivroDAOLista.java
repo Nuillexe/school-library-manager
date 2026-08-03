@@ -2,6 +2,7 @@ package br.edu.ifba.repository.dao;
 
 import br.edu.ifba.models.Livro;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class LivroDAOLista {
@@ -25,12 +26,9 @@ public class LivroDAOLista {
         return null;
     }
 
-    public Livro[] listar() {
-        Livro[] arrayRetorno = new Livro[listaLivros.size()];
-        for (int i = 0; i < listaLivros.size(); i++) {
-            arrayRetorno[i] = listaLivros.get(i);
-        }
-        return arrayRetorno;
+    public List<Livro> listar() {
+
+        return Collections.unmodifiableList(listaLivros);
     }
 
     public void atualizar(Long id, Livro livroAtualizado) {
@@ -76,26 +74,25 @@ public class LivroDAOLista {
         return contador;
     }
 
-    /// get livros disponiveis
-    public Livro[] getDisponiveis(){
+    public int contarIndisponiveis(String nome) {
         int contador = 0;
-        Livro l;
-
         for (int i = 0; i < listaLivros.size(); i++) {
-            l = listaLivros.get(i);
-            if (l != null && l.isDisponivel())
+            Livro l = listaLivros.get(i);
+            if (l != null && l.getNome().equalsIgnoreCase(nome) && !l.isDisponivel()) {
                 contador++;
-        }
-
-        Livro[] livrosDisponiveis = new Livro[contador];
-        int y = 0;
-
-        for(int i = 0; i < listaLivros.size(); i++){
-            l = listaLivros.get(i);
-            if (l != null && l.isDisponivel()){
-                livrosDisponiveis[y++] = l;
             }
         }
+        return contador;
+    }
+
+    /// get livros disponiveis
+    public List getDisponiveis(){
+        List<Livro> livrosDisponiveis= new ArrayList<>();
+        for(Livro l: listaLivros){
+            if(l.isDisponivel())
+                livrosDisponiveis.add(l);
+        }
+
 
         return livrosDisponiveis;
     }
@@ -124,16 +121,12 @@ public class LivroDAOLista {
         return livrosIndisponiveis;
     }
 
-    public Livro selecionar(int i){
+    public Livro get(int i){
         return listaLivros.get(i);
     }
 
-    public int quantidade(){
+    public int size(){
         return listaLivros.size();
-    }
-
-    public int tamanho(){
-        return quantidade();
     }
 
     public void ordenar() {

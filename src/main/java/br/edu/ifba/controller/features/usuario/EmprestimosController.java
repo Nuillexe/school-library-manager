@@ -1,20 +1,15 @@
 package br.edu.ifba.controller.features.usuario;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import br.edu.ifba.models.Emprestimo;
 import br.edu.ifba.models.Usuario;
 import br.edu.ifba.service.UsuarioService;
 import br.edu.ifba.util.Sessao;
-import br.edu.ifba.util.Tools;
 
-import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -33,7 +28,6 @@ public class EmprestimosController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Inicializa o serviço com o usuário que realmente logou
         Usuario logado = Sessao.getUsuarioLogado();
         this.usuarioService = new UsuarioService(logado);
 
@@ -50,8 +44,6 @@ public class EmprestimosController implements Initializable {
     }
 
     private void carregarEmprestimosReais() {
-        // Pega a lista de empréstimos direto do objeto Usuario (que o Service gerencia)
-        // O método 'listar()' retorna o array de empréstimos do DAO do usuário
         Emprestimo[] lista = Sessao.getUsuarioLogado().getListaEmprestimos().listar();
 
         listaEmprestimosContainer.getChildren().clear();
@@ -61,7 +53,6 @@ public class EmprestimosController implements Initializable {
         } else {
             mostrarEstadoVazio(false);
             for (Emprestimo e : lista) {
-                // Cria o card visual para cada empréstimo real
                 listaEmprestimosContainer.getChildren().add(criarCardEmprestimo(e));
             }
         }
@@ -74,9 +65,7 @@ public class EmprestimosController implements Initializable {
         listaEmprestimosContainer.setManaged(!vazio);
     }
 
-    /** Cria um card de empréstimo dinamicamente baseado no model Emprestimo */
     private VBox criarCardEmprestimo(Emprestimo item) {
-        // Verifica atraso comparando a data atual com a data de devolução prevista
         LocalDate hoje = item.getDataEmprestimo();
         LocalDate prevista = item.getDataDevolucao();
         boolean atrasado = item.isAtrasado();
@@ -107,13 +96,11 @@ public class EmprestimosController implements Initializable {
         info.getChildren().addAll(titulo, idExemplar, badge);
         header.getChildren().addAll(iconBox, info);
 
-        // --- Datas ---
+        // --- Informaçoes ---
         VBox datas = new VBox(8);
 
-        // Data de Retirada
         datas.getChildren().add(criarLinhaData("📅 Data de Retirada", hoje.minusDays(7).format(FMT)));
 
-        // Data Prevista
         datas.getChildren().add(criarLinhaData("📅 Devolução Prevista", prevista.format(FMT)));
 
         if (atrasado) {
@@ -126,7 +113,6 @@ public class EmprestimosController implements Initializable {
         return card;
     }
 
-    // Helper para criar as linhas de data e não repetir código
     private HBox criarLinhaData(String label, String valor) {
         HBox row = new HBox();
         Label lbl = new Label(label);
@@ -138,25 +124,4 @@ public class EmprestimosController implements Initializable {
         return row;
     }
 
-    // ===== NAVEGAÇÃO UTILIZANDO A CLASSE TOOLS (Padronizado) =====
-
-    @FXML
-    private void onLogout() {
-        Sessao.setUsuarioLogado(null); // Acrescentado para limpar a sessão ao deslogar
-        navegarPara("/views/auth_views/login.fxml");
-    }
-
-    @FXML private void onNavCatalogo()    { navegarPara("/views/usuario_views/Catalogo.fxml"); }
-    @FXML private void onNavEmprestimos() { System.out.println("Já está na página de Empréstimos"); }
-    @FXML private void onNavReservas()    { navegarPara("/views/usuario_views/Reservas.fxml"); }
-
-    private void navegarPara(String fxmlPath) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
-            Stage stage = (Stage) lblNomeUsuario.getScene().getWindow();
-            Tools.trocarCenaPreservandoJanela(stage, root);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }

@@ -3,13 +3,13 @@ package br.edu.ifba.service;
 import br.edu.ifba.models.*;
 import br.edu.ifba.repository.BibliotecaRepository;
 import br.edu.ifba.repository.PersistenceManager;
-import br.edu.ifba.repository.dao.EmprestimoDAOLista;
-import br.edu.ifba.util.Tools;
+import br.edu.ifba.util.AlertManager;
+import br.edu.ifba.util.NavigationManager;
 
 public class UsuarioService {
 
     private BibliotecaRepository b;
-    private Usuario user; // Representa o usuário logado na sessão do aplicativo
+    private Usuario user;
 
     public UsuarioService(Usuario userLogado) {
         this.b = BibliotecaRepository.getInstance();
@@ -25,67 +25,57 @@ public class UsuarioService {
      */
     public boolean pegarEmprestimo(Titulo titulo) {
         if (titulo == null) {
-            Tools.enviarAlerta("❌ Falha: Título inválido para empréstimo.");
+            AlertManager.showError("❌ Falha: Título inválido para empréstimo.");
             return false;
         }
 
-        // 1. Bloqueio por atraso pendente
         if (usuarioPossuiAtraso()) {
-            Tools.enviarAlerta("⚠️ Acesso Bloqueado: Regularize suas pendências em atraso antes de realizar empréstimos.");
+            AlertManager.alertar("⚠️ Acesso Bloqueado: Regularize suas pendências em atraso antes de realizar empréstimos.");
             return false;
         }
 
-        // 2. Bloqueio por estouro de cota do plano (Aluno=3, Professor=4, Bibliotecário=5)
         if (user.getListaEmprestimos().tamanho() >= user.getLimiteLivros()) {
-            Tools.enviarAlerta("⚠️ Limite atingido: Seu plano permite no máximo " + user.getLimiteLivros() + " livros simultâneos.");
+            AlertManager.alertar("⚠️ Limite atingido: Seu plano permite no máximo " + user.getLimiteLivros() + " livros simultâneos.");
             return false;
         }
 
-        // 3. Verifica disponibilidade de estoque no contador do título
         if (titulo.getQuantidadeDisponivel() <= 0) {
-            Tools.enviarAlerta("❌ Indisponível: Não há exemplares livres. Sugerimos realizar uma reserva.");
+            AlertManager.showError(("❌ Indisponível: Não há exemplares livres. Sugerimos realizar uma reserva."));
             return false;
         }
 
-        // 4. Captura a referência física do exemplar disponível
         Livro livroFisicoEmprestado = titulo.getExemplarDisponivel();
         if (livroFisicoEmprestado == null) {
-            Tools.enviarAlerta("❌ Erro interno: Divergência nos contadores do acervo.");
+            AlertManager.showError("❌ Erro interno: Divergência nos contadores do acervo.");
             return false;
         }
 
-        // 5. Consolidação e persistência em memória
         livroFisicoEmprestado.setDisponivel(false);
         Emprestimo emprestimo = new Emprestimo(user, livroFisicoEmprestado);
 
-        user.getListaEmprestimos().salvar(emprestimo); // Aloca no perfil do usuário
-        b.getListaDeEmprestimos().salvar(emprestimo); // Grava no registro central
-        titulo.registrarEmprestimo(emprestimo);       // Registra no Título
-        PersistenceManager.salvarEmprestimo(emprestimo);// Registra no banco de dados
+        user.getListaEmprestimos().salvar(emprestimo);
+        b.getListaDeEmprestimos().salvar(emprestimo);
+        titulo.registrarEmprestimo(emprestimo);
+        PersistenceManager.salvarEmprestimo(emprestimo);
         PersistenceManager.sobrescreverLivros(b.getAcervo());
 
-        Tools.enviarAlerta("✅ Sucesso! Empréstimo realizado. Devolução prevista: " +
+        AlertManager.showInfo("✅ Sucesso! Empréstimo realizado. Devolução prevista: " +
                 emprestimo.getDataDevolucao().format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")));
         return true;
     }
 
-    /**
-     * Realiza a devolução de um livro por intermédio da sessão do Usuário.
-     */
     public boolean devolucaoDoEmprestimo(Emprestimo emprestimo) {
         if (emprestimo == null) {
-            Tools.enviarAlerta("❌ Falha: Empréstimo inválido ou não localizado.");
+            AlertManager.showError("❌ Falha: Empréstimo inválido ou não localizado.");
             return false;
         }
 
         Livro livro = emprestimo.getLivro();
 
-        // Processa cálculo de atrasos em tempo de execução
         boolean atrasado = java.time.LocalDate.now().isAfter(emprestimo.getDataDevolucao());
         emprestimo.setDataDevolucao(java.time.LocalDate.now()); // Seta data real da devolução
         emprestimo.setAtrasado(atrasado);
 
-        // Libera o livro físico
         livro.setDisponivel(true);
 
         // Recalcula estoque no Título correspondente
@@ -94,18 +84,16 @@ public class UsuarioService {
             titulo.removerEmprestimo(emprestimo);
         }
 
-        // Limpeza essencial para liberar as cotas do plano
         user.removerEmprestimo(emprestimo);
         b.getListaDeEmprestimos().apagarPorId(emprestimo.getId());
         PersistenceManager.sobrescreverEmprestimos(b.getListaDeEmprestimos());
 
         if (atrasado) {
-            Tools.enviarAlerta("⚠️ Livro devolvido com atraso registrado. Regularize pendências.");
+            AlertManager.alertar("⚠️ Livro devolvido com atraso registrado. Regularize pendências.");
         } else {
-            Tools.enviarAlerta("✅ Livro devolvido com sucesso!");
+            AlertManager.showInfo("✅ Livro devolvido com sucesso!");
         }
 
-        // Dispara o alerta caso haja um próximo usuário na fila de prioridade
         notificarProximoDaFila(titulo);
         return true;
     }
@@ -154,18 +142,18 @@ public class UsuarioService {
 
     public boolean fazerReserva(Titulo titulo) {
         if (titulo == null) {
-            Tools.enviarAlerta("❌ Falha: Título inválido para reserva.");
+            AlertManager.showError("❌ Falha: Título inválido para reserva.");
             return false;
         }
 
         if (usuarioPossuiAtraso()) {
-            Tools.enviarAlerta("⚠️ Acesso Bloqueado. Você possui pendências em atraso. Regularize-as antes de reservar.");
+           AlertManager.alertar("⚠️ Acesso Bloqueado. Você possui pendências em atraso. Regularize-as antes de reservar.");
             return false;
         }
 
         // Regra de negócio: Limite máximo estrito de 3 reservas ativas por usuário
         if (contarReservasAtivas() >= 3) {
-            Tools.enviarAlerta("⚠️ Você atingiu a cota máxima permitida de 3 reservas simultâneas.");
+            AlertManager.alertar("⚠️ Você atingiu a cota máxima permitida de 3 reservas simultâneas.");
             return false;
         }
 
@@ -174,14 +162,14 @@ public class UsuarioService {
         b.getListaDeReservas().salvar(reserva); // Sincroniza no índice global
         PersistenceManager.salvarReserva(reserva);//salva no banco
 
-        Tools.enviarAlerta("✅ Reserva efetuada! Você está na posição " +
+        AlertManager.showInfo("✅ Reserva efetuada! Você está na posição " +
                 (titulo.getFilaDeReservas().posicao(reserva) + 1) + " da fila.");
         return true;
     }
 
     public boolean desistirDaReserva(Titulo titulo) {
         if (titulo == null) {
-            Tools.enviarAlerta("❌ Falha: Título inválido para cancelamento.");
+            AlertManager.showError("❌ Falha: Título inválido para cancelamento.");
             return false;
         }
 
@@ -191,11 +179,11 @@ public class UsuarioService {
                 b.getListaDeReservas().apagar(r.getId());
                 PersistenceManager.sobrescreverReservas(b.getListaDeReservas());//atualiza no banco de dados
 
-                Tools.enviarAlerta("✅ Reserva cancelada com sucesso.");
+                AlertManager.alertar("✅ Reserva cancelada com sucesso.");
                 return true;
             }
         }
-        Tools.enviarAlerta("ℹ️ Nenhuma reserva ativa sua foi localizada para este título.");
+        AlertManager.alertar("ℹ️ Nenhuma reserva ativa sua foi localizada para este título.");
         return false;
     }
 
@@ -253,7 +241,7 @@ public class UsuarioService {
 
         Reserva proxima = titulo.getFilaDeReservas().proximo();
         if (proxima != null) {
-            Tools.enviarAlerta("📢 Notificando " + proxima.getUsuario().getNome() +
+            AlertManager.showInfo("📢 Notificando " + proxima.getUsuario().getNome() +
                     ": o título '" + titulo.getNome() + "' está disponível para retirada!");
         }
     }
