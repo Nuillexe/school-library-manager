@@ -56,7 +56,7 @@
                         <RowConstraints />
                     </rowConstraints>
                 </GridPane>
-            <Button id="resetBtn" fx:id="resetBtn" mnemonicParsing="false" onAction="#apagarReservasEEmprestimos" prefHeight="25.0" prefWidth="326.0" styleClass="btn-reset" text="RESETAR SISTEMA" VBox.vgrow="ALWAYS" />
+            <Button id="resetBtn" fx:id="resetBtn" mnemonicParsing="false" onAction="#reinicializarOSistema" prefHeight="25.0" prefWidth="326.0" styleClass="btn-reset" text="RESETAR SISTEMA" VBox.vgrow="ALWAYS" />
             </VBox>
 
             <VBox minWidth="380.0" prefWidth="380.0" spacing="15" style="-fx-background-color: white; -fx-background-radius: 20; -fx-padding: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 5);">

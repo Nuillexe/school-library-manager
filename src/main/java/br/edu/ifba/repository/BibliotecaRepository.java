@@ -16,7 +16,6 @@ public class BibliotecaRepository {
     private static BibliotecaRepository instance;
 
     private BibliotecaRepository() {
-        // Inicializa as listas vazias
         this.acervo = PersistenceManager.carregarLivros();
         this.listaDeUsuarios = PersistenceManager.carregarUsuarios();
         this.listaDeEmprestimos = PersistenceManager.carregarEmprestimos();

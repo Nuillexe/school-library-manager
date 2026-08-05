@@ -12,10 +12,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 
@@ -101,10 +98,13 @@ public class DetalheTituloController implements Initializable {
         Livro l= tbExemplares.getSelectionModel().getSelectedItem();
 
         if(l!=null){
-            AlertManager.showInfo("Informaçoes do exemplar","Dados", dadosDeLivroDisponivel(l));
-        }else{
-            AlertManager.showInfo("Informaçoes do exemplar","Dados", dadosDeLivroEmprestado(l));
+            if(l.isDisponivel())
+                AlertManager.showInfo("Informaçoes do exemplar","Dados", dadosDeLivroDisponivel(l));
+            else
+                AlertManager.showInfo("Informaçoes do exemplar","Dados", dadosDeLivroEmprestado(l));
         }
+
+
     }
 
 

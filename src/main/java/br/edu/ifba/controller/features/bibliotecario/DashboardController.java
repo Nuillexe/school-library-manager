@@ -83,12 +83,12 @@ public class DashboardController implements Initializable {
     }
 
     @FXML
-    private void apagarReservasEEmprestimos(ActionEvent event){
+    private void reinicializarOSistema(ActionEvent event){
         Alert confirmacao=new Alert(Alert.AlertType.CONFIRMATION);
 
         confirmacao.setTitle("Tem certeza que deseja reinicializar o sistema?");
         confirmacao.setContentText("Todas as reservas e emprestimos serão cancelados e todos os livros passarão a " +
-                "estar disponiveis no sistema");
+                "estar disponiveis no sistema. Além disso, os usuarios recém criados serão apagados");
 
         Optional<ButtonType> resposta= confirmacao.showAndWait();
         if(resposta.isPresent() && resposta.get()== ButtonType.OK) {
