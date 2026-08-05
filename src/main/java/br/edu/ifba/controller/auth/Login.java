@@ -1,6 +1,7 @@
 package br.edu.ifba.controller.auth;
 
 import br.edu.ifba.enums.TipoUsuario;
+import br.edu.ifba.util.AlertManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
@@ -13,11 +14,11 @@ import javafx.scene.layout.AnchorPane;
 import br.edu.ifba.service.AuthService;
 import br.edu.ifba.models.Usuario;
 import br.edu.ifba.util.Sessao;
-import br.edu.ifba.util.Tools;
+import br.edu.ifba.util.NavigationManager;
 
 import java.util.Objects;
 
-import static br.edu.ifba.util.Tools.enviarAlerta;
+
 
 public class Login {
 
@@ -52,21 +53,21 @@ public class Login {
         Usuario userLogado = AuthService.login(email, senha);
 
         if (Objects.isNull(userLogado)) {
-            enviarAlerta("Usuario não encontrado");
+            AlertManager.alertar("Usuario não encontrado");
             return;
         }
 
         Sessao.setUsuarioLogado(userLogado);
         if (userLogado.getTipo().equals(TipoUsuario.ALUNO) || userLogado.getTipo().equals(TipoUsuario.PROFESSOR)) {
-            Tools.navegarPara(event, "/views/usuario_views/Catalogo.fxml");
+            NavigationManager.navegarPara(event, "/views/usuario/Catalogo.fxml");
             return;
         }
 
-        Tools.navegarPara(event, "/views/bibliotecario_views/dashboard.fxml");
+        NavigationManager.navegarPara(event, "/views/bibliotecario/dashboard.fxml");
     }
 
     @FXML
     public void fazerCadastro(ActionEvent event) {
-        Tools.navegarPara(event, "/views/auth_views/cadastro.fxml");
+        NavigationManager.navegarPara(event, "/views/auth_views/cadastro.fxml");
     }
 }

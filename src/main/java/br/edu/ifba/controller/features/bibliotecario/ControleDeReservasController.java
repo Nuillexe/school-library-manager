@@ -6,19 +6,13 @@ import br.edu.ifba.models.Titulo;
 import br.edu.ifba.models.Usuario;
 import br.edu.ifba.service.BibliotecarioService;
 import br.edu.ifba.util.Sessao;
-import br.edu.ifba.util.Tools;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.stage.Stage;
-import java.io.IOException;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 

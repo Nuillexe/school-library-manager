@@ -3,8 +3,9 @@ package br.edu.ifba.controller.features.bibliotecario;
 import br.edu.ifba.models.Reserva;
 import br.edu.ifba.models.Usuario;
 import br.edu.ifba.service.BibliotecarioService;
+import br.edu.ifba.util.AlertManager;
 import br.edu.ifba.util.Sessao;
-import br.edu.ifba.util.Tools;
+import br.edu.ifba.util.NavigationManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -82,19 +83,19 @@ public class DashboardController implements Initializable {
     }
 
     @FXML
-    private void apagarReservasEEmprestimos(ActionEvent event){
+    private void reinicializarOSistema(ActionEvent event){
         Alert confirmacao=new Alert(Alert.AlertType.CONFIRMATION);
 
         confirmacao.setTitle("Tem certeza que deseja reinicializar o sistema?");
         confirmacao.setContentText("Todas as reservas e emprestimos serão cancelados e todos os livros passarão a " +
-                "estar disponiveis no sistema");
+                "estar disponiveis no sistema. Além disso, os usuarios recém criados serão apagados");
 
         Optional<ButtonType> resposta= confirmacao.showAndWait();
         if(resposta.isPresent() && resposta.get()== ButtonType.OK) {
             service.reinicializarSistema();
-            Tools.enviarAlerta("Operação bem sucedida");
+            AlertManager.showInfo("Operação bem sucedida");
         }else {
-            Tools.enviarAlerta("Operação cancelada");
+            AlertManager.alertar("Operação cancelada");
         }
     }
 
@@ -106,15 +107,15 @@ public class DashboardController implements Initializable {
     }
 
     @FXML private void onNavDashboard() { /* Página atual */ }
-    @FXML private void onNavInventario() { navegarPara("/views/bibliotecario_views/inventario.fxml"); }
-    @FXML private void onNavReservas() { navegarPara("/views/bibliotecario_views/controleDeReservas.fxml"); }
-    @FXML private void onNavEmprestimos() { navegarPara("/views/bibliotecario_views/controleDeEmprestimos.fxml"); }
+    @FXML private void onNavInventario() { navegarPara("/views/bibliotecario/inventario.fxml"); }
+    @FXML private void onNavReservas() { navegarPara("/views/bibliotecario/controleDeReservas.fxml"); }
+    @FXML private void onNavEmprestimos() { navegarPara("/views/bibliotecario/controleDeEmprestimos.fxml"); }
 
     private void navegarPara(String fxmlPath) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
             Stage stage = (Stage) mainContainer.getScene().getWindow();
-            Tools.trocarCenaPreservandoJanela(stage, root);
+            NavigationManager.trocarCenaPreservandoJanela(stage, root);
         } catch (IOException e) {
             System.err.println("Erro ao navegar: " + e.getMessage());
             e.printStackTrace();

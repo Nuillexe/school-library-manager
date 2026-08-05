@@ -1,6 +1,7 @@
 package br.edu.ifba.repository.dao;
 
 import br.edu.ifba.models.Emprestimo;
+import br.edu.ifba.models.Livro;
 import br.edu.ifba.models.Usuario;
 import java.util.ArrayList;
 import java.util.List;
@@ -97,5 +98,14 @@ public class EmprestimoDAOLista {
 
     public void limpar(){
         listaEmprestimos.clear();
+    }
+
+    public Emprestimo buscarEmprestimoBaseadoNoLivro(Livro l){
+        for(Emprestimo e: listaEmprestimos.toArray(new Emprestimo[0])){
+            if(e.getLivro().getId()==l.getId()){
+                return e;
+            }
+        }
+        return null;
     }
 }

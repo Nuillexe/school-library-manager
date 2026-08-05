@@ -28,12 +28,12 @@ public class Titulo {
 
     public Titulo(LivroDAOLista listaDeExemplares){
         // Validação obrigatória: Não faz sentido criar um Título no catálogo sem nenhum exemplar atrelado
-        if (listaDeExemplares == null || listaDeExemplares.tamanho() == 0) {
+        if (listaDeExemplares == null || listaDeExemplares.size() == 0) {
             throw new IllegalArgumentException("Lista de exemplares vazia");
         }
 
         // Extrai os metadados textuais a partir do primeiro exemplar da coleção modelo
-        Livro modelo = listaDeExemplares.selecionar(0);
+        Livro modelo = listaDeExemplares.get(0);
 
         this.listaDeExemplares = listaDeExemplares;
         this.listaDeEmprestimos=new EmprestimoDAOLista();
@@ -46,13 +46,12 @@ public class Titulo {
         this.dataPublicacao = modelo.getDataPublicacao();
         this.autor = modelo.getAutor();
 
-        this.quantidade = listaDeExemplares.tamanho();
+        this.quantidade = listaDeExemplares.size();
         this.quantidadeDeReservas = this.filaDeReservas.tamanho();
-
         // Calcula a quantidade real de exemplares disponíveis varrendo a lista customizada
         int contadorDisponiveis = 0;
-        for (int i = 0; i < listaDeExemplares.tamanho(); i++) {
-            Livro l = listaDeExemplares.selecionar(i);
+        for (int i = 0; i < listaDeExemplares.size(); i++) {
+            Livro l = listaDeExemplares.get(i);
             if (l != null && l.isDisponivel()) {
                 contadorDisponiveis++;
             }
@@ -136,7 +135,7 @@ public class Titulo {
     // Retorna um exemplar disponível
     public Livro getExemplarDisponivel(){
 
-        Livro[] lista = listaDeExemplares.listar();
+        Livro[] lista = listaDeExemplares.listar().toArray(new Livro[0]);
 
         // Percorre todos os exemplares
         for(int i = 0; i < lista.length; i++){
@@ -190,7 +189,7 @@ public class Titulo {
         }
 
         this.listaDeExemplares.salvar(l);
-        quantidade=this.listaDeExemplares.tamanho();
+        quantidade=this.listaDeExemplares.size();
         quantidadeDisponivel++;
 
     }

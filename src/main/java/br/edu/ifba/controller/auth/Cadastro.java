@@ -1,5 +1,6 @@
 package br.edu.ifba.controller.auth;
 
+import br.edu.ifba.util.AlertManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -9,7 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import br.edu.ifba.models.Usuario;
 import br.edu.ifba.service.AuthService;
 import br.edu.ifba.util.Sessao;
-import br.edu.ifba.util.Tools;
+import br.edu.ifba.util.NavigationManager;
 
 public class Cadastro {
 
@@ -59,16 +60,16 @@ public class Cadastro {
 
         Usuario novoUsuario = AuthService.cadastro(nome, email, senha, id);
         if (novoUsuario != null) {
-            Tools.enviarAlerta("Registro realizado com sucesso");
+            AlertManager.alertar("Registro realizado com sucesso");
             Sessao.setUsuarioLogado(novoUsuario);
-            Tools.navegarPara(event, "/views/usuario_views/Catalogo.fxml");
+            NavigationManager.navegarPara(event, "/views/usuario/Catalogo.fxml");
         } else {
-            Tools.enviarAlerta("Não foi possivel realizar o registro, verifique se os campos foram preenchidos corretamente ");
+            AlertManager.alertar("Não foi possivel realizar o registro, verifique se os campos foram preenchidos corretamente ");
         }
     }
 
     @FXML
     public void irParaLogin(ActionEvent event) {
-        Tools.navegarPara(event, "/views/auth_views/login.fxml");
+        NavigationManager.navegarPara(event, "/views/auth_views/login.fxml");
     }
 }

@@ -16,7 +16,6 @@ public class BibliotecaRepository {
     private static BibliotecaRepository instance;
 
     private BibliotecaRepository() {
-        // Inicializa as listas vazias
         this.acervo = PersistenceManager.carregarLivros();
         this.listaDeUsuarios = PersistenceManager.carregarUsuarios();
         this.listaDeEmprestimos = PersistenceManager.carregarEmprestimos();
@@ -35,7 +34,7 @@ public class BibliotecaRepository {
 
 
     public void ajustarRelacionamentos(){
-        if(acervo.quantidade()!=0){
+        if(acervo.size()!=0){
             relacionandoEmprestimoELivro();
             relacionandoUsuariosEEmprestimos();
             relacionandoUsuariosEReservas();
@@ -53,13 +52,13 @@ public class BibliotecaRepository {
         TituloDAOLista novaListaDeTitulos = new TituloDAOLista();
 
         int i = 0;
-        while (i < acervo.quantidade()) {
-            Livro modelo = acervo.selecionar(i);
+        while (i < acervo.size()) {
+            Livro modelo = acervo.get(i);
             String isbnAtual = modelo.getIsbn();
             LivroDAOLista colecaoExemplares = new LivroDAOLista();
 
-            while (i < acervo.quantidade() && acervo.selecionar(i).getIsbn().equals(isbnAtual)) {
-                colecaoExemplares.salvar(acervo.selecionar(i));
+            while (i < acervo.size() && acervo.get(i).getIsbn().equals(isbnAtual)) {
+                colecaoExemplares.salvar(acervo.get(i));
                 i++;
             }
 
@@ -155,16 +154,6 @@ public class BibliotecaRepository {
         this.listaDeUsuarios = listaDeUsuarios;
     }
 
-
-    /*public TituloDAOLista getTitulosAtualizados() {
-        // Toda vez que alguém pedir os títulos, você re-agrupa para garantir
-        // que novos livros adicionados ao acervo apareçam aqui.
-        this.listaDeTitulos = updateListaDeTitulos(this.acervo);
-        return this.listaDeTitulos;
-    }*/
-
-
-    // Métodos auxiliares dentro da Biblioteca para ajudar no filtro:
     private EmprestimoDAOLista filtrarEmprestimosPorIsbn(String isbn) {
         EmprestimoDAOLista filtrada = new EmprestimoDAOLista();
         for (Emprestimo e : this.listaDeEmprestimos.listar()) {
@@ -184,6 +173,7 @@ public class BibliotecaRepository {
         }
         return filtrada;
     }
+
     public int contarTotalEmprestimos() {
         return listaDeEmprestimos.tamanho();
     }

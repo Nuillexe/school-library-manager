@@ -422,9 +422,9 @@ public class PersistenceManager {
 
         try(BufferedWriter bw = new BufferedWriter(new FileWriter(PASTA_DADOS_LIVROS))) {
 
-            for (int i = 0; i < listaDeLivros.tamanho(); i++) {
+            for (int i = 0; i < listaDeLivros.size(); i++) {
 
-                Livro livro = listaDeLivros.selecionar(i);
+                Livro livro = listaDeLivros.get(i);
 
                 bw.write(
                         livro.getId() + "|" +

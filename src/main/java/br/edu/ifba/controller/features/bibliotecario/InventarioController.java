@@ -3,27 +3,21 @@ package br.edu.ifba.controller.features.bibliotecario;
 import br.edu.ifba.models.Titulo;
 import br.edu.ifba.service.BibliotecarioService;
 import br.edu.ifba.util.Sessao;
-import br.edu.ifba.util.Tools;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static br.edu.ifba.util.Tools.navegarPara;
+import static br.edu.ifba.util.NavigationManager.navegarPara;
 
 public class InventarioController implements Initializable {
 
@@ -142,9 +136,14 @@ public class InventarioController implements Initializable {
 
         // Adiciona todos os elementos estruturados no card principal
         card.getChildren().addAll(header, tags, detalhesTecnicos, estoqueBox);
+
+        card.setOnMouseClicked(event ->{
+            Sessao.setTituloSelecionado(titulo);
+            navegarPara(event, "/views/bibliotecario/detalheTitulo.fxml");
+        });
         return card;
     }
 
-    @FXML private void handleAdicionarLivro(MouseEvent event) { navegarPara(event,"/views/bibliotecario_views/adicionarLivro.fxml"); }
+    @FXML private void handleAdicionarLivro(MouseEvent event) { navegarPara(event, "/views/bibliotecario/adicionarLivro.fxml"); }
 
 }

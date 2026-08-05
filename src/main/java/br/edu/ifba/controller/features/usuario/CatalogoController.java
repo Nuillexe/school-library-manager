@@ -1,22 +1,18 @@
 package br.edu.ifba.controller.features.usuario;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.Parent;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import br.edu.ifba.models.Titulo;
 import br.edu.ifba.models.Usuario;
 import br.edu.ifba.service.UsuarioService;
 import br.edu.ifba.util.Sessao;
-import br.edu.ifba.util.Tools;
+import br.edu.ifba.util.NavigationManager;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
@@ -26,25 +22,17 @@ public class CatalogoController implements Initializable {
 
     @FXML private ComboBox<String> comboCategorias;
     @FXML private VBox listaLivrosContainer;
-    @FXML private Label lblNomeUsuario;
 
     private UsuarioService usuarioService;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // 1. Pega o usuário logado da Sessão e inicia o Service
+
         Usuario logado = Sessao.getUsuarioLogado();
         this.usuarioService = new UsuarioService(logado);
 
-        // 2. Define o nome do usuário logado na interface
-        if (logado != null && lblNomeUsuario != null) {
-            lblNomeUsuario.setText(logado.getNome());
-        }
-
-        // 3. Configura o ComboBox
         configurarCategorias();
 
-        // 4. Carrega os livros reais do sistema
         atualizarListaDeLivros(usuarioService.obterCatalogo());
     }
 
@@ -124,25 +112,21 @@ public class CatalogoController implements Initializable {
         // Adicione isso para o mouse virar a "mãozinha" ao passar por cima
         card.setStyle("-fx-cursor: hand;");
 
-        // Ao clicar, você ainda usa a lógica do seu amigo para abrir detalhes
+
         card.setOnMouseClicked(e -> abrirDetalhe(t));
 
         return card;
     }
 
-    private void abrirDetalhe(Titulo t) {
+    /*private void abrirDetalhe(Titulo t) {
         try {
-            // 1. Carrega o FXML
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/usuario_views/DetalheLivro.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/usuario/DetalheLivro.fxml"));
             Parent root = loader.load();
 
-            // 2. Acessa o Controller da tela de detalhes
             DetalheLivroController controller = loader.getController();
 
-            // 3. Passa o objeto Titulo para o controller (método que criamos anteriormente)
             controller.carregarLivro(t);
 
-            // 4. Troca a cena
             Stage stage = (Stage) listaLivrosContainer.getScene().getWindow();
             Tools.trocarCenaPreservandoJanela(stage, root);
 
@@ -153,6 +137,11 @@ public class CatalogoController implements Initializable {
             System.err.println("Tela n encontrada " + t.getNome());
             e.printStackTrace();
         }
+    }*/
+
+    private void abrirDetalhe(Titulo t){
+        Sessao.setTituloSelecionado(t);
+        NavigationManager.navegarPara(comboCategorias,"/views/usuario/DetalheLivro.fxml" );
     }
 
 }

@@ -5,7 +5,8 @@ import br.edu.ifba.repository.BibliotecaRepository;
 import br.edu.ifba.repository.PersistenceManager;
 import br.edu.ifba.repository.dao.LivroDAOLista;
 import br.edu.ifba.repository.dao.ReservaDAOLista;
-import br.edu.ifba.util.Tools;
+import br.edu.ifba.util.AlertManager;
+import br.edu.ifba.util.NavigationManager;
 
 public class BibliotecarioService {
 
@@ -24,7 +25,7 @@ public class BibliotecarioService {
     // =========================================================================
 
     public int getTotalLivros() {
-        return b.getAcervo().quantidade();
+        return b.getAcervo().size();
     }
 
     public Titulo[] obterCatalogo() {
@@ -84,33 +85,28 @@ public class BibliotecarioService {
      * Registra um empréstimo para um usuário (bibliotecário pode emprestar para qualquer um)
      */
     public boolean registrarEmprestimo(Usuario usuario, Livro livro) {
-        // 1. Validações básicas
+
         if (usuario == null || livro == null) {
-            Tools.enviarAlerta("❌ Falha no empréstimo: Dados inválidos.");
+            AlertManager.alertar("❌ Falha no empréstimo: Dados inválidos.");
             return false;
         }
 
-        // 2. Verifica se usuário tem atraso (usando o método do UsuarioService)
         UsuarioService userService = new UsuarioService(usuario);
         if (userService.usuarioPossuiAtraso()) {
-            Tools.enviarAlerta("❌ Empréstimo negado: Usuário " + usuario.getNome() + " possui pendências em atraso.");
+            AlertManager.alertar("❌ Empréstimo negado: Usuário " + usuario.getNome() + " possui pendências em atraso.");
             return false;
         }
 
-        // 3. Verifica limite de empréstimos (usando getListaEmprestimos().tamanho())
         if (usuario.getListaEmprestimos().tamanho() >= usuario.getLimiteLivros()) {
-            Tools.enviarAlerta("❌ Empréstimo negado: Usuário atingiu o limite máximo de " +
-                    usuario.getLimiteLivros() + " empréstimos.");
+            AlertManager.alertar(("❌ Empréstimo negado: Usuário atingiu o limite máximo de " +
+                    usuario.getLimiteLivros() + " empréstimos."));
             return false;
         }
 
-        // 4. Verifica se o livro está disponível
         if (!livro.isDisponivel()) {
-            Tools.enviarAlerta("❌ Empréstimo negado: Livro \"" + livro.getNome() + "\" indisponível.");
+            AlertManager.alertar(("❌ Empréstimo negado: Livro \"" + livro.getNome() + "\" indisponível."));
             return false;
         }
-
-        // 5. Processa o empréstimo
         livro.setDisponivel(false);
         Emprestimo emprestimo = new Emprestimo(usuario, livro);
 
@@ -119,7 +115,6 @@ public class BibliotecarioService {
         PersistenceManager.salvarEmprestimo(emprestimo);
         PersistenceManager.sobrescreverLivros(b.getAcervo());
 
-        // 6. Atualiza o título (se existir)
         for (Titulo t : b.getTitulos().listar()) {
             if (t != null && livro.getIsbn().equals(t.getIsbn())) {
                 t.registrarEmprestimo(emprestimo);
@@ -127,9 +122,9 @@ public class BibliotecarioService {
             }
         }
 
-        Tools.enviarAlerta("✅ Empréstimo realizado: " + usuario.getNome() +
+        AlertManager.alertar(("✅ Empréstimo realizado: " + usuario.getNome() +
                 " pegou \"" + livro.getNome() + "\" - Devolução: " +
-                emprestimo.getDataDevolucao().format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+                emprestimo.getDataDevolucao().format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))));
         return true;
     }
 
@@ -139,7 +134,7 @@ public class BibliotecarioService {
 
     public boolean registrarDevolucao(Emprestimo e) {
         if (e == null) {
-            Tools.enviarAlerta("❌ Falha: Empréstimo não encontrado ou já encerrado.");
+            AlertManager.alertar(("❌ Falha: Empréstimo não encontrado ou já encerrado."));
             return false;
         }
 
@@ -170,13 +165,13 @@ public class BibliotecarioService {
         PersistenceManager.sobrescreverLivros(b.getAcervo());
 
         if (e.isAtrasado()) {
-            Tools.enviarAlerta("⚠️ Devolução registrada com atraso para: " + user.getNome());
+            AlertManager.alertar(("⚠️ Devolução registrada com atraso para: " + user.getNome()));
         } else {
-            Tools.enviarAlerta("✅ Devolução registrada com sucesso para: " + user.getNome());
+            AlertManager.showInfo(("✅ Devolução registrada com sucesso para: " + user.getNome()));
         }
 
         if (haviaFila) {
-            Tools.enviarAlerta("📢 Havia usuários aguardando na fila de reservas. O primeiro foi atendido automaticamente.");
+            AlertManager.alertar(("📢 Havia usuários aguardando na fila de reservas. O primeiro foi atendido automaticamente."));
         }
 
         return true;
@@ -192,7 +187,8 @@ public class BibliotecarioService {
 
     public Livro[] listarExemplares() {
         b.getAcervo().ordenar();
-        return b.getAcervo().listar();
+        Livro[] Livro;
+        return b.getAcervo().listar().toArray(new Livro[0]);
     }
 
     // =========================================================================
@@ -219,19 +215,19 @@ public class BibliotecarioService {
 
     public boolean atenderPrimeirosDaFila(Titulo titulo) {
         if (titulo == null) {
-            Tools.enviarAlerta("❌ Erro: Título inválido para atendimento de reserva.");
+            AlertManager.showError("❌ Erro: Título inválido para atendimento de reserva.");
             return false;
         }
 
         Reserva proxima = titulo.getFilaDeReservas().proximo();
         if (proxima == null) {
-            Tools.enviarAlerta("ℹ️ Fila de reservas vazia para: " + titulo.getNome());
+            AlertManager.showInfo("ℹ️ Fila de reservas vazia para: " + titulo.getNome());
             return false;
         }
 
         Livro exemplar = titulo.getExemplarDisponivel();
         if (exemplar == null) {
-            Tools.enviarAlerta("⚠️ Reserva não atendida: Sem exemplares disponíveis de \"" + titulo.getNome() + "\"");
+            AlertManager.alertar("⚠️ Reserva não atendida: Sem exemplares disponíveis de \"" + titulo.getNome() + "\"");
             return false;
         }
 
@@ -248,7 +244,7 @@ public class BibliotecarioService {
         b.getListaDeEmprestimos().salvar(emprestimo);
         titulo.registrarEmprestimo(emprestimo);
 
-        Tools.enviarAlerta("📢 RESERVA ATENDIDA: " + beneficiario.getNome() +
+        AlertManager.showInfo("Atendimento de Reserva","📢 RESERVA ATENDIDA: " + beneficiario.getNome() +
                 " retirou \"" + titulo.getNome() + "\" - Devolução: " +
                 emprestimo.getDataDevolucao().format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")));
         return true;
@@ -272,7 +268,7 @@ public class BibliotecarioService {
 
     public void adicionarLivro(Livro novoLivro) {
         if (novoLivro == null) {
-            Tools.enviarAlerta("❌ Falha: Tentativa de adicionar livro inválido.");
+            AlertManager.showError("❌ Falha: Tentativa de adicionar livro inválido.");
             return;
         }
 
@@ -283,7 +279,7 @@ public class BibliotecarioService {
             if (t != null && novoLivro.getIsbn().equals(t.getIsbn())) {
                 correcaoDosDadosDoLivro(novoLivro, t);
                 t.addLivro(novoLivro);
-                Tools.enviarAlerta("✅ Novo exemplar adicionado ao título '" + t.getNome() + "'");
+                AlertManager.showInfo("✅ Novo exemplar adicionado ao título '" + t.getNome() + "'");
                 return;
             }
         }
@@ -291,7 +287,7 @@ public class BibliotecarioService {
         LivroDAOLista novaListaDeExemplares = new LivroDAOLista();
         novaListaDeExemplares.salvar(novoLivro);
         b.getTitulos().salvar(new Titulo(novaListaDeExemplares));
-        Tools.enviarAlerta("✅ Novo título cadastrado com sucesso no acervo.");
+        AlertManager.showInfo("✅ Novo título cadastrado com sucesso no acervo.");
     }
 
     private static void correcaoDosDadosDoLivro(Livro l, Titulo t) {
@@ -306,17 +302,21 @@ public class BibliotecarioService {
         Livro removido = b.getAcervo().apagar(idLivro);
         PersistenceManager.sobrescreverLivros(b.getAcervo());
         if (removido == null) {
-            Tools.enviarAlerta("❌ Falha: Livro com ID " + idLivro + " não encontrado.");
+            AlertManager.showError("❌ Falha: Livro com ID " + idLivro + " não encontrado.");;
             return false;
         }
-        Tools.enviarAlerta("✅ Livro removido: \"" + removido.getNome() + "\" (ID: " + idLivro + ")");
+       AlertManager.showInfo("✅ Livro removido: \"" + removido.getNome() + "\" (ID: " + idLivro + ")");
         return true;
     }
 
+    /**
+     * Reinicializa o sistema para o estado de demonstração.
+     */
     public static void reinicializarSistema(){
         colocarTodosOsLivrosComoDisponiveis();
         cancelarTodosEmprestimosEReservas();
         PersistenceManager.apagarTodosOsUsuariosCriados();
+        b.ajustarRelacionamentos();
     }
 
     private static void colocarTodosOsLivrosComoDisponiveis(){
