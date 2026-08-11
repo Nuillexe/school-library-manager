@@ -23,21 +23,30 @@ import java.util.List;
 public class PersistenceManager {
 
     private static final String PASTA_DADOS_LIVROS = "data/livros.txt";
+    private static final String PASTA_DADOS_SEED_LIVROS = "data/seed/livros.txt";
     private static final String PASTA_DADOS_RESERVAS = "data/reservas.txt";
     private static final String PASTA_DADOS_EMPRESTIMOS = "data/emprestimos.txt";
     private static final String PASTA_DADOS_USUARIOS = "data/usuarios.txt";
+    private static final String PASTA_DADOS_SEED_USUARIOS = "data/seed/usuarios.txt";
     private static final String PASTA_DADOS_IDS = "data/ids.txt";
 
     private static final String SEPARADOR_LEITURA = "\\|";
-    private static final String SEPARADOR_ESCRITA = "|";
 
     // ============================================================
     // LEITURA DOS ARQUIVOS
     // ============================================================
 
-    public static LivroDAOLista carregarLivros() {
+    public static LivroDAOLista carregarLivros(){
+        return carregarLivrosDe(PASTA_DADOS_LIVROS);
+    }
+
+    public static LivroDAOLista carregarLivrosDoArquivoSeed(){
+        return carregarLivrosDe(PASTA_DADOS_SEED_LIVROS);
+    }
+
+    private static LivroDAOLista carregarLivrosDe(String caminhoDoArquivo) {
         LivroDAOLista dao = new LivroDAOLista();
-        File arquivo = new File(PASTA_DADOS_LIVROS);
+        File arquivo = new File(caminhoDoArquivo);
 
         if (!arquivo.exists()) {
             return dao;
@@ -72,9 +81,16 @@ public class PersistenceManager {
         return dao;
     }
 
-    public static UsuarioDAOLista carregarUsuarios() {
+    public static UsuarioDAOLista carregarUsuarios(){
+        return carregarUsuariosDe(PASTA_DADOS_USUARIOS);
+    }
+
+    public static UsuarioDAOLista carregarUsuariosDoArquivoSeed(){
+        return carregarUsuariosDe(PASTA_DADOS_SEED_USUARIOS);
+    }
+    private static UsuarioDAOLista carregarUsuariosDe(String caminhoDoArquivo) {
         UsuarioDAOLista dao = new UsuarioDAOLista();
-        File arquivo = new File(PASTA_DADOS_USUARIOS);
+        File arquivo = new File(caminhoDoArquivo);
 
         if (!arquivo.exists()) {
             return dao;
@@ -106,9 +122,6 @@ public class PersistenceManager {
         return dao;
     }
 
-    /**
-     * Carrega os empréstimos vinculando as referências reais de Usuários e Livros na memória.
-     */
     public static EmprestimoDAOLista carregarEmprestimos() {
         EmprestimoDAOLista dao = new EmprestimoDAOLista();
         File arquivo = new File(PASTA_DADOS_EMPRESTIMOS);
@@ -167,9 +180,7 @@ public class PersistenceManager {
 
         return dao;
     }
-    /**
-     * Carrega as reservas vinculando as referências reais de Usuários e Títulos.
-     */
+
     public static ReservaDAOLista carregarReservas() {
 
         ReservaDAOLista dao = new ReservaDAOLista();
@@ -400,13 +411,7 @@ public class PersistenceManager {
 
             for (Usuario u : usuarios) {
 
-                bw.write(
-                        u.getId() + "|" +
-                                u.getNome() + "|" +
-                                u.getEmail() + "|" +
-                                u.getSenha() + "|" +
-                                u.getTipo()
-                );
+                bw.write(u.toString());
 
                 bw.newLine();
             }
@@ -449,7 +454,7 @@ public class PersistenceManager {
 
     public static void limparReservas() {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(PASTA_DADOS_RESERVAS))) {
-            // abre o arquivo sem append e não escreve nada
+
         } catch (IOException e) {
             throw new RuntimeException("Erro ao limpar arquivo de reservas.", e);
         }
@@ -457,9 +462,25 @@ public class PersistenceManager {
 
     public static void limparEmprestimos() {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(PASTA_DADOS_EMPRESTIMOS))) {
-            // abre o arquivo sem append e não escreve nada
+
         } catch (IOException e) {
             throw new RuntimeException("Erro ao limpar arquivo de reservas.", e);
+        }
+    }
+
+    public static void limparLivros() {
+        try(BufferedWriter bw = new BufferedWriter(new FileWriter(PASTA_DADOS_LIVROS))){
+
+        }catch (IOException e){
+            throw new RuntimeException("Erro ao limpar arquivo de livros", e);
+        }
+    }
+
+    public static void limparUsuariosMantendoOUsuario(Usuario usuario) {
+        try (BufferedWriter bw=new BufferedWriter((new FileWriter(PASTA_DADOS_USUARIOS)))){
+            bw.write("l000001|Admin|admin@biblioteca.com|admin|BIBLIOTECARIO");
+        }catch (IOException e){
+            throw new RuntimeException("Erro ao limpar o arquivo de usuarios", e);
         }
     }
 

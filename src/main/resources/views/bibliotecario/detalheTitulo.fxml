@@ -48,7 +48,7 @@
                     <Label fx:id="lblDisponiveis" style="-fx-font-size: 18px; -fx-font-weight: bold;" text="n° de livors disponiveis" />
                 </VBox>
 
-                <VBox spacing="5" >
+                <VBox spacing="5">
                     <Label text="Emprestados" />
                     <Label fx:id="lblEmprestados" style="-fx-font-size: 18px; -fx-font-weight: bold;" text="n° de livros emprestados" />
                 </VBox>
@@ -68,13 +68,14 @@
 
                 <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Exemplares" />
 
-                <TableView fx:id="tbExemplares" onMouseClicked="#selecionarLivro" VBox.vgrow="ALWAYS">
+                <TableView fx:id="tbExemplares" onMouseClicked="#selecionarLivro" style="-fx-alignment: CENTER;" VBox.vgrow="ALWAYS">
 
                     <columns>
 
-                        <TableColumn fx:id="colIdExemplar" prefWidth="-1.0" text="ID" />
+                        <TableColumn fx:id="colIdExemplar" prefWidth="-1.0" style="-fx-alignment: CENTER;" text="ID" />
 
-                        <TableColumn fx:id="colStatus" prefWidth="-1.0" text="Status" />
+                        <TableColumn fx:id="colStatus" prefWidth="-1.0" style="-fx-alignment: CENTER;" text="Status" />
+                  <TableColumn fx:id="colActions" prefWidth="-1.0" style="-fx-alignment: CENTER;" text="Ações" />
 
                     </columns>
                <columnResizePolicy>

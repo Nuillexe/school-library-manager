@@ -163,13 +163,13 @@ public class Livro {
      */
     @Override
     public String toString() {
-        return "Livro{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                ", autor='" + autor + '\'' +
-                ", isbn='" + isbn + '\'' +
-                ", genero='" + genero + '\'' +
-                ", disponivel=" + disponivel +
-                '}';
+        return " Id: " + id +"\n"+
+                "Nome: " + nome +"\n"+
+                "Autor: " + autor +"\n"+
+                "ISBN: " + isbn +"\n"+
+                "Genero: " + genero +"\n"+
+                "Disponivel: " + disponivel + "\n" +
+                "Descrição: " + descricao;
+
     }
 }

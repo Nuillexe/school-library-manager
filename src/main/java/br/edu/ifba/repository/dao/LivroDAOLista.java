@@ -26,6 +26,9 @@ public class LivroDAOLista {
         return null;
     }
 
+    public void limpar(){
+        listaLivros.clear();
+    }
     public List<Livro> listar() {
 
         return Collections.unmodifiableList(listaLivros);

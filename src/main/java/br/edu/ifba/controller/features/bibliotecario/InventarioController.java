@@ -42,9 +42,6 @@ public class InventarioController implements Initializable {
         }
     }
 
-    /**
-     * Cria o elemento visual do Card via código
-     */
     private VBox criarCard(Titulo titulo) {
         VBox card = new VBox(15);
         card.setPrefWidth(500);

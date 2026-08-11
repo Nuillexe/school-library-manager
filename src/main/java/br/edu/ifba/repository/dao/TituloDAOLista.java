@@ -105,6 +105,10 @@ public class TituloDAOLista {
             }
         }
     }
+
+    public void limpar(){
+        listaTitulos.clear();
+    }
 }
 
 

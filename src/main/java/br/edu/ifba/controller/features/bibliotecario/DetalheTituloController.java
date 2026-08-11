@@ -3,6 +3,7 @@ package br.edu.ifba.controller.features.bibliotecario;
 import br.edu.ifba.models.Emprestimo;
 import br.edu.ifba.models.Livro;
 import br.edu.ifba.models.Titulo;
+import br.edu.ifba.service.BibliotecarioService;
 import br.edu.ifba.util.AlertManager;
 import br.edu.ifba.util.Sessao;
 import br.edu.ifba.util.NavigationManager;
@@ -14,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 
 
@@ -51,11 +53,15 @@ public class DetalheTituloController implements Initializable {
     @FXML
     TableColumn<Livro,String> colStatus;
 
+    @FXML
+    TableColumn<Livro,Void> colActions;
+
+    private BibliotecarioService service;
     private Titulo titulo;
 
     public void initialize(URL location, ResourceBundle resources) {
         titulo= Sessao.getTituloSelecionado();
-
+        this.service = new BibliotecarioService(Sessao.getUsuarioLogado());
         carregarInformacoes();
         carregarExemplaresNaTabela();
     }
@@ -88,9 +94,44 @@ public class DetalheTituloController implements Initializable {
             }
         });
 
+        colActions.setCellFactory(column -> new TableCell<Livro, Void>() {
+            private final Button btnApagar = new Button("Apagar");
+
+            {
+                btnApagar.setOnAction(e -> {
+                    Livro livroAtual = getTableView().getItems().get(getIndex());
+                    if (livroAtual != null) {
+                        AlertManager.confirmar("Tem certeza que deja apagar esse livro, todos os registros, e emprestimos  " +
+                                "relacionados a ele, serão apagados");
+
+
+                        service.removerLivro(livroAtual.getId());
+
+                        // Atualiza os itens da tabela após remover
+                        tbExemplares.getItems().remove(livroAtual);
+                        carregarInformacoes();
+                    }
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(btnApagar);
+                }
+            }
+        });
+
+
         ObservableList<Livro> list= FXCollections.observableArrayList(titulo.getListaDeExemplares().listar());
         tbExemplares.setItems(list);
+        tbExemplares.getColumns().add(colActions);
     }
+
 
     @FXML
     private void selecionarLivro(MouseEvent event){
@@ -99,14 +140,11 @@ public class DetalheTituloController implements Initializable {
 
         if(l!=null){
             if(l.isDisponivel())
-                AlertManager.showInfo("Informaçoes do exemplar","Dados", dadosDeLivroDisponivel(l));
+                AlertManager.showInfo(dadosDeLivroDisponivel(l));
             else
-                AlertManager.showInfo("Informaçoes do exemplar","Dados", dadosDeLivroEmprestado(l));
+                AlertManager.showInfo(dadosDeLivroEmprestado(l));
         }
-
-
     }
-
 
     private String dadosDeLivroDisponivel(Livro l){
         return String.format("""
@@ -133,10 +171,11 @@ public class DetalheTituloController implements Initializable {
                 Estado do Emprestimo: %s
                 Dados do usuario que pegou o livro Emprestado:
                     -Nome: %s
-                    -Id: %s.              
+                    -Id: %s            
                 """,l.getId(), l.getDataPublicacao(),
                 dataDoEmprestimo, dataDeDevolucao, status, nomeDoUsuario, idDoUsuario );
     }
+    
     @FXML
     private void onVoltar(MouseEvent event) {
         NavigationManager.navegarPara(event, "/views/bibliotecario/inventario.fxml");

@@ -154,6 +154,9 @@ public class BibliotecaRepository {
         this.listaDeUsuarios = listaDeUsuarios;
     }
 
+    public void setAcervo(LivroDAOLista listaDeLivros) {
+        this.acervo = listaDeLivros;
+    }
     private EmprestimoDAOLista filtrarEmprestimosPorIsbn(String isbn) {
         EmprestimoDAOLista filtrada = new EmprestimoDAOLista();
         for (Emprestimo e : this.listaDeEmprestimos.listar()) {
