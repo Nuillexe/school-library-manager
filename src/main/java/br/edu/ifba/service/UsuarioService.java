@@ -39,7 +39,7 @@ public class UsuarioService {
             return false;
         }
 
-        if (titulo.getQuantidadeDisponivel() <= 0) {
+        if (titulo.getQuantidadeDeExemplaresDisponiveis() <= 0) {
             AlertManager.showError(("❌ Indisponível: Não há exemplares livres. Sugerimos realizar uma reserva."));
             return false;
         }

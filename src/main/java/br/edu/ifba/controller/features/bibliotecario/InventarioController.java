@@ -42,9 +42,6 @@ public class InventarioController implements Initializable {
         }
     }
 
-    /**
-     * Cria o elemento visual do Card via código
-     */
     private VBox criarCard(Titulo titulo) {
         VBox card = new VBox(15);
         card.setPrefWidth(500);
@@ -121,7 +118,7 @@ public class InventarioController implements Initializable {
         HBox spacerDisp = new HBox();
         HBox.setHgrow(spacerDisp, Priority.ALWAYS);
 
-        int disponiveis = titulo.getQuantidadeDisponivel();
+        int disponiveis = titulo.getQuantidadeDeExemplaresDisponiveis();
         Label lblQtd = new Label(disponiveis + " exemplares");
 
         // Se houver exemplares disponíveis fica verde, se for 0 fica vermelho

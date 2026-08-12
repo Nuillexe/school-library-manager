@@ -8,7 +8,6 @@ public class UsuarioDAOLista {
 
     private List<Usuario> listaDeUsuarios = new ArrayList<>();
 
-    //  Salvar usuário
     public void salvar(Usuario u) {
         if (u == null) {
             throw new IllegalArgumentException("Usuário não pode ser nulo.");
@@ -16,7 +15,6 @@ public class UsuarioDAOLista {
         listaDeUsuarios.add(u);
     }
 
-    //  Buscar por ID
     public Usuario buscarPorId(String id) {
         for (int i = 0; i < listaDeUsuarios.size(); i++) {
             Usuario u = listaDeUsuarios.get(i);
@@ -27,7 +25,6 @@ public class UsuarioDAOLista {
         return null;
     }
 
-    //  Listar todos
     public Usuario[] listar() {
         Usuario[] arrayRetorno = new Usuario[listaDeUsuarios.size()];
 
@@ -38,7 +35,6 @@ public class UsuarioDAOLista {
         return arrayRetorno;
     }
 
-    //  Atualizar usuário pelo ID
     public void atualizar(String id, Usuario usuarioAtualizado) {
         for (int i = 0; i < listaDeUsuarios.size(); i++) {
             Usuario u = listaDeUsuarios.get(i);
@@ -52,7 +48,6 @@ public class UsuarioDAOLista {
         throw new IllegalArgumentException("Usuário com ID " + id + " não encontrado.");
     }
 
-    //  Apagar usuário pelo ID
     public Usuario apagar(String id) {
         for (int i = 0; i < listaDeUsuarios.size(); i++) {
             Usuario u = listaDeUsuarios.get(i);
@@ -62,5 +57,9 @@ public class UsuarioDAOLista {
             }
         }
         return null;
+    }
+
+    public void limpar(){
+        listaDeUsuarios.clear();
     }
 }

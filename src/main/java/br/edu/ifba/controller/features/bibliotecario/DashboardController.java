@@ -20,6 +20,7 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
+import javafx.stage.Window;
 
 public class DashboardController implements Initializable {
 
@@ -83,19 +84,56 @@ public class DashboardController implements Initializable {
     }
 
     @FXML
-    private void reinicializarOSistema(ActionEvent event){
-        Alert confirmacao=new Alert(Alert.AlertType.CONFIRMATION);
+    private void reinicializarOSistema(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.NONE);
+        alert.setTitle("Reinicialização do sistema");
+        alert.setHeaderText("Tipos de reinicialização do sistema");
+        alert.setContentText("""
+            Reinicialização Parcial: Todas as reservas e empréstimos serão cancelados e todos os livros passarão a estar disponíveis no sistema.
+            
+            Reinicialização para Testes: Os dados do sistema serão todos apagados e ele será povoado com os dados de demonstração presentes em data/seed. Ideal para testes e demonstrações.
+            
+            Reinicialização Total: APAGA TODOS OS DADOS, exceto o cadastro do usuário admin e os ids de demonstração.
+            """);
 
-        confirmacao.setTitle("Tem certeza que deseja reinicializar o sistema?");
-        confirmacao.setContentText("Todas as reservas e emprestimos serão cancelados e todos os livros passarão a " +
-                "estar disponiveis no sistema. Além disso, os usuarios recém criados serão apagados");
+        ButtonType parcial = new ButtonType("Reinicialização Parcial");
+        ButtonType testes = new ButtonType("Reinicialização para Testes");
+        ButtonType total = new ButtonType("Reinicialização Total");
 
-        Optional<ButtonType> resposta= confirmacao.showAndWait();
-        if(resposta.isPresent() && resposta.get()== ButtonType.OK) {
-            service.reinicializarSistema();
-            AlertManager.showInfo("Operação bem sucedida");
-        }else {
-            AlertManager.alertar("Operação cancelada");
+        alert.getButtonTypes().addAll(parcial, testes, total);
+
+        // Força a janela do Alert a aceitar o clique do "X" e fechar
+        Window window = alert.getDialogPane().getScene().getWindow();
+        window.setOnCloseRequest(e -> alert.hide());
+
+        Optional<ButtonType> resposta = alert.showAndWait();
+
+        if (resposta.isPresent()) {
+            ButtonType opcaoSelecionada = resposta.get();
+            System.out.println("Opção escolhida: " + opcaoSelecionada.getText());
+
+            Alert confirmacao = new Alert(Alert.AlertType.CONFIRMATION);
+            confirmacao.setTitle("Confirmar Ação");
+            confirmacao.setHeaderText("Atenção! Esta ação modificará os dados do sistema.");
+            confirmacao.setContentText("Você tem certeza de que deseja executar a " + opcaoSelecionada.getText() + "?");
+
+            Optional<ButtonType> confirmou = confirmacao.showAndWait();
+
+            if (confirmou.isPresent() && confirmou.get() == ButtonType.OK) {
+                if (opcaoSelecionada == parcial) {
+                    BibliotecarioService.reinicializacaoParcial();
+                } else if (opcaoSelecionada == testes) {
+                    BibliotecarioService.reinicializacaoParaTestes();
+                } else if (opcaoSelecionada == total) {
+                    BibliotecarioService.reinicializacaoTotal();
+                }
+                NavigationManager.navegarPara(event, "/views/bibliotecario/dashboard.fxml");
+                carregarDadosDashboard();
+            } else {
+                System.out.println("Operação cancelada na tela de confirmação.");
+            }
+        } else {
+            System.out.println("Reinicialização cancelada pelo usuário (clicou no X).");
         }
     }
 
@@ -103,22 +141,7 @@ public class DashboardController implements Initializable {
     @FXML
     private void handleLogout() {
         Sessao.encerrarSessao();
-        navegarPara("/views/auth_views/login.fxml");
+        NavigationManager.navegarPara(mainContainer,"/views/bibliotecario/dashboard.fxml");
     }
 
-    @FXML private void onNavDashboard() { /* Página atual */ }
-    @FXML private void onNavInventario() { navegarPara("/views/bibliotecario/inventario.fxml"); }
-    @FXML private void onNavReservas() { navegarPara("/views/bibliotecario/controleDeReservas.fxml"); }
-    @FXML private void onNavEmprestimos() { navegarPara("/views/bibliotecario/controleDeEmprestimos.fxml"); }
-
-    private void navegarPara(String fxmlPath) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
-            Stage stage = (Stage) mainContainer.getScene().getWindow();
-            NavigationManager.trocarCenaPreservandoJanela(stage, root);
-        } catch (IOException e) {
-            System.err.println("Erro ao navegar: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
 }

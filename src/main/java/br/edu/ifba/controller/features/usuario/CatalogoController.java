@@ -96,7 +96,7 @@ public class CatalogoController implements Initializable {
         tagCategoria.getStyleClass().add("tag-category");
 
         Label tagStatus;
-        int disponiveis = t.getQuantidadeDisponivel();
+        int disponiveis = t.getQuantidadeDeExemplaresDisponiveis();
 
         if (disponiveis > 0) {
             tagStatus = new Label(disponiveis + " disponível");

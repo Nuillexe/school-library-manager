@@ -26,6 +26,9 @@ public class LivroDAOLista {
         return null;
     }
 
+    public void limpar(){
+        listaLivros.clear();
+    }
     public List<Livro> listar() {
 
         return Collections.unmodifiableList(listaLivros);
@@ -42,14 +45,8 @@ public class LivroDAOLista {
         throw new IllegalArgumentException("Livro com ID " + id + " não encontrado.");
     }
 
-    public Livro apagar(Long id) {
-        for (int i = 0; i < listaLivros.size(); i++) {
-            Livro l = listaLivros.get(i);
-            if (l != null && l.getId().equals(id)) {
-                return listaLivros.remove(i);
-            }
-        }
-        return null;
+    public Livro apagar(Livro l) {
+        return listaLivros.remove(l)? l : null;
     }
 
     public int contarExemplares(String nome) {

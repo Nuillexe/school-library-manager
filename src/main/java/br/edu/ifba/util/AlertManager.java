@@ -41,14 +41,26 @@ public class AlertManager {
         alert.showAndWait();
     }
 
-    static public void confirmar(String confirmationText){
+    static public void confirmar(String text){
         if(alert==null)
             alert= new Alert(Alert.AlertType.CONFIRMATION);
         else
             alert.setAlertType(Alert.AlertType.CONFIRMATION);
 
         alert.setTitle("Confirmação");
-        alert.setContentText(confirmationText);
+        alert.setContentText(text);
+
+        alert.showAndWait();
+    }
+
+    static public void confirmar(String title, String text){
+        if(alert==null)
+            alert= new Alert(Alert.AlertType.CONFIRMATION);
+        else
+            alert.setAlertType(Alert.AlertType.CONFIRMATION);
+
+        alert.setTitle(title);
+        alert.setContentText(text);
 
         alert.showAndWait();
     }
@@ -77,5 +89,7 @@ public class AlertManager {
         alert.showAndWait();
     }
 
-
+    public static Alert getAlert() {
+        return alert;
+    }
 }

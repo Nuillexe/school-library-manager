@@ -140,8 +140,10 @@ public class Usuario {
 
     @Override
     public String toString() {
-        return "Usuario{" +
-                "email='" + email + '\'' +
-                "senha: "+senha+'}';
+        return  id + "|" +
+                nome + "|" +
+                email + "|" +
+                senha + "|" +
+                tipo.toString();
     }
 }

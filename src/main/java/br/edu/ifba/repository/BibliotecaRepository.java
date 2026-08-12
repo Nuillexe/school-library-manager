@@ -154,6 +154,9 @@ public class BibliotecaRepository {
         this.listaDeUsuarios = listaDeUsuarios;
     }
 
+    public void setAcervo(LivroDAOLista listaDeLivros) {
+        this.acervo = listaDeLivros;
+    }
     private EmprestimoDAOLista filtrarEmprestimosPorIsbn(String isbn) {
         EmprestimoDAOLista filtrada = new EmprestimoDAOLista();
         for (Emprestimo e : this.listaDeEmprestimos.listar()) {
@@ -174,13 +177,20 @@ public class BibliotecaRepository {
         return filtrada;
     }
 
-    public int contarTotalEmprestimos() {
-        return listaDeEmprestimos.tamanho();
-    }
+    public Livro apagarExemplar(Livro l){
+        Livro apagado = this.acervo.apagar(l);
+        if(apagado!=null){
+            Titulo tituloDoLivroApagado = this.listaDeTitulos.buscarPorIsbn(apagado.getIsbn());
+            tituloDoLivroApagado.deletLivro(apagado);
 
-    public int contarTotalReservas() {
-        return listaDeReservas.tamanho();
-    }
+            if(tituloDoLivroApagado.getQuantidadeDeExemplares()==0){
+                listaDeTitulos.apagarPorIsbn(tituloDoLivroApagado.getIsbn());
+            }
 
+            PersistenceManager.sobrescreverLivros(getAcervo());
+        }
+
+        return apagado;
+    }
 
 }

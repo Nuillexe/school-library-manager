@@ -61,7 +61,7 @@ public class DetalheLivroController implements Initializable {
         lblIsbn.setText(titulo.getIsbn());
         lblDescricao.setText(titulo.getDescricao());
 
-        int exemplaresDisponiveis = titulo.getQuantidadeDisponivel();
+        int exemplaresDisponiveis = titulo.getQuantidadeDeExemplaresDisponiveis();
         if (exemplaresDisponiveis > 0) {
             lblDisponibilidade.setText(exemplaresDisponiveis + " exemplar(es) disponível(is)");
             lblDisponibilidade.setStyle("-fx-text-fill: #059669;");

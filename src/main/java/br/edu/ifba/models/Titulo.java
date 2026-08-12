@@ -17,9 +17,8 @@ public class Titulo {
     private String genero;
     private String descricao;
     private LocalDate dataPublicacao;
-    private int quantidade;            // Quantidade total de exemplares cadastrados para este título
-    private int quantidadeDeReservas;  // Tamanho atual da fila de espera por este título
-    private int quantidadeDisponivel;  // Quantidade de livros físicos livres na estante para empréstimo imediato
+    private int quantidade;// Quantidade total de exemplares cadastrados para este título
+
 
     private LivroDAOLista listaDeExemplares;
     private ReservaDAOFilaDePrioridade filaDeReservas; // Fila de prioridade estruturada de acordo com o Tipo do Usuário
@@ -47,7 +46,7 @@ public class Titulo {
         this.autor = modelo.getAutor();
 
         this.quantidade = listaDeExemplares.size();
-        this.quantidadeDeReservas = this.filaDeReservas.tamanho();
+
         // Calcula a quantidade real de exemplares disponíveis varrendo a lista customizada
         int contadorDisponiveis = 0;
         for (int i = 0; i < listaDeExemplares.size(); i++) {
@@ -56,7 +55,6 @@ public class Titulo {
                 contadorDisponiveis++;
             }
         }
-        this.quantidadeDisponivel = contadorDisponiveis;
 
     }
 
@@ -76,8 +74,6 @@ public class Titulo {
 
         // Atributos primitivos numéricos assumem 0
         this.quantidade = 0;
-        this.quantidadeDeReservas = 0;
-        this.quantidadeDisponivel = 0;
     }
 
     // --- Getters ---
@@ -103,19 +99,16 @@ public class Titulo {
         return quantidade;
     }
 
-    public int getQuantidadeDisponivel() {
-        return quantidadeDisponivel;
+    public int getQuantidadeDeExemplaresDisponiveis(){
+        return quantidade-listaDeEmprestimos.tamanho();
     }
 
-    private int contarQuantidadeDisponivel(){
-        int cont = 0;
-        // Percorre os exemplares que este título possui
-        for (Livro l : listaDeExemplares.listar()) {
-            if (l.isDisponivel()) { // Verifica o booleano do livro físico
-                cont++;
-            }
-        }
-        return cont;
+    public int getQuantidadeDeEmprestimos(){
+        return listaDeEmprestimos.tamanho();
+    }
+
+    public int getQuantidadeDeReservas(){
+        return filaDeReservas.tamanho();
     }
 
     public ReservaDAOFilaDePrioridade getFilaDeReservas() {
@@ -152,7 +145,6 @@ public class Titulo {
     public void registrarEmprestimo(Emprestimo novoEmprestimo){
         listaDeEmprestimos.salvar(novoEmprestimo);
 
-        quantidadeDisponivel--;
     }
 
     public Emprestimo removerEmprestimo(Emprestimo e){
@@ -167,10 +159,7 @@ public class Titulo {
             Emprestimo emprestimo = listaDeEmprestimos.selecionar(i);
 
             if(emprestimo != null && e.getId() == emprestimo.getId()){
-
                 listaDeEmprestimos.remover(i);
-
-                quantidadeDisponivel++;
 
                 return emprestimo;
             }
@@ -190,7 +179,21 @@ public class Titulo {
 
         this.listaDeExemplares.salvar(l);
         quantidade=this.listaDeExemplares.size();
-        quantidadeDisponivel++;
 
     }
+
+    public void deletLivro(Livro l){
+        if(l==null){
+            throw new IllegalArgumentException();
+        }
+
+        if(!l.getIsbn().equalsIgnoreCase(this.getIsbn())){
+            throw new IllegalArgumentException("Este não é um exemplar desse titulo");
+        }
+
+        this.listaDeExemplares.apagar(l);
+        quantidade=this.listaDeExemplares.size();
+
+    }
+
 }

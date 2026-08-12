@@ -7,6 +7,9 @@ import br.edu.ifba.repository.dao.LivroDAOLista;
 import br.edu.ifba.repository.dao.ReservaDAOLista;
 import br.edu.ifba.util.AlertManager;
 import br.edu.ifba.util.NavigationManager;
+import br.edu.ifba.util.Sessao;
+
+import java.time.LocalDate;
 
 public class BibliotecarioService {
 
@@ -298,25 +301,46 @@ public class BibliotecarioService {
         if (!(l.getDataPublicacao().isEqual(t.getDataPublicacao()))) l.setDataPublicacao(t.getDataPublicacao());
     }
 
-    public boolean removerLivro(Long idLivro) {
-        Livro removido = b.getAcervo().apagar(idLivro);
-        PersistenceManager.sobrescreverLivros(b.getAcervo());
+    public boolean removerLivro(Livro l) {
+        Livro removido = b.apagarExemplar(l);
         if (removido == null) {
-            AlertManager.showError("❌ Falha: Livro com ID " + idLivro + " não encontrado.");;
+            AlertManager.showError("❌ Falha: Livro com ID " + l.getId() + " não encontrado.");;
             return false;
         }
-       AlertManager.showInfo("✅ Livro removido: \"" + removido.getNome() + "\" (ID: " + idLivro + ")");
+        AlertManager.showInfo("✅ Livro removido: \"" + removido.getNome() + "\" (ID: " + l.getId() + ")");
         return true;
     }
 
-    /**
-     * Reinicializa o sistema para o estado de demonstração.
-     */
-    public static void reinicializarSistema(){
+
+    // =========================================================================
+    // REINICIALIZAÇÂO DO SISTEMA
+    // =========================================================================
+
+    //Reinicialização para Testes e Demonstração
+    public static void reinicializacaoParaTestes(){
+        povoarOAcervoComDadosDeTeste();
+        cancelarTodosEmprestimosEReservas();
+        b.ajustarRelacionamentos();
+    }
+
+    //Reinicialização que mantem os livros e usuarios, mas que deleta todos os emprestimos e reservas
+    public static void reinicializacaoParcial(){
         colocarTodosOsLivrosComoDisponiveis();
         cancelarTodosEmprestimosEReservas();
-        PersistenceManager.apagarTodosOsUsuariosCriados();
         b.ajustarRelacionamentos();
+    }
+
+    //Reinicializacao que APAGA TODOS OS DADOS, exceto o cadastros do usuario admin e ids de demosntração
+    public static void reinicializacaoTotal(){
+        PersistenceManager.limparLivros();
+        b.getAcervo().limpar();
+        b.getTitulos().limpar();
+
+        PersistenceManager.limparUsuariosMantendoOUsuario(Sessao.getUsuarioLogado());
+        b.getListaDeUsuarios().limpar();
+        b.getListaDeUsuarios().salvar(Sessao.getUsuarioLogado());
+
+        cancelarTodosEmprestimosEReservas();
     }
 
     private static void colocarTodosOsLivrosComoDisponiveis(){
@@ -332,6 +356,20 @@ public class BibliotecarioService {
         b.getListaDeEmprestimos().limpar();
         PersistenceManager.limparEmprestimos();
     }
+
+    private static void povoarOAcervoComDadosDeTeste() {
+        //Povoando o acervo com os livros de teste
+        b.getAcervo().limpar();
+        b.setAcervo(PersistenceManager.carregarLivrosDoArquivoSeed());
+        PersistenceManager.sobrescreverLivros(b.getAcervo());
+
+        //Povoando o arquivo de usuarios com usuarios de test
+        b.getListaDeUsuarios().limpar();
+        b.setListaDeUsuarios(PersistenceManager.carregarUsuariosDoArquivoSeed());
+        PersistenceManager.sobrescreverUsuarios(b.getListaDeUsuarios());
+    }
+
+
 
 
 }
