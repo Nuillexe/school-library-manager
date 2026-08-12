@@ -72,9 +72,22 @@ public class DetalheTituloController implements Initializable {
         lblIsbn.setText(titulo.getIsbn());
 
         lblTotalExemplares.setText(String.valueOf(titulo.getQuantidadeDeExemplares()));
-        lblDisponiveis.setText(String.valueOf(titulo.getQuantidadeDisponivel()));
-        lblEmprestados.setText(String.valueOf(titulo.getQuantidadeDeExemplares()-titulo.getQuantidadeDisponivel()));
-        lblReservas.setText(String.valueOf(titulo.getFilaDeReservas().tamanho()));
+        lblDisponiveis.setText(String.valueOf(titulo.getQuantidadeDeExemplaresDisponiveis()));
+        lblEmprestados.setText(String.valueOf(titulo.getQuantidadeDeEmprestimos()));
+        lblReservas.setText(String.valueOf(titulo.getQuantidadeDeReservas()));
+
+        verificarAExixtenciaDoTitulo();
+
+
+    }
+
+    public void verificarAExixtenciaDoTitulo(){
+        if(titulo.getQuantidadeDeExemplares()==0){
+            AlertManager.alertar("Não existem mais exemplares com o ISBN "+titulo.getIsbn() + "Retornando para a " +
+                    "tela de invetario");
+
+            NavigationManager.navegarPara(lblTitulo,"/views/bibliotecario/inventario.fxml");
+        }
     }
 
     private void carregarExemplaresNaTabela(){
@@ -105,7 +118,7 @@ public class DetalheTituloController implements Initializable {
                                 "relacionados a ele, serão apagados");
 
 
-                        service.removerLivro(livroAtual.getId());
+                        service.removerLivro(livroAtual);
 
                         // Atualiza os itens da tabela após remover
                         tbExemplares.getItems().remove(livroAtual);

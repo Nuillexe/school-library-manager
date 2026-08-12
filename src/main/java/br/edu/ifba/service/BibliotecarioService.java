@@ -301,15 +301,13 @@ public class BibliotecarioService {
         if (!(l.getDataPublicacao().isEqual(t.getDataPublicacao()))) l.setDataPublicacao(t.getDataPublicacao());
     }
 
-    public boolean removerLivro(Long idLivro) {
-        Livro removido = b.getAcervo().apagar(idLivro);
-        PersistenceManager.sobrescreverLivros(b.getAcervo());
-        b.getTitulos().buscarPorIsbn(removido.getIsbn()).getListaDeExemplares().apagar(removido.getId());
+    public boolean removerLivro(Livro l) {
+        Livro removido = b.apagarExemplar(l);
         if (removido == null) {
-            AlertManager.showError("❌ Falha: Livro com ID " + idLivro + " não encontrado.");;
+            AlertManager.showError("❌ Falha: Livro com ID " + l.getId() + " não encontrado.");;
             return false;
         }
-       AlertManager.showInfo("✅ Livro removido: \"" + removido.getNome() + "\" (ID: " + idLivro + ")");
+        AlertManager.showInfo("✅ Livro removido: \"" + removido.getNome() + "\" (ID: " + l.getId() + ")");
         return true;
     }
 
@@ -370,6 +368,7 @@ public class BibliotecarioService {
         b.setListaDeUsuarios(PersistenceManager.carregarUsuariosDoArquivoSeed());
         PersistenceManager.sobrescreverUsuarios(b.getListaDeUsuarios());
     }
+
 
 
 
