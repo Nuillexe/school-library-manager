@@ -93,7 +93,7 @@ public class DashboardController implements Initializable {
             
             Reinicialização para Testes: Os dados do sistema serão todos apagados e ele será povoado com os dados de demonstração presentes em data/seed. Ideal para testes e demonstrações.
             
-            Reinicialização Total: APAGA TODOS OS DADOS, exceto o cadastro do usuário admin e os ids de demonstração.
+            Reinicialização Total: APAGA TODOS OS DADOS, exceto o cadastro do usuário do tipo bibliotecario que esta logado e os ids de demonstração.
             """);
 
         ButtonType parcial = new ButtonType("Reinicialização Parcial");
