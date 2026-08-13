@@ -118,27 +118,6 @@ public class CatalogoController implements Initializable {
         return card;
     }
 
-    /*private void abrirDetalhe(Titulo t) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/usuario/DetalheLivro.fxml"));
-            Parent root = loader.load();
-
-            DetalheLivroController controller = loader.getController();
-
-            controller.carregarLivro(t);
-
-            Stage stage = (Stage) listaLivrosContainer.getScene().getWindow();
-            Tools.trocarCenaPreservandoJanela(stage, root);
-
-        } catch (IOException e) {
-            System.err.println("Erro ao abrir detalhes do livro: " + t.getNome());
-            e.printStackTrace();
-        } catch (NullPointerException e){
-            System.err.println("Tela n encontrada " + t.getNome());
-            e.printStackTrace();
-        }
-    }*/
-
     private void abrirDetalhe(Titulo t){
         Sessao.setTituloSelecionado(t);
         NavigationManager.navegarPara(comboCategorias,"/views/usuario/DetalheLivro.fxml" );
