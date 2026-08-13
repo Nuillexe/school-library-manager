@@ -93,8 +93,4 @@
             </HBox>
         </VBox>
     </center>
-
-    <bottom>
-        <fx:include source="components/BottomMenu.fxml"/>
-    </bottom>
 </BorderPane>
