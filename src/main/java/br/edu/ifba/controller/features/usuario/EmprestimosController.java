@@ -99,7 +99,7 @@ public class EmprestimosController implements Initializable {
         // --- Informaçoes ---
         VBox datas = new VBox(8);
 
-        datas.getChildren().add(criarLinhaData("📅 Data de Retirada", hoje.minusDays(7).format(FMT)));
+        datas.getChildren().add(criarLinhaData("📅 Data de Retirada", hoje.format(FMT)));
 
         datas.getChildren().add(criarLinhaData("📅 Devolução Prevista", prevista.format(FMT)));
 
