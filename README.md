@@ -32,11 +32,12 @@ Entre seus principais recursos, destacam-se o gerenciamento do acervo, o control
 
 ---
 
+
 ## 🚧 Status do Projeto
 
-**Concluído — versão acadêmica/estável**
+**Em desenvolvimento — versão estável para demonstração**
 
-A branch `main` reúne a versão consolidada do sistema, enquanto as versões finais desenvolvidas nas disciplinas estão preservadas em branches específicas do repositório.
+O projeto foi concluído como atividade acadêmica e atualmente é mantido como projeto pessoal, recebendo melhorias, refatorações e novas funcionalidades.
 
 ---
 
@@ -101,17 +102,29 @@ Padrão
 ![tela de detelhes de uma obra com o usuario tendo atrasado um livro](docs/Telas/Usuario/dados_do_livro_impedindo_o_usuario_de_pegalo.png)
 Quando o usuario tem um emprestimo com devolução atrasada
 
+)
+
 #### Interfaces do Bibliotecário
 
-![dashbord](docs/Telas/Bibliotecario/dashboard_com_dados.png)
+![Dashboard](docs/Telas/Bibliotecario/dashboard_com_dados.png)
 
-![inventario](docs/Telas/Bibliotecario/inventario.png)
+*Dashboard com indicadores gerais do sistema.*
 
-![detalhe_Titulo](docs/Telas/Bibliotecario/detalhe_titulo_com_livro_indisponivel.png)
+![Inventário](docs/Telas/Bibliotecario/inventario.png)
 
-![controle de emprestimos](docs/Telas/Bibliotecario/controle_de_devoluçoes_com_emprestimos.png)
+*Gerenciamento do inventário do acervo.*
 
-![controle de reservas](docs/Telas/Bibliotecario/controle_das_reservas.png)
+![Detalhes do título](docs/Telas/Bibliotecario/detalhe_titulo_com_livro_indisponivel.png)
+
+*Gerenciamento dos exemplares associados a uma obra.*
+
+![Controle de empréstimos](docs/Telas/Bibliotecario/controle_de_devoluçoes_com_emprestimos.png)
+
+*Controle de empréstimos e devoluções.*
+
+![Controle de reservas](docs/Telas/Bibliotecario/controle_das_reservas.png)
+
+*Gerenciamento das filas de reservas.*
 ---
 
 ## 🔗 Acesso ao Projeto
