@@ -95,12 +95,18 @@ As capturas de tela a seguir apresentam o funcionamento do sistema utilizando a 
 catalogo
 
 ![tela de emprestimos](docs/Telas/Usuario/emprestimos%20com%20emprestimos.png)
+
 ![tela de reservas](docs/Telas/Usuario/reservas_com_reservas.png)
-##### Telas de dados de uma obra
-![tela de detelhes de uma obra](docs/Telas/Usuario/dodos_do_livro.png)
-Padrão
-![tela de detelhes de uma obra com o usuario tendo atrasado um livro](docs/Telas/Usuario/dados_do_livro_impedindo_o_usuario_de_pegalo.png)
-Quando o usuario tem um emprestimo com devolução atrasada
+
+##### Detalhes de uma Obra
+
+![Detalhes de uma obra](docs/Telas/Usuario/dodos_do_livro.png)
+
+*Detalhes de uma obra e suas informações de disponibilidade.*
+
+![Empréstimo atrasado](docs/Telas/Usuario/dados_do_livro_impedindo_o_usuario_de_pegalo.png)
+
+*Restrição de empréstimo quando o usuário possui uma devolução atrasada ou ja tenha pegado emprestado um exemplar daquela obra.*
 
 )
 
