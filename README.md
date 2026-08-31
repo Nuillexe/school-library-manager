@@ -24,7 +24,7 @@
 
 O **LibQueue** é um sistema de gerenciamento de biblioteca escolar desenvolvido em **Java** e **JavaFX**, destinado ao controle de usuários, acervo, empréstimos, devoluções e reservas.
 
-O projeto foi começou a ser desenvolvido no curso de **Sistemas de Informação do Instituto Federal da Bahia (IFBA) — Campus Vitória da Conquista**, evoluindo ao longo das disciplinas de **Estrutura de Dados** e **Linguagem de Programação II** e atualmente eu tomei como meu projeto pessoal.
+O projeto começou a ser desenvolvido no curso de Sistemas de Informação do Instituto Federal da Bahia (IFBA) — Campus Vitória da Conquista, evoluindo ao longo das disciplinas de Estrutura de Dados e Linguagem de Programação II. Atualmente, o projeto é mantido e aprimorado como um projeto pessoal.
 
 Durante seu desenvolvimento, o sistema passou de uma implementação baseada em estruturas de dados desenvolvidas manualmente e persistência em memória para uma arquitetura com utilização das coleções da Java Collections Framework e persistência permanente em arquivos locais.
 
