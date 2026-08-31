@@ -90,14 +90,17 @@ As capturas de tela a seguir apresentam o funcionamento do sistema utilizando a 
 
 #### Interfaces do Usuário
 
+![Tela de catálogo](docs/Telas/Usuario/catalogo.png)
 
-![tela de catalago](docs/Telas/Usuario/catalogo.png)
-catalogo
+*Catálogo de obras disponíveis no acervo.*
 
-![tela de emprestimos](docs/Telas/Usuario/emprestimos%20com%20emprestimos.png)
+![Tela de empréstimos](docs/Telas/Usuario/emprestimos%20com%20emprestimos.png)
 
-![tela de reservas](docs/Telas/Usuario/reservas_com_reservas.png)
+*Empréstimos ativos do usuário.*
 
+![Tela de reservas](docs/Telas/Usuario/reservas_com_reservas.png)
+
+*Reservas realizadas pelo usuário.*
 ##### Detalhes de uma Obra
 
 ![Detalhes de uma obra](docs/Telas/Usuario/dodos_do_livro.png)
