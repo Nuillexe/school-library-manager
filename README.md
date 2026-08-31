@@ -81,7 +81,9 @@ O projeto foi concluído como atividade acadêmica e atualmente é mantido como 
 
 ### 🖥️ Demonstração
 
-As capturas de tela a seguir apresentam o funcionamento do sistema utilizando a base de dados de demonstração disponibilizada no projeto. Os dados utilizados são fictícios e foram criados exclusivamente para fins acadêmicos e de demonstração.
+As capturas de tela a seguir apresentam o funcionamento do sistema utilizando a base de dados de demonstração disponibilizada no projeto. Os dados utilizados são fictícios e foram criados exclusivamente para fins acadêmicos e de demonstraçã.
+
+
 #### Tela de Autenticação
 
 ![tela de login](docs/Telas/login.png)
