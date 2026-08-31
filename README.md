@@ -22,7 +22,7 @@
 
 ## 📖 Descrição do Projeto
 
-O **LibQueue** é um sistema de gerenciamento de biblioteca escolar desenvolvido em **Java** e **JavaFX**, destinado ao controle de usuários, acervo, empréstimos, devoluções e reservas.
+O **LibQueue** é um sistema de gerenciamento de biblioteca escolar desenvolvido em **Java** e **JavaFX** com arquitetura semelhante a MVC(Model,View, Controller), destinado ao controle de usuários, acervo, empréstimos, devoluções e reservas.
 
 O projeto começou a ser desenvolvido no curso de Sistemas de Informação do Instituto Federal da Bahia (IFBA) — Campus Vitória da Conquista, evoluindo ao longo das disciplinas de Estrutura de Dados e Linguagem de Programação II. Atualmente, o projeto é mantido e aprimorado como um projeto pessoal.
 
@@ -41,7 +41,7 @@ O projeto foi concluído como atividade acadêmica e atualmente é mantido como 
 
 ---
 
-## ⚙️ Funcionalidades e Demonstração da Aplicação
+## ⚙️ Funcionalidades
 
 ### 👤 Gerenciamento de Usuários
 
@@ -52,7 +52,7 @@ O projeto foi concluído como atividade acadêmica e atualmente é mantido como 
   - Aluno;
   - Professor;
   - Bibliotecário;
-- Validação de identificadores institucionais.
+- Validação de identificadores institucionais, para simular essa funcionalinadade foram gerados IDs institucionais .
 
 ### 📚 Gerenciamento do Acervo
 
@@ -79,18 +79,27 @@ O projeto foi concluído como atividade acadêmica e atualmente é mantido como 
 - Organização das reservas pela prioridade e ordem de solicitação;
 - Atendimento automático da primeira reserva após a devolução de um exemplar.
 
-### 🖥️ Demonstração
+## 🖥️ Demonstração e testes
 
-As capturas de tela a seguir apresentam o funcionamento do sistema utilizando a base de dados de demonstração disponibilizada no projeto. Os dados utilizados são fictícios e foram criados exclusivamente para fins acadêmicos e de demonstraçã.
+Afim de testar as funcionalidades, e melhorar a usabilidade do sistema, usuario administrador(bibliotecario) pode reinicializar 
+o sistema de três maneiras:   é povoado com dados ficticios que se encontram na pasta [data/seed](data/seed), 
+através da opção de reinicialização para testes e demonstração. O  tbm pode:
 
+- **Reinicialização Parcial**: Todas as reservas e empréstimos são cancelados e todos os livros passam a estar disponíveis 
+no sistema.
 
-#### Tela de Autenticação
+- **Reinicialização para Testes**: Os dados do sistema são todos apagados e ele é povoado com os dados de demonstração 
+presentes em [data/seed](data/seed), os quais foram gerados com uso de inteligencia artificial. Ideal para testes e demonstrações.
+            
+- **Reinicialização Total**: APAGA TODOS OS DADOS, exceto o cadastro do usuário do tipo bibliotecario que esta logado e os ids de demonstração.
+
+### Tela de Autenticação
 
 ![tela de login](docs/Telas/login.png)
 
 ![tela de cadastro](docs/Telas/cadastro.png)
 
-#### Interfaces do Usuário
+### Interfaces do Usuário
 
 ![Tela de catálogo](docs/Telas/Usuario/catalogo.png)
 
@@ -103,7 +112,7 @@ As capturas de tela a seguir apresentam o funcionamento do sistema utilizando a 
 ![Tela de reservas](docs/Telas/Usuario/reservas_com_reservas.png)
 
 *Reservas realizadas pelo usuário.*
-##### Detalhes de uma Obra
+#### Detalhes de uma Obra
 
 ![Detalhes de uma obra](docs/Telas/Usuario/dodos_do_livro.png)
 
@@ -113,7 +122,7 @@ As capturas de tela a seguir apresentam o funcionamento do sistema utilizando a 
 
 *Restrição de empréstimo quando o usuário possui uma devolução atrasada ou ja tenha pegado emprestado um exemplar daquela obra.*)
 
-#### Interfaces do Bibliotecário
+### Interfaces do Bibliotecário
 
 ![Dashboard](docs/Telas/Bibliotecario/dashboard_com_dados.png)
 
@@ -181,3 +190,65 @@ Controller → controle das interações da interface
 Service → regras de negócio e validações
 Repository/DAO → gerenciamento e persistência dos dados
 Util → funcionalidades auxiliares
+
+
+### Persistência
+
+Os dados são persistidos localmente em arquivos de texto armazenados na pasta `data/`.
+
+data/
+├── livros.txt
+├── usuarios.txt
+├── emprestimos.txt
+├── reservas.txt
+└── ids.txt
+
+
+A leitura e escrita dos arquivos são centralizadas pela classe `PersistenceManager`.  
+O projeto também disponibiliza dados de demonstração para facilitar a execução e os testes do sistema.
+
+> **Nota:** Os dados utilizados para demonstração foram gerados artificialmente para fins acadêmicos e não correspondem a registros reais de uma instituição de ensino.
+
+---
+
+### 🤝 Pessoas Contribuidoras
+
+_[A preencher]_
+
+<!-- Inserir aqui pessoas que contribuíram diretamente para o projeto, mas que não fazem parte da equipe principal de desenvolvimento. -->
+
+---
+
+### 👨‍💻 Pessoas Desenvolvedoras do Projeto
+
+| Nome | Função |
+| :--- | :--- |
+| [Nome] | [Função] |
+| [Nome] | [Função] |
+| [Nome] | [Função] |
+| [Nome] | [Função] |
+| [Nome] | [Função] |
+| [Nome] | [Função] |
+| [Nome] | [Função] |
+| [Nome] | [Função] |
+| [Nome] | [Função] |
+
+---
+
+### 📄 Licença
+
+_[A definir]_
+
+<!-- Informar a licença adotada pelo projeto, caso exista. -->
+
+---
+
+### 🎓 Contexto Acadêmico
+
+O **LibQueue** foi desenvolvido como projeto acadêmico do curso de Bacharelado em Sistemas de Informação do **Instituto Federal da Bahia (IFBA) — Campus Vitória da Conquista**.
+
+O desenvolvimento ocorreu ao longo das disciplinas de **Estrutura de Dados** e **Linguagem de Programação II**, com evolução progressiva da implementação e da arquitetura do sistema.
+
+**Docentes:**
+* **Estrutura de Dados:** Prof. Claudio Rodolfo Santos de Oliveira
+* **Linguagem de Programação II:** Prof. Alexandro dos Santos Silva
