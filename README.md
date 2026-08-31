@@ -109,9 +109,7 @@ As capturas de tela a seguir apresentam o funcionamento do sistema utilizando a 
 
 ![Empréstimo atrasado](docs/Telas/Usuario/dados_do_livro_impedindo_o_usuario_de_pegalo.png)
 
-*Restrição de empréstimo quando o usuário possui uma devolução atrasada ou ja tenha pegado emprestado um exemplar daquela obra.*
-
-)
+*Restrição de empréstimo quando o usuário possui uma devolução atrasada ou ja tenha pegado emprestado um exemplar daquela obra.*)
 
 #### Interfaces do Bibliotecário
 
