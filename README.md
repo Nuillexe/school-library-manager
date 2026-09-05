@@ -30,9 +30,9 @@
 - [Estrutura de Branches](#-estrutura-de-branches)
 - [Documentação](#documentação)
 - [Como acessar e executar o projeto](#-como-acessar-e-executar-o-projeto)
-  -[Clonando Repositorio](#-clonando-o-repositório)
-  -[Executando pelo arquivo .jar](#-executando-pelo-arquivo-jar)
-  -[Executando pelo código fonte](#-executando-pelo-código-fonte)
+  - [Clonando Repositorio](#-clonando-o-repositório)
+  - [Executando pelo arquivo .jar](#-executando-pelo-arquivo-jar)
+  - [Executando pelo código fonte](#-executando-pelo-código-fonte)
 ---
 
 ## 📖 Descrição do Projeto
