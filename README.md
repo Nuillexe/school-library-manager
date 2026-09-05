@@ -1,4 +1,5 @@
 # 📚 LibQueue — Sistema de Gerenciamento de Biblioteca Escolar
+
 ![logo do LibQueue](docs/Telas/logo.png)
 
 ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
@@ -10,32 +11,71 @@
 ## 📑 Índice
 
 - [Descrição do Projeto](#-descrição-do-projeto)
+- [Regras de Negócio](#-regras-de-negócio)
 - [Status do Projeto](#-status-do-projeto)
-- [Funcionalidades e Demonstração da Aplicação](#-funcionalidades-e-demonstração-da-aplicação)
+- [Funcionalidades](#-funcionalidades)
+- [Screenshots](#-screenshots)
 - [Acesso ao Projeto](#-acesso-ao-projeto)
-- [Tecnologias Utilizadas](#-tecnologias-utilizadas)
-- [Pessoas Contribuidoras](#-pessoas-contribuidoras)
-- [Pessoas Desenvolvedoras do Projeto](#-pessoas-desenvolvedoras-do-projeto)
+- [Tecnologias e Arquitetura](#-tecnologias-e-arquitetura)
+- [Persistência](#-persistência)
+- [IDs Institucionais](#-ids-institucionais)
+- [Testes e Reinicialização](#-testes-e-reinicialização)
+- [Contexto Acadêmico](#-contexto-acadêmico)
+- [Estrutura de Branches](#-estrutura-de-branches)
 - [Licença](#-licença)
 
 ---
 
 ## 📖 Descrição do Projeto
 
-O **LibQueue** é um sistema de gerenciamento de biblioteca escolar desenvolvido em **Java** e **JavaFX** com arquitetura semelhante a MVC(Model,View, Controller), destinado ao controle de usuários, acervo, empréstimos, devoluções e reservas.
+O **LibQueue** é um sistema de gerenciamento de biblioteca escolar desenvolvido em **Java** e **JavaFX**, utilizando uma arquitetura baseada no padrão **MVC (Model, View, Controller)**, complementada pelas camadas de **Service**, **Repository/DAO** e **Util**.
 
-O projeto começou a ser desenvolvido no curso de Sistemas de Informação do Instituto Federal da Bahia (IFBA) — Campus Vitória da Conquista, evoluindo ao longo das disciplinas de Estrutura de Dados e Linguagem de Programação II. Atualmente, o projeto é mantido e aprimorado como um projeto pessoal.
+O sistema foi desenvolvido para controlar:
 
-Durante seu desenvolvimento, o sistema passou de uma implementação baseada em estruturas de dados desenvolvidas manualmente e persistência em memória para uma arquitetura com utilização das coleções da Java Collections Framework e persistência permanente em arquivos locais.
+- usuários e seus perfis;
+- acervo e exemplares;
+- empréstimos e devoluções;
+- reservas e suas respectivas filas;
+- disponibilidade dos exemplares.
 
-Entre seus principais recursos, destacam-se o gerenciamento do acervo, o controle de empréstimos e devoluções e o gerenciamento de reservas por meio de **filas de prioridade**, nas quais professores possuem prioridade sobre alunos.
+O projeto começou a ser desenvolvido no curso de **Sistemas de Informação do Instituto Federal da Bahia (IFBA) — Campus Vitória da Conquista**, ao longo das disciplinas de **Estrutura de Dados** e **Linguagem de Programação II**. Atualmente, é mantido como um projeto pessoal, recebendo melhorias, refatorações e novas funcionalidades.
+
+Ao longo desse processo, o sistema evoluiu de uma implementação baseada em estruturas de dados desenvolvidas manualmente e persistência em memória para uma arquitetura que utiliza as coleções da **Java Collections Framework** e persistência permanente em arquivos locais.
+
+### Destaques
+
+Um dos principais recursos do sistema é o gerenciamento de **empréstimos e reservas**. Quando não há exemplares disponíveis de uma obra, o usuário pode solicitar uma reserva. As reservas são organizadas em filas por título, com **prioridade para professores em relação a alunos**, considerando também a ordem de solicitação.
+
+Quando um exemplar é devolvido, a primeira reserva da fila é atendida automaticamente, fazendo com que o exemplar fique reservado para o usuário correspondente.
+
+O sistema também aplica restrições relacionadas a **atrasos** e **limites de empréstimo**. Usuários com empréstimos atrasados ou que atingiram seu limite não podem realizar novos empréstimos ou reservas enquanto a condição persistir.
 
 ---
 
+## 📋 Regras de Negócio
+
+As principais regras adotadas pelo sistema são:
+
+| Regra | Professor | Aluno |
+|---|---:|---:|
+| Prioridade na fila de reservas | Sim | Não |
+| Limite de empréstimos simultâneos | 4 livros | 3 livros |
+| Prazo para devolução | 7 dias | 7 dias |
+
+Além dessas regras:
+
+- Usuários com empréstimos em atraso ficam impedidos de realizar novos empréstimos e reservas até regularizarem a situação.
+- Usuários que atingirem o limite de empréstimos também ficam impedidos de realizar novos empréstimos e reservas.
+- Professores e alunos podem registrar empréstimos por suas próprias interfaces.
+- O registro de devoluções é realizado exclusivamente pelo usuário com perfil de **bibliotecário/administrador**, responsável pela manipulação dos exemplares no ambiente da biblioteca.
+- Quando todos os exemplares de uma obra estão emprestados, os usuários podem entrar na fila de reservas.
+- Em caso de devolução de um exemplar reservado, a primeira reserva da fila é atendida automaticamente.
+
+---
 
 ## 🚧 Status do Projeto
 
-**Em desenvolvimento — versão estável para demonstração**
+**Em desenvolvimento — versão estável para demonstração.**
 
 O projeto foi concluído como atividade acadêmica e atualmente é mantido como projeto pessoal, recebendo melhorias, refatorações e novas funcionalidades.
 
@@ -48,15 +88,15 @@ O projeto foi concluído como atividade acadêmica e atualmente é mantido como 
 - Cadastro de novos usuários;
 - Login por e-mail e senha;
 - Controle de acesso por perfil;
-- Perfis de:
+- Perfis disponíveis:
   - Aluno;
   - Professor;
   - Bibliotecário;
-- Validação de identificadores institucionais, para simular essa funcionalinadade foram gerados IDs institucionais .
+- Validação de identificadores institucionais.
 
 ### 📚 Gerenciamento do Acervo
 
-- Cadastro de novos Exemplares;
+- Cadastro de novos exemplares;
 - Consulta de obras por ISBN;
 - Agrupamento de exemplares pertencentes à mesma obra;
 - Controle de disponibilidade;
@@ -68,30 +108,79 @@ O projeto foi concluído como atividade acadêmica e atualmente é mantido como 
 - Registro de devoluções;
 - Controle de prazos;
 - Identificação de empréstimos atrasados;
-- Histórico de empréstimos;
-- Atualização da disponibilidade dos exemplares.
+- Atualização da disponibilidade dos exemplares;
+- Aplicação automática das restrições definidas pelas regras de negócio.
 
 ### ⏳ Reservas com Prioridade
 
 - Solicitação de reservas;
-- Filas independentes para cada título;
+- Filas independentes para cada obra;
 - Prioridade para professores em relação a alunos;
-- Organização das reservas pela prioridade e ordem de solicitação;
+- Organização por prioridade e ordem de solicitação;
 - Atendimento automático da primeira reserva após a devolução de um exemplar.
 
-## 🖥️ Demonstração e testes
+---
 
-Afim de testar as funcionalidades, e melhorar a usabilidade do sistema, usuario administrador(bibliotecario) pode reinicializar 
-o sistema de três maneiras:   é povoado com dados ficticios que se encontram na pasta [data/seed](data/seed), 
-através da opção de reinicialização para testes e demonstração. O  tbm pode:
+## 💾 Persistência
+Os dados são persistidos localmente em arquivos de texto armazenados na pasta [`data/`](data). A leitura e escrita dos arquivos 
+são centralizadas pela classe [`PersistenceManager`](src/main/java/br/edu/ifba/repository/PersistenceManager.java), 
+localizada no pacote `repository`.
 
-- **Reinicialização Parcial**: Todas as reservas e empréstimos são cancelados e todos os livros passam a estar disponíveis 
-no sistema.
+## 🪪 Simulação de Controle de Cadastro
 
-- **Reinicialização para Testes**: Os dados do sistema são todos apagados e ele é povoado com os dados de demonstração 
-presentes em [data/seed](data/seed), os quais foram gerados com uso de inteligencia artificial. Ideal para testes e demonstrações.
-            
-- **Reinicialização Total**: APAGA TODOS OS DADOS, exceto o cadastro do usuário do tipo bibliotecario que esta logado e os ids de demonstração.
+Como o sistema foi desenvolvido para simular o ambiente de uma instituição de ensino, foi criado um mecanismo próprio de
+identificação para representar a validação de membros da instituição, como professores e estudantes.
+
+Para realizar o cadastro, o usuário deve informar um **identificador institucional válido**, previamente disponibilizado
+pelo sistema. Os identificadores utilizados encontram-se em: [data/ids.txt](data/ids.txt)
+
+
+Eles foram gerados artificialmente para simular uma instituição de ensino e seguem o padrão:
+
+```text
+s = Student (Aluno)
+p = Professor
+l = Bibliotecário
+```
+
+Exemplos:
+
+```text
+s000007
+p000006
+l000004
+```
+
+Durante o cadastro, o sistema verifica se o identificador informado está presente na lista de IDs válidos. Caso 
+contrário, o cadastro não é permitido.
+
+Os identificadores também são preservados durante a Reinicialização Total, garantindo que novos usuários possam ser 
+cadastrados mesmo após a limpeza dos demais dados do sistema.
+
+---
+
+## 🖥️ Testes e Demonstração
+
+Para facilitar a validação das funcionalidades e as demonstrações do sistema, o projeto disponibiliza um
+[**Guia de Testes**](docs/GUIA_DE_TESTES.md) com instruções para execução dos principais fluxos da aplicação.
+
+Além disso, foram desenvolvidos três modos de reinicialização, pensados para diferentes cenários de teste e utilização
+do sistema:
+
+* **Reinicialização Parcial:** cancela todas as reservas e empréstimos e torna todos os livros disponíveis novamente,
+  mantendo os demais dados, como livros e usuários cadastrados.
+
+* **Reinicialização para Testes:** remove os dados atuais e restaura os dados de demonstração presentes em
+  [`data/seed`](data/seed), retornando o sistema a um estado previamente definido.
+
+* **Reinicialização Total:** remove todos os dados persistidos, exceto o usuário bibliotecário atualmente logado e os
+identificadores institucionais. Dessa forma, o administrador mantém o acesso ao sistema e os IDs necessários para novos 
+cadastros.
+
+> **Nota:** Os dados utilizados para demonstração foram gerados artificialmente para fins acadêmicos e não correspondem 
+a registros reais de uma instituição de ensino.
+
+## 🖼️ Screenshots
 
 ### Tela de Autenticação
 
@@ -112,6 +201,7 @@ presentes em [data/seed](data/seed), os quais foram gerados com uso de inteligen
 ![Tela de reservas](docs/Telas/Usuario/reservas_com_reservas.png)
 
 *Reservas realizadas pelo usuário.*
+
 #### Detalhes de uma Obra
 
 ![Detalhes de uma obra](docs/Telas/Usuario/dodos_do_livro.png)
@@ -120,7 +210,7 @@ presentes em [data/seed](data/seed), os quais foram gerados com uso de inteligen
 
 ![Empréstimo atrasado](docs/Telas/Usuario/dados_do_livro_impedindo_o_usuario_de_pegalo.png)
 
-*Restrição de empréstimo quando o usuário possui uma devolução atrasada ou ja tenha pegado emprestado um exemplar daquela obra.*)
+*Restrição de empréstimo quando o usuário possui uma devolução atrasada ou já atingiu alguma das condições que impedem um novo empréstimo.*
 
 ### Interfaces do Bibliotecário
 
@@ -143,31 +233,12 @@ presentes em [data/seed](data/seed), os quais foram gerados com uso de inteligen
 ![Controle de reservas](docs/Telas/Bibliotecario/controle_das_reservas.png)
 
 *Gerenciamento das filas de reservas.*
----
-
-## 🔗 Acesso ao Projeto
-
-**Repositório:** https://github.com/Nuillexe/school-library-manager
-
-### Documentação
-
-- [Guia de Testes](docs/GUIA_DE_TESTES.md)
-- [Manual de Trabalho com GitHub](docs/MANUAL_GITHUB.md)
-- [Guia de Tarefas LP2](docs/GUIA_DE_TAREFAS_Lp2.md)
-
-### Documentação Acadêmica
-
-- [Artigo Final de Estrutura de Dados](docs/docs_academicos/Artigo_ED.pdf)
-- [Relatório Final de LP2](docs/docs_academicos/Relatorio_LP2.pdf)
-
-### Versões Históricas
-
-- `archive/ed` — versão final da disciplina de Estrutura de Dados;
-- `archive/lp2` — versão final da disciplina de Linguagem de Programação II.
 
 ---
 
-## 🛠️ Tecnologias Utilizadas
+## 🛠️ Tecnologias e Arquitetura
+
+### Tecnologias
 
 - **Java 17+**
 - **JavaFX**
@@ -181,8 +252,6 @@ presentes em [data/seed](data/seed), os quais foram gerados com uso de inteligen
 
 O projeto utiliza uma arquitetura baseada nos princípios do padrão **Model-View-Controller (MVC)**, complementada pelas camadas de **Service**, **Repository/DAO** e **Util**.
 
-A organização geral dos componentes é:
-
 ```text
 Model → entidades e estruturas de domínio
 View → interfaces FXML e estilização CSS
@@ -190,65 +259,73 @@ Controller → controle das interações da interface
 Service → regras de negócio e validações
 Repository/DAO → gerenciamento e persistência dos dados
 Util → funcionalidades auxiliares
-
-
-### Persistência
-
-Os dados são persistidos localmente em arquivos de texto armazenados na pasta `data/`.
-
-data/
-├── livros.txt
-├── usuarios.txt
-├── emprestimos.txt
-├── reservas.txt
-└── ids.txt
-
-
-A leitura e escrita dos arquivos são centralizadas pela classe `PersistenceManager`.  
-O projeto também disponibiliza dados de demonstração para facilitar a execução e os testes do sistema.
-
-> **Nota:** Os dados utilizados para demonstração foram gerados artificialmente para fins acadêmicos e não correspondem a registros reais de uma instituição de ensino.
+```
 
 ---
 
-### 🤝 Pessoas Contribuidoras
+## 🎓 Contexto Acadêmico e Documentação
 
-_[A preencher]_
+O **LibQueue** foi concebido no curso de **Sistemas de Informação** do **Instituto Federal da Bahia (IFBA) – Campus Vitória da Conquista**, evoluindo ao longo de duas etapas acadêmicas:
 
-<!-- Inserir aqui pessoas que contribuíram diretamente para o projeto, mas que não fazem parte da equipe principal de desenvolvimento. -->
+1. **Estrutura de Dados (2026.1):** Foco na implementação manual de estruturas de dados (listas e filas de prioridade customizadas) e persistência em memória.
 
----
+  * 📄 [Artigo Final de ED](docs/docs_academicos/Artigo_ED.pdf)
+  * **Orientador:** Prof. Claudio Rodolfo Santos de Oliveira ([@claudiorodolfo](https://github.com/claudiorodolfo))
 
-### 👨‍💻 Pessoas Desenvolvedoras do Projeto
+2. **Linguagem de Programação II (2026.1):** Evolução para o **Java Collections Framework**, implementação de interface gráfica com **JavaFX** e persistência em arquivos locais (`.txt`).
 
-| Nome | Função |
-| :--- | :--- |
-| [Nome] | [Função] |
-| [Nome] | [Função] |
-| [Nome] | [Função] |
-| [Nome] | [Função] |
-| [Nome] | [Função] |
-| [Nome] | [Função] |
-| [Nome] | [Função] |
-| [Nome] | [Função] |
-| [Nome] | [Função] |
+  * 📄 [Relatório Final de LP2](docs/docs_academicos/Relatorio_LP2.pdf)
+  * **Orientador:** Prof. Alexandro dos Santos Silva ([@alexandrossilva](https://github.com/alexandrossilva))
 
 ---
 
-### 📄 Licença
+## 🌿 Estrutura de Branches
 
-_[A definir]_
+O repositório mantém versões históricas do projeto associadas às disciplinas em que ele foi desenvolvido.
 
-<!-- Informar a licença adotada pelo projeto, caso exista. -->
+| Branch | Descrição |
+|---|---|
+| `main` | Versão consolidada e atual do sistema |
+| [`archive/ed`](https://github.com/Nuillexe/school-library-manager/tree/archive/ed) | Entrega final da disciplina de Estrutura de Dados |
+| [`archive/lp2`](https://github.com/Nuillexe/school-library-manager/tree/archive/Lp2) | Entrega final da disciplina de Linguagem de Programação II |
+| [`dev`](https://github.com/Nuillexe/school-library-manager/tree/ed) | Branch atual de desenvolvimento |
 
----
+A branch **`main`** reúne a versão mais recente e estável do projeto, consolidando as funcionalidades desenvolvidas ao longo das disciplinas e servindo como referência principal para demonstração e portfólio.
 
-### 🎓 Contexto Acadêmico
 
-O **LibQueue** foi desenvolvido como projeto acadêmico do curso de Bacharelado em Sistemas de Informação do **Instituto Federal da Bahia (IFBA) — Campus Vitória da Conquista**.
+## Documentação
+Toda a documentação detalhada está disponível na pasta [docs/](docs). Inclui guias de arquitetura e fluxo de dadosinstruções avançadas de uso.
+- [Arquitetura](docs/Arquitetura_do_LibQueue.md)
+- [Guia de Tarefas](docs/GUIA_DE_TAREFAS_Lp2.md): Utilizado durante o desenvolvimento da versão final da disciplina de LP2
+- [Manual GitHub](docs/MANUAL_GITHUB.md): Utilizado para orientar a equipe na fase academica
+- [Guia de Testes](docs/GUIA_DE_TESTES.md)
+- [Artigos e Relatorios](docs/docs_academicos)
+- [Screenshots das telas](docs/Telas)
 
-O desenvolvimento ocorreu ao longo das disciplinas de **Estrutura de Dados** e **Linguagem de Programação II**, com evolução progressiva da implementação e da arquitetura do sistema.
 
-**Docentes:**
-* **Estrutura de Dados:** Prof. Claudio Rodolfo Santos de Oliveira
-* **Linguagem de Programação II:** Prof. Alexandro dos Santos Silva
+## 🚀 Como Executar o Projeto
+
+### Pré-requisitos
+
+Para executar o projeto a partir do código-fonte, é necessário ter instalado:
+
+- **Java 17 ou superior**;
+- **Maven**.
+
+### Executando pelo Código-Fonte
+
+Clone o repositório:
+
+```bash
+git clone https://github.com/Nuillexe/school-library-manager.git
+```
+Acesse a pasta do projeto:
+```
+cd school-library-manager
+```
+Compile e execute a aplicação utilizando o Maven:
+
+```
+mvn clean javafx:run
+```
+A aplicação será iniciada e a interface gráfica do LibQueue será exibida.
