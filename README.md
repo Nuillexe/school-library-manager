@@ -300,16 +300,16 @@ O repositório mantém versões históricas do projeto associadas às disciplina
 
 A branch **`main`** reúne a versão mais recente e estável do projeto, consolidando as funcionalidades desenvolvidas ao longo das disciplinas e servindo como referência principal para demonstração e portfólio.
 
+## 📄 Documentação
 
-## Documentação
-Toda a documentação detalhada está disponível na pasta [docs/](docs). 
-- [Arquitetura](docs/Arquitetura_do_LibQueue.md)
-- [Guia de Tarefas](docs/GUIA_DE_TAREFAS_Lp2.md): Utilizado durante o desenvolvimento da versão final da disciplina de LP2
-- [Manual GitHub](docs/MANUAL_GITHUB.md): Utilizado para orientar a equipe na fase academica
-- [Guia de Testes](docs/GUIA_DE_TESTES.md)
-- [Artigos e Relatorios](docs/docs_academicos)
-- [Screenshots das telas](docs/Telas)
+Toda a documentação detalhada do projeto está disponível na pasta [`docs/`](docs), incluindo:
 
+- **[Arquitetura](docs/Arquitetura_do_LibQueue.md):** Visão geral da estrutura, padrões arquiteturais e fluxo de dados do sistema.
+- **[Guia de Testes](docs/GUIA_DE_TESTES.md):** Instruções para validação e execução dos principais fluxos da aplicação.
+- **[Guia de Tarefas](docs/GUIA_DE_TAREFAS_Lp2.md):** Mapeamento de tarefas utilizado durante a etapa de LP2.
+- **[Manual GitHub](docs/MANUAL_GITHUB.md):** Orientações de fluxo de trabalho e versionamento seguidas pela equipe.
+- **[Artigos e Relatórios Academicos](docs/docs_academicos):** Documentos acadêmicos produzidos para as disciplinas de ED e LP2.
+- **[Screenshots das Telas](docs/Telas):** Galeria visual com todas as interfaces do sistema.
 
 ## 🚀 Como Executar o Projeto
 
