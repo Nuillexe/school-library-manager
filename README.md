@@ -302,7 +302,7 @@ A branch **`main`** reúne a versão mais recente e estável do projeto, consoli
 
 
 ## Documentação
-Toda a documentação detalhada está disponível na pasta [docs/](docs). Inclui guias de arquitetura e fluxo de dadosinstruções avançadas de uso.
+Toda a documentação detalhada está disponível na pasta [docs/](docs). 
 - [Arquitetura](docs/Arquitetura_do_LibQueue.md)
 - [Guia de Tarefas](docs/GUIA_DE_TAREFAS_Lp2.md): Utilizado durante o desenvolvimento da versão final da disciplina de LP2
 - [Manual GitHub](docs/MANUAL_GITHUB.md): Utilizado para orientar a equipe na fase academica
