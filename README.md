@@ -11,19 +11,27 @@
 ## 📑 Índice
 
 - [Descrição do Projeto](#-descrição-do-projeto)
+  - [Destaques](#destaques)
 - [Regras de Negócio](#-regras-de-negócio)
 - [Status do Projeto](#-status-do-projeto)
 - [Funcionalidades](#-funcionalidades)
-- [Screenshots](#-screenshots)
-- [Acesso ao Projeto](#-acesso-ao-projeto)
-- [Tecnologias e Arquitetura](#-tecnologias-e-arquitetura)
+  - [Gerenciamento de Usuários](#-gerenciamento-de-usuários)
+  - [Gerenciamento do Acervo](#-gerenciamento-do-acervo)
+  - [Empréstimos e Devoluções](#-empréstimos-e-devoluções)
+  - [Reservas com Prioridade](#-reservas-com-prioridade)
 - [Persistência](#-persistência)
-- [IDs Institucionais](#-ids-institucionais)
-- [Testes e Reinicialização](#-testes-e-reinicialização)
-- [Contexto Acadêmico](#-contexto-acadêmico)
+- [Simulação de Controle de Cadastro](#-simulação-de-controle-de-cadastro)
+- [Testes e Demonstração](#%EF%B8%8F-testes-e-demonstração)
+- [Screenshots](#%EF%B8%8F-screenshots)
+- [Tecnologias e Arquitetura](#%EF%B8%8F-tecnologias-e-arquitetura)
+  - [Tecnologias](#tecnologias)
+  - [Arquitetura](#arquitetura)
+- [Contexto Acadêmico e Documentação](#-contexto-acadêmico-e-documentação)
 - [Estrutura de Branches](#-estrutura-de-branches)
-- [Licença](#-licença)
-
+- [Documentação](#documentação)
+- [Como Executar o Projeto](#-como-executar-o-projeto)
+  - [Pré-requisitos](#pré-requisitos)
+  - [Executando pelo Código-Fonte](#executando-pelo-código-fonte)
 ---
 
 ## 📖 Descrição do Projeto
