@@ -29,9 +29,10 @@
 - [Contexto Acadêmico e Documentação](#-contexto-acadêmico-e-documentação)
 - [Estrutura de Branches](#-estrutura-de-branches)
 - [Documentação](#documentação)
-- [Como Executar o Projeto](#-como-executar-o-projeto)
-  - [Pré-requisitos](#pré-requisitos)
-  - [Executando pelo Código-Fonte](#executando-pelo-código-fonte)
+- [Como acessar e executar o projeto](#-como-acessar-e-executar-o-projeto)
+  -[Clonando Repositorio](#-clonando-o-repositório)
+  -[Executando pelo arquivo .jar](#-executando-pelo-arquivo-jar)
+  -[Executando pelo código fonte](#-executando-pelo-código-fonte)
 ---
 
 ## 📖 Descrição do Projeto
@@ -311,29 +312,64 @@ Toda a documentação detalhada do projeto está disponível na pasta [`docs/`](
 - **[Artigos e Relatórios Academicos](docs/docs_academicos):** Documentos acadêmicos produzidos para as disciplinas de ED e LP2.
 - **[Screenshots das Telas](docs/Telas):** Galeria visual com todas as interfaces do sistema.
 
-## 🚀 Como Executar o Projeto
+## 🚀 Como acessar e executar o projeto
 
-### Pré-requisitos
+### 📥 Clonando o repositório
 
-Para executar o projeto a partir do código-fonte, é necessário ter instalado:
-
-- **Java 17 ou superior**;
-- **Maven**.
-
-### Executando pelo Código-Fonte
-
-Clone o repositório:
+Clone o repositório utilizando o Git:
 
 ```bash
 git clone https://github.com/Nuillexe/school-library-manager.git
 ```
-Acesse a pasta do projeto:
-```
+
+Em seguida, acesse a pasta do projeto:
+
+```bash
 cd school-library-manager
 ```
-Compile e execute a aplicação utilizando o Maven:
 
+### ▶️ Executando pelo arquivo `.jar`
+
+O projeto disponibiliza o arquivo `LibQueue.jar` na raiz do repositório, permitindo executar a aplicação sem a necessidade de compilá-la manualmente.
+
+#### Pré-requisitos
+
+* **Java 17 ou superior** instalado.
+
+#### Execução
+
+Após clonar o repositório, o arquivo `LibQueue.jar` estará disponível diretamente na pasta do projeto.
+
+A aplicação pode ser iniciada de duas formas:
+
+**Duplo clique:**
+
+Basta clicar duas vezes sobre o arquivo `LibQueue.jar`.
+
+**Pelo terminal:**
+
+```bash
+java -jar LibQueue.jar
 ```
+
+Após a execução, a interface gráfica do **LibQueue** será exibida.
+
+### 💻 Executando pelo código-fonte
+
+Caso queira executar o projeto diretamente pelo código-fonte, é necessário possuir:
+
+* **Java 17 ou superior**;
+* **Apache Maven**;
+* **Git**.
+
+As dependências do **JavaFX** são gerenciadas pelo Maven através do arquivo `pom.xml`, não sendo necessária uma instalação manual do JavaFX.
+
+Na pasta raiz do projeto, execute:
+
+```bash
 mvn clean javafx:run
 ```
-A aplicação será iniciada e a interface gráfica do LibQueue será exibida.
+
+O Maven realizará a compilação do projeto e iniciará a aplicação.
+
+> **💡 Recomendação:** para uma experiência mais simples, utilize o arquivo `LibQueue.jar` disponibilizado na raiz do projeto. A execução pelo código-fonte é recomendada para desenvolvimento, manutenção ou modificações no sistema.
